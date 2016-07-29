@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>nl.dictu</groupId>
+    <artifactId>Prova</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <groupId>nl.dictu.prova</groupId>
+  <artifactId>installer</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Prova Installer</name>
+  <description>Creates the Prova install dir and sub-directories</description>
+  <packaging>pom</packaging>
+
+  <properties>
+		<prova.install.dir>${project.parent.basedir}</prova.install.dir>
+	</properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <tasks>
+
+                <echo> Creating directory structure for Prova in '${prova.install.dir}' </echo>
+
+                <mkdir dir="${prova.install.dir}/${prova.root.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.bin.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.config.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.lib.path}"/>
+								
+                <mkdir dir="${prova.install.dir}/${prova.log.path}"/>
+                <chmod file="${prova.install.dir}/${prova.log.path}" perm="777"/>
+								
+                <mkdir dir="${prova.install.dir}/${prova.plugins.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.plugins.input.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.plugins.output.path}"/>
+                <mkdir dir="${prova.install.dir}/${prova.plugins.reporting.path}"/>
+ 
+                <mkdir dir="${prova.install.dir}/${prova.projects.path}"/>
+                <chmod file="${prova.install.dir}/${prova.projects.path}" perm="777"/>
+
+                <mkdir dir="${prova.install.dir}/${prova.resources.path}"/>
+                <chmod file="${prova.install.dir}/${prova.resources.path}" perm="777"/>
+                
+                <mkdir dir="${prova.install.dir}/${prova.runners.path}"/>
+
+                <mkdir dir="${prova.install.dir}/${prova.testresults.path}"/>
+                <chmod file="${prova.install.dir}/${prova.testresults.path}" perm="777"/>
+              </tasks>
+            </configuration>
+          </execution>
+        </executions>
+  	  </plugin>
+	  </plugins>
+  </build>
+
+</project>

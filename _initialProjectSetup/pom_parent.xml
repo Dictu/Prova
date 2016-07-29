@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>nl.dictu</groupId>
+  <artifactId>Prova</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>Prova</name>
+  <url>http://www.dictu.nl</url>
+
+  <properties>
+    <prova.root.path>_Prova</prova.root.path>
+    <prova.bin.path>${prova.root.path}/bin</prova.bin.path>
+    <prova.config.path>${prova.root.path}/config</prova.config.path>
+    <prova.lib.path>${prova.bin.path}/lib</prova.lib.path>
+    <prova.log.path>${prova.root.path}/log</prova.log.path>
+    <prova.plugins.path>${prova.bin.path}/plugins</prova.plugins.path>
+    <prova.plugins.input.path>${prova.plugins.path}/input</prova.plugins.input.path>
+    <prova.plugins.output.path>${prova.plugins.path}/output</prova.plugins.output.path>
+    <prova.plugins.reporting.path>${prova.plugins.path}/reporting</prova.plugins.reporting.path>
+    <prova.projects.path>${prova.root.path}/projects</prova.projects.path>
+    <prova.runners.path>${prova.bin.path}/runners</prova.runners.path>
+    <prova.resources.path>${prova.root.path}/resources</prova.resources.path>
+    <prova.testresults.path>${prova.root.path}/testresults</prova.testresults.path>
+
+    <prova.install.dir>${project.basedir}</prova.install.dir>
+
+    <artifact.source.name>${project.artifactId}-${project.version}</artifact.source.name>
+    <artifact.dest.name>${artifact.source.name}</artifact.dest.name>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+    <maven.surefire-plugin.parallel>methods</maven.surefire-plugin.parallel>
+    <maven.surefire-plugin.threadCount>10</maven.surefire-plugin.threadCount>
+
+    <junit.version>4.12</junit.version>
+    <log4j-api.version>2.5</log4j-api.version>
+    <log4j-core.version>2.5</log4j-core.version>
+  </properties>
+
+  <modules>
+    <!-- Create Prova directory structure -->
+    <module>installer</module>
+
+    <!-- Prova core -->
+    <module>core</module>
+
+    <!-- Control Plugins -->
+    <module>runners/cli</module>
+    <module>runners/gui</module>
+
+    <!-- Input Plugins -->
+    <module>plugins/input/msExcel</module>
+
+    <!-- Output Plugins -->
+    <module>plugins/output/apacheSoap</module>
+    <module>plugins/output/jdbc</module>
+    <module>plugins/output/scriptPrinter</module>
+    <module>plugins/output/selenium</module>
+    <module>plugins/output/shellCommand</module>
+
+    <!-- Reporting Plugins -->
+    <module>plugins/reporting/simpleReport</module>
+  </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j-api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>clean</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/lib</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <parallel>${maven.surefire-plugin.parallel}</parallel>
+          <threadCount>${maven.surefire-plugin.threadCount}</threadCount>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
