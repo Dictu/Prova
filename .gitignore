@@ -57,7 +57,10 @@ Thumbs.db
 
 # NETBEANS generated files #
 ###########################
+*nbproject*
 nb-*
+*.cdg
+/_design/UMLDiagrams/umlproject
 
 
 # MAVEN generated files #
