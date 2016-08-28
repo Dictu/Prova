@@ -24,10 +24,6 @@ package nl.dictu.prova.logging;
  *
  * @author Sjoerd Boerhout
  *
- * Off:
- * ----
- * Means that all logging is disabled. Not recommended!
- * <p>
  * Fatal:
  * ------
  * Means that the execution of some task led to an event that will
@@ -69,19 +65,89 @@ package nl.dictu.prova.logging;
  * that you don't typically want enabled even during normal
  * development. Examples include dumping a full object hierarchy,
  * logging some state during every iteration of a large loop, etc.
- * <p>
- * All:
- * ----
- * Alias for Trace.
  */
 public enum LogLevel
 {
-  OFF,
-  FATAL,
-  ERROR,
-  WARN,
-  INFO,
-  DEBUG,
-  TRACE,
-  ALL;
+  FATAL(0),
+  ERROR(1),
+  WARN(2),
+  INFO(3),
+  DEBUG(4),
+  TRACE(5);
+
+  private final int logLevelValue;
+
+
+  /**
+   * Constructor.
+   *
+   * @param value Value for this log level
+   */
+  private LogLevel(int value)
+  {
+    logLevelValue = value;
+  }
+
+
+  /**
+   * Find enum by it's name
+   *
+   * @param name Name for this log level
+   * @return
+   */
+  public static LogLevel lookup(String name)
+  {
+    name = name.toUpperCase();
+
+    for(LogLevel logLevel : LogLevel.values())
+    {
+      if(logLevel.name().equalsIgnoreCase(name))
+      {
+        return logLevel;
+      }
+    }
+    return null;
+  }
+
+
+  /**
+   * Get the index for this log level
+   *
+   * @return LogLevel value
+   */
+  public int getValue()
+  {
+    return logLevelValue;
+  }
+
+
+  /**
+   * Get the index for this log level
+   *
+   * @return LogLevel value
+   */
+  public String getName()
+  {
+    for(LogLevel logLevel : LogLevel.values())
+    {
+      if(logLevelValue == logLevel.logLevelValue)
+      {
+        return logLevel.name();
+      }
+    }
+    return null;
+  }
+
+
+  /**
+   * Get the name of this log level
+   *
+   * @return LogLevel name
+   */
+  @Override
+  public String toString()
+  {
+    return this.name();
+  }
+
 }

@@ -20,6 +20,8 @@
 package nl.dictu.prova.plugins.input.msexcel.util;
 
 import nl.dictu.prova.TestType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
@@ -28,6 +30,10 @@ import org.apache.poi.ss.usermodel.Sheet;
  */
 public class Validator
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(Validator.class.
+          getName());
+
 
   /**
    * Parse the prefix from the given sheet name.

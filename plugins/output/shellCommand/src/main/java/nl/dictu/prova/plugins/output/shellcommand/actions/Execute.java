@@ -21,6 +21,8 @@ package nl.dictu.prova.plugins.output.shellcommand.actions;
 
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,19 @@ import nl.dictu.prova.framework.TestStatus;
  */
 public class Execute extends TestAction
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(Execute.class.
+          getName());
+
+
+  /**
+   * Constructor
+   */
+  public Execute()
+  {
+    super(LOGGER);
+  }
+
 
   @Override
   public TestStatus execute()

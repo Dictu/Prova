@@ -23,6 +23,8 @@ import nl.dictu.prova.TestRunner;
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestCase;
 import nl.dictu.prova.framework.TestSuite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -30,6 +32,10 @@ import nl.dictu.prova.framework.TestSuite;
  */
 public class SimpleReport implements ReportingPlugin
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          SimpleReport.class.getName());
+
 
   @Override
   public void init(TestRunner tr) throws Exception

@@ -19,6 +19,8 @@
  */
 package nl.dictu.prova.plugins.input.msexcel.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 
 /**
@@ -28,8 +30,14 @@ import org.apache.poi.ss.usermodel.Cell;
  */
 public class CellReader
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(CellReader.class.
+          getName());
+
+
   public static String parseCellContent(Cell cell) throws Exception
   {
     return null;
   }
+
 }

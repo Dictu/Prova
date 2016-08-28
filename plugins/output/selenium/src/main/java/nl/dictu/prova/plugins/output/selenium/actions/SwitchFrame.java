@@ -21,6 +21,8 @@ package nl.dictu.prova.plugins.output.selenium.actions;
 
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,19 @@ import nl.dictu.prova.framework.TestStatus;
  */
 public class SwitchFrame extends TestAction
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(SwitchFrame.class.
+          getName());
+
+
+  /**
+   * Constructor
+   */
+  public SwitchFrame()
+  {
+    super(LOGGER);
+  }
+
 
   @Override
   public TestStatus execute()
@@ -48,4 +63,5 @@ public class SwitchFrame extends TestAction
   {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
+
 }

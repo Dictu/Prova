@@ -25,6 +25,8 @@ import nl.dictu.prova.TestType;
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestCase;
 import nl.dictu.prova.plugins.output.OutputPlugin;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -32,6 +34,10 @@ import nl.dictu.prova.plugins.output.OutputPlugin;
  */
 public class Selenium implements OutputPlugin
 {
+
+  protected final static Logger LOGGER = LogManager.getLogger(Selenium.class.
+          getName());
+
   private TestRunner testRunner;
 
 

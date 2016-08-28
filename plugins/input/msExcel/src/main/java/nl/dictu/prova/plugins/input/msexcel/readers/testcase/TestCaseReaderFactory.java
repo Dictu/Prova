@@ -20,6 +20,8 @@
 package nl.dictu.prova.plugins.input.msexcel.readers.testcase;
 
 import nl.dictu.prova.TestType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -27,6 +29,10 @@ import nl.dictu.prova.TestType;
  */
 public class TestCaseReaderFactory
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          TestCaseReaderFactory.class.getName());
+
 
   public static TestType getInstance(TestType testType)
   {

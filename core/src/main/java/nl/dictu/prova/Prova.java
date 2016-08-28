@@ -28,6 +28,8 @@ import nl.dictu.prova.plugins.input.InputPlugin;
 import nl.dictu.prova.plugins.output.OutputPlugin;
 import nl.dictu.prova.plugins.reporting.ReportingPlugin;
 import nl.dictu.prova.util.PluginLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -35,6 +37,9 @@ import nl.dictu.prova.util.PluginLoader;
  */
 public class Prova implements TestRunner
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(Prova.class.
+          getName());
 
   PluginLoader pluginLoader;
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" name="Prova" monitorInterval="30">
+
+  <Properties>
+    <property name="prova.log.level" >debug</property>
+    <property name="prova.log.dir" >log</property>
+    <property name="prova.log.dir.history" >$${date:yyyy-MM-dd}</property>
+    <property name="prova.log.filename" >Prova</property>
+    <property name="prova.log.filename.history" >Prova_$${date:yyyy-MM-dd}-%i</property>
+    <property name="prova.log.ext.html" >html</property>
+    <property name="prova.log.ext.txt" >log</property>
+    <property name="prova.log.pattern.console" >%d{HH:mm:ss} %-5p - %msg%n</property>
+    <property name="prova.log.pattern.file" >%d{yyyy-MM-dd HH:mm:ss:SSS} [%c:%t:%L] %-5p - %msg%n</property>
+  </Properties> 
+
+  <Appenders>
+    
+    <Console name="Console" target = "SYSTEM_OUT" >
+      <PatternLayout pattern = "${sys:prova.log.pattern.console}" />
+    </Console>
+ 
+    <RollingRandomAccessFile name = "RollingRandomAccessFile" 
+      filename = "${sys:prova.log.dir}/${sys:prova.log.filename}.${sys:prova.log.ext.txt}"
+      filepattern = "${sys:prova.log.dir}/${sys:prova.log.dir.history}/${sys:prova.log.filename.history}.${sys:prova.log.ext.txt}" >
+      <PatternLayout>
+        <header>OS: ${java:os}${sys:line.separator}VM: ${java:version}${sys:line.separator}---------------------------------------------------------------------------${sys:line.separator}</header>
+        <pattern>${sys:prova.log.pattern.file}</pattern>
+      </PatternLayout>
+      <Policies>
+        <OnStartupTriggeringPolicy />
+        <SizeBasedTriggeringPolicy size="25 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="20" />
+    </RollingRandomAccessFile>
+    
+    <File name="HTMLAppender" 
+          fileName="${sys:prova.log.dir}//Prova.${sys:prova.log.ext.html}"
+          append="false" >
+      <HTMLLayout charset="UTF-8" title="Prova log" locationInfo="false" ></HTMLLayout>
+    </File>
+    
+  </Appenders>
+    
+  <Loggers>
+    
+    <Root level="${sys:prova.log.level}" >
+      <AppenderRef ref="Console" />
+      <AppenderRef ref="RollingRandomAccessFile" />
+      <AppenderRef ref="HTMLAppender" />
+    </Root>
+
+  </Loggers>
+  
+</Configuration>

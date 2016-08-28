@@ -19,9 +19,6 @@
  */
 package nl.dictu.prova.plugins.input.msexcel.readers.testcase;
 
-import java.util.LinkedList;
-import nl.dictu.prova.framework.TestAction;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -88,15 +85,6 @@ public class TestCaseReaderTest
   @Test
   public void testParsePackage() throws Exception
   {
-  }
-
-  public class TestCaseReaderImpl extends TestCaseReader
-  {
-
-    public LinkedList<TestAction> parseActionSheet(Sheet sheet) throws Exception
-    {
-      return null;
-    }
   }
 
 }

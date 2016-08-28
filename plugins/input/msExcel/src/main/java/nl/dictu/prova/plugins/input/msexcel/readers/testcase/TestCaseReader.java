@@ -22,6 +22,8 @@ package nl.dictu.prova.plugins.input.msexcel.readers.testcase;
 import java.util.LinkedList;
 import java.util.Properties;
 import nl.dictu.prova.framework.TestAction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
@@ -30,6 +32,30 @@ import org.apache.poi.ss.usermodel.Sheet;
  */
 public abstract class TestCaseReader
 {
+
+  private static Logger LOGGER = LogManager.getLogger(
+          TestCaseReader.class.getName());
+
+
+  /**
+   * Constructor.
+   * Set the logger to the logger of the implementing class
+   *
+   * @param newLogger
+   *
+   * @throws NullPointerException
+   */
+  protected TestCaseReader(Logger newLogger) throws NullPointerException
+  {
+
+    if(newLogger == null)
+    {
+      throw new NullPointerException("Logger instance is null");
+    }
+
+    LOGGER = newLogger;
+  }
+
 
   /**
    * Retrieves all the test actions from the given sheet

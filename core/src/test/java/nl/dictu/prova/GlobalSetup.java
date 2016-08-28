@@ -13,31 +13,33 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date: 23-08-2016
+ * Date:      28-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
-package nl.dictu.prova.plugins.input.msexcel.builders;
+package nl.dictu.prova;
 
-import nl.dictu.prova.TestRunner;
-import nl.dictu.prova.plugins.input.msexcel.readers.testdata.TestDataReader;
+import nl.dictu.prova.logging.LogLevel;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 
 /**
+ * Configure Junit
  *
  * @author Sjoerd Boerhout
  */
-public class TestDataBuilder
+public class GlobalSetup
 {
-
-  private final static Logger LOGGER = LogManager.getLogger(
-          TestDataBuilder.class.getName());
-
-  private TestDataReader testDataReader;
-
-  public TestDataBuilder(TestRunner testRunner)
+  public static void configure()
   {
+    configureLog4j();
+  }
 
+
+  private static void configureLog4j()
+  {
+    System.setProperty("prova.log.level", LogLevel.DEBUG.name());
+    LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+    ctx.reconfigure();
   }
 }

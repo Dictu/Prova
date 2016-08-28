@@ -22,6 +22,8 @@ package nl.dictu.prova.plugins.input.msexcel.readers.testdata;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -29,6 +31,19 @@ import java.util.Properties;
  */
 public class SoapTestDataReader extends TestDataReader
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          SoapTestDataReader.class.getName());
+
+
+  /**
+   * Constructor
+   */
+  public SoapTestDataReader()
+  {
+    super(LOGGER);
+  }
+
 
   @Override
   public LinkedList<String> getDataSetNames(File dataFile)

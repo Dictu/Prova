@@ -25,6 +25,8 @@ import nl.dictu.prova.TestRunner;
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestCase;
 import nl.dictu.prova.plugins.input.msexcel.readers.testcase.TestCaseReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.Sheet;
 
 /**
@@ -33,6 +35,9 @@ import org.apache.poi.ss.usermodel.Sheet;
  */
 public class TestCaseBuilder
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          TestCaseBuilder.class.getName());
 
   private TestCaseReader testCaseReader;
 

@@ -22,6 +22,8 @@ package nl.dictu.prova.plugins.input.msexcel.readers.testdata;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -30,11 +32,25 @@ import java.util.Properties;
 public class ShellTestDataReader extends TestDataReader
 {
 
+  private final static Logger LOGGER = LogManager.getLogger(
+          ShellTestDataReader.class.getName());
+
+
+  /**
+   * Constructor
+   */
+  public ShellTestDataReader()
+  {
+    super(LOGGER);
+  }
+
+
   @Override
   public LinkedList<String> getDataSetNames(File dataFile)
   {
     throw new UnsupportedOperationException("Not supported yet.");
   }
+
 
   @Override
   public Properties getVariables(File dataFileName, String dataSetName)

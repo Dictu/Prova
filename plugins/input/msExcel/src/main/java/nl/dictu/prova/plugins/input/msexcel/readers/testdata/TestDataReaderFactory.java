@@ -20,6 +20,8 @@
 package nl.dictu.prova.plugins.input.msexcel.readers.testdata;
 
 import nl.dictu.prova.TestType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,8 +30,13 @@ import nl.dictu.prova.TestType;
 public class TestDataReaderFactory
 {
 
+  private final static Logger LOGGER = LogManager.getLogger(
+          TestDataReaderFactory.class.getName());
+
+
   public static TestDataReader getInstance(TestType testType)
   {
     throw new UnsupportedOperationException("Not supported yet.");
   }
+
 }

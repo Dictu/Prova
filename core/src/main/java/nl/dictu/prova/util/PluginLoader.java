@@ -23,6 +23,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Provides the functions to load plug-in from provided JAR-files
@@ -31,6 +33,10 @@ import java.net.URLClassLoader;
  */
 public class PluginLoader extends URLClassLoader
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          PluginLoader.class.getName());
+
   private final static URL URLS[] =
   {
   };

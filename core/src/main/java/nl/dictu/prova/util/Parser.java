@@ -19,6 +19,9 @@
  */
 package nl.dictu.prova.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Provides global available parser functions
  *
@@ -26,6 +29,10 @@ package nl.dictu.prova.util;
  */
 public class Parser
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(Parser.class.
+          getName());
+
 
   /**
    * Try to parse the given string to an integer

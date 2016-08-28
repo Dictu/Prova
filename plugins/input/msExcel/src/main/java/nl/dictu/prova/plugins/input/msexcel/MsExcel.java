@@ -23,6 +23,8 @@ import nl.dictu.prova.TestRunner;
 import nl.dictu.prova.framework.TestCase;
 import nl.dictu.prova.framework.TestSuite;
 import nl.dictu.prova.plugins.input.InputPlugin;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -30,6 +32,8 @@ import nl.dictu.prova.plugins.input.InputPlugin;
  */
 public class MsExcel implements InputPlugin
 {
+  private final static Logger LOGGER = LogManager.getLogger(MsExcel.class.
+          getName());
 
   @Override
   public void init(TestRunner tr) throws Exception

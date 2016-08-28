@@ -21,6 +21,8 @@ package nl.dictu.prova.framework;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,10 @@ import java.util.LinkedList;
  */
 public class TestSuite
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(TestSuite.class.
+          getName());
+
   private String id;
   private TestSuite parent;
   private LinkedList<TestCase> testCases;

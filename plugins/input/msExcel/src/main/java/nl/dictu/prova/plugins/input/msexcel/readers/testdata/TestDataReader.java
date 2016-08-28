@@ -22,6 +22,8 @@ package nl.dictu.prova.plugins.input.msexcel.readers.testdata;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -29,6 +31,29 @@ import java.util.Properties;
  */
 public abstract class TestDataReader
 {
+
+  private static Logger LOGGER = LogManager.getLogger(
+          TestDataReader.class.getName());
+
+
+  /**
+   * Set the logger to the logger of the implementing class
+   *
+   * @param newLogger
+   *
+   * @throws NullPointerException
+   */
+  protected TestDataReader(Logger newLogger) throws NullPointerException
+  {
+
+    if(newLogger == null)
+    {
+      throw new NullPointerException("Logger instance is null");
+    }
+
+    LOGGER = newLogger;
+  }
+
 
   /**
    * Retrieves all the dataset names from the given file

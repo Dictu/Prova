@@ -21,6 +21,8 @@ package nl.dictu.prova.plugins.input.msexcel.builders;
 
 import nl.dictu.prova.TestRunner;
 import nl.dictu.prova.framework.TestSuite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,10 @@ import nl.dictu.prova.framework.TestSuite;
  */
 public class TestSuiteBuilder
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          TestSuiteBuilder.class.getName());
+
 
   public TestSuiteBuilder(TestRunner testRunner)
   {

@@ -19,6 +19,9 @@
  */
 package nl.dictu.prova.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Provides global available validation functions
  *
@@ -26,6 +29,11 @@ package nl.dictu.prova.util;
  */
 public class Validator
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(Validator.class.
+          getName());
+
+
   /**
    * Validates if the given filename:
    * - Is available on the file system

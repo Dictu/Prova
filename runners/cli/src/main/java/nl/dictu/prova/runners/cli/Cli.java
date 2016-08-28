@@ -21,6 +21,8 @@ package nl.dictu.prova.runners.cli;
 
 import java.util.Properties;
 import nl.dictu.prova.runners.ProvaRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -29,6 +31,10 @@ import nl.dictu.prova.runners.ProvaRunner;
 public class Cli extends ProvaRunner
 {
 
+  private final static Logger LOGGER = LogManager.getLogger(
+          Cli.class.getName());
+
+
   /**
    * Program entry point
    *
@@ -36,7 +42,15 @@ public class Cli extends ProvaRunner
    */
   public static void main(String[] args)
   {
+    System.out.println("Hello world! I am Prova, the testing framework!");
+    System.out.println("Active log level: " + LOGGER.getLevel().name());
 
+    LOGGER.fatal("FATAL");
+    LOGGER.error("ERROR");
+    LOGGER.warn("WARN");
+    LOGGER.info("INFO");
+    LOGGER.debug("DEBUG");
+    LOGGER.trace("TRACE");
   }
 
 
@@ -46,7 +60,7 @@ public class Cli extends ProvaRunner
    */
   private Cli()
   {
-
+    super(LOGGER);
   }
 
 
@@ -59,7 +73,9 @@ public class Cli extends ProvaRunner
    */
   public void init(String[] args) throws Exception
   {
+    super.init();
 
+    LOGGER.debug("init with args " + args.length);
   }
 
 

@@ -21,6 +21,8 @@ package nl.dictu.prova.plugins.output.selenium.actions;
 
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -28,6 +30,19 @@ import nl.dictu.prova.framework.TestStatus;
  */
 public class ValidateElement extends TestAction
 {
+
+  private final static Logger LOGGER = LogManager.getLogger(
+          ValidateElement.class.getName());
+
+
+  /**
+   * Constructor
+   */
+  public ValidateElement()
+  {
+    super(LOGGER);
+  }
+
 
   @Override
   public TestStatus execute()

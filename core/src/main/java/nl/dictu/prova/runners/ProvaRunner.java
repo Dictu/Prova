@@ -25,6 +25,8 @@ import java.nio.file.InvalidPathException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 import nl.dictu.prova.TestRunner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Base class for Prova runners providing some common functions
@@ -33,15 +35,27 @@ import nl.dictu.prova.TestRunner;
  */
 public class ProvaRunner
 {
+
+  private static Logger LOGGER = LogManager.getLogger(ProvaRunner.class.
+          getName());
+
   protected TestRunner testRunner;
   protected Properties properties;
 
 
   /**
    * Constructor
+   *
+   * @param newLogger
    */
-  protected ProvaRunner()
+  protected ProvaRunner(Logger newLogger) throws NullPointerException
   {
+    if(newLogger == null)
+    {
+      throw new NullPointerException("Logger instance is null");
+    }
+
+    LOGGER = newLogger;
     properties = new Properties();
   }
 
@@ -53,6 +67,7 @@ public class ProvaRunner
   protected void init() throws Exception
   {
     properties = new Properties();
+    LOGGER.debug("init");
   }
 
 

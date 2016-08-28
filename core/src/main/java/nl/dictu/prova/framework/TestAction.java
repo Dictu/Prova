@@ -23,6 +23,8 @@ import java.io.File;
 import java.nio.file.InvalidPathException;
 import java.security.InvalidParameterException;
 import java.util.Properties;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -30,6 +32,9 @@ import java.util.Properties;
  */
 public abstract class TestAction
 {
+
+  private static Logger LOGGER = LogManager.getLogger(TestAction.class.
+          getName());
 
   private Integer actionId;
   private String actionName;
@@ -47,10 +52,21 @@ public abstract class TestAction
 
   /**
    * Constructor.
-   * <p>
+   * Set the logger to the logger of the implementing class
+   *
+   * @param newLogger
+   *
+   * @throws NullPointerException
    */
-  public TestAction()
+  protected TestAction(Logger newLogger) throws NullPointerException
   {
+
+    if(newLogger == null)
+    {
+      throw new NullPointerException("Logger instance is null");
+    }
+
+    LOGGER = newLogger;
   }
 
 
