@@ -16,13 +16,16 @@ All input, output and reporting goes through plugins for maximum flexibility. Pr
 - planned: Execute commands on the OS command line.
 
 ## Database tests
-- planned: Validate db scheme's and execute queries.
+- Under development: Validate db scheme's and execute queries.
 
 ## SOAP tests
 - Under development: Send and receive SOAP messages.
 
 ## JSON tests
 - planned: Send and receive JSON messages.
+
+## Script Printer
+- planned: Print all tests and test data as a manual for manually testing
 
 # Authors and Contributors
 Prova started as an internal company project when no suitable tools were found for our needs. While developing the proof of concept other parties also showed interest in the project and we decided to release Prova for the public as an open source tool.
@@ -37,9 +40,10 @@ Prova is licensed with the EU Public license. This means everyone is free to use
   - MS Excel
   - Different kinds of browsers
 
-# Required software to develop 
+# Required software for developers 
 - Maven 3.x
 - Git client
+- Java IDE of your choice (Eclipse, Netbeans, ...)
 - JDK 1.8.x or newer
 
 # How to use Prova?
