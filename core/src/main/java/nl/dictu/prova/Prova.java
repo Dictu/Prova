@@ -186,21 +186,32 @@ public class Prova implements TestRunner
   @Override
   public void setProperty(String key, String value) throws NullPointerException
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    LOGGER.trace("Set value of property with key '{}' to '{}'", () -> key, () -> value);
+    
+    properties.put(key, value);
   }
-
 
   @Override
   public boolean hasProperty(String key)
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    LOGGER.trace("Has property: '{}': ({})", 
+                  () -> key, 
+                  () -> properties.containsKey(key) ? properties.getProperty(key) : "No");
+    
+    return properties.containsKey(key);
   }
-
 
   @Override
   public String getProperty(String key) throws InvalidParameterException
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    LOGGER.trace("Get value of property: '{}' ({})", 
+                  () -> key, 
+                  () -> properties.containsKey(key) ? properties.getProperty(key) : "Not found");
+    
+    if(!properties.containsKey(key))
+      throw new InvalidParameterException("No header with value '" + key + "' found!");
+    
+    return properties.getProperty(key);
   }
 
 
