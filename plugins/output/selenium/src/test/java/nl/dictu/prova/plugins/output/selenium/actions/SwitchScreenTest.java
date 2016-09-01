@@ -1,21 +1,23 @@
-/*
- *  
- *  Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
- *  the European Commission - subsequent versions of the EUPL (the "Licence");
- *  You may not use this work except in compliance with the Licence.
- *  You may obtain a copy of the Licence at:
- *  
- *  http://ec.europa.eu/idabc/eupl
- *  
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the Licence is distributed on an "AS IS" basis,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the Licence for the specific language governing permissions and
- *  limitations under the Licence.
- *  
- *  Date:      29-08-2016
- *  Author(s): Coos van der Galiën
- *  
+
+/**
+ * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
+ * the European Commission - subsequent versions of the EUPL (the "Licence");
+ * 
+ * You may not use this work except in compliance with the Licence.
+ * You may obtain a copy of the Licence at: 
+ * 
+ * http://ec.europa.eu/idabc/eupl
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the Licence is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the Licence for the specific language governing permissions and
+ * limitations under the Licence.
+ * 
+ * Date:      29-08-2016
+ * Author(s): Coos van der Galiën
+ * 
+
  */
 package nl.dictu.prova.plugins.output.selenium.actions;
 
@@ -34,17 +36,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  *
  * @author Coos van der Galiën
  */
-public class SelectTest
+public class SwitchScreenTest
 {
   Selenium selenium;
   String file;
   
-  public SelectTest()
+  public SwitchScreenTest()
   {
   }
   
@@ -87,22 +91,22 @@ public class SelectTest
   @After
   public void tearDown()
   {
-    selenium.getWebdriver().close();
-    selenium.shutDown();
   }
 
   /**
-   * Test of execute method, of class Select.
+   * Test of execute method, of class SwitchScreen.
    */
   @Test
-  public void testExecute() throws Exception
+  public void testExecute()
   {
     System.out.println("execute");
-    Select instance = new Select(selenium);
-    instance.select.setValue(Boolean.FALSE);
-    instance.setAttribute("XPATH", "//body/a");
+    WebElement element = selenium.getWebdriver().findElement(By.xpath("//a[text()='Link to popup']"));
+    element.click();
+    
     TestStatus expResult = TestStatus.PASSED;
+    SwitchScreen instance = new SwitchScreen(selenium);
     TestStatus result = instance.execute();
+    selenium.getWebdriver().quit();
     assertEquals(expResult, result);
   }
   

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Prova</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="angular.min.js"></script>
+		<script>
+			var app = angular.module("myShoppingList", []); 
+			app.controller("myCtrl", function($scope) {
+				$scope.products = ["Burrito", "Tortilla", "Chimichanga"];
+				$scope.addItem = function () {
+					console.log("Pushing product!");
+					$scope.products.push($scope.addMe);
+				}
+			});
+			function popitup(url) {
+				newwindow=window.open(url,'name','height=200,width=150');
+				if (window.focus) {newwindow.focus()}
+				return false;
+			}
+		</script>
+	</head>
+	<body style="text-align:center;">
+		<h1 id="title">Unit Test site for Prova</h1>
+		<div id="add" ng-app="myShoppingList" ng-controller="myCtrl">
+			<h5>Mexican foods:</h5>
+			<ul>
+				<li ng-repeat="x in products">{{x}}</li>
+			</ul>
+			<input id="input" ng-model="addMe">
+			<button ng-click="addItem()">Add</button>
+		</div>
+		<br>
+		<h5>European car brands:</h5>
+		<select id="dropdown">
+			<option value="volvo">Volvo</option>
+			<option value="saab">Saab</option>
+			<option value="mercedes">Mercedes</option>
+			<option value="audi">Audi</option>
+			<option value="bmw">BMW</option>
+		</select> 
+		<br>
+		<a href="popup.html" onclick="return popitup('popup.html')">Link to popup</a>
+		<br>
+		<iframe frameborder="1" dojoattachpoint="frame" title="Frame" src="frame.html">
+	</body>
+</html>
+

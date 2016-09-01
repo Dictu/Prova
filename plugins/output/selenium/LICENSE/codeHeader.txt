@@ -1,0 +1,23 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
+${licensePrefix}the European Commission - subsequent versions of the EUPL (the "Licence");
+${licensePrefix}
+${licensePrefix}You may not use this work except in compliance with the Licence.
+${licensePrefix}You may obtain a copy of the Licence at:${licensePrefix}
+${licensePrefix}
+${licensePrefix}http://ec.europa.eu/idabc/eupl
+${licensePrefix}
+${licensePrefix}Unless required by applicable law or agreed to in writing, software
+${licensePrefix}distributed under the Licence is distributed on an "AS IS" basis,
+${licensePrefix}WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+${licensePrefix}See the Licence for the specific language governing permissions and
+${licensePrefix}limitations under the Licence.
+${licensePrefix}
+${licensePrefix}Date:      DD-MM-YYYY
+${licensePrefix}Author(s): <full name author>
+${licensePrefix}
+<#if licenseLast??>
+${licenseLast}
+</#if>

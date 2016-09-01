@@ -39,12 +39,13 @@ import static org.junit.Assert.*;
  *
  * @author Coos van der Galiën
  */
-public class SelectTest
+public class NavigateTest
 {
   Selenium selenium;
   String file;
+  String popup;
   
-  public SelectTest()
+  public NavigateTest()
   {
   }
   
@@ -80,6 +81,8 @@ public class SelectTest
                         .getAbsoluteFile();
     file = fRootPath.getAbsolutePath() + File.separator + "_doc" + File.separator  + "testSite" + File.separator + "index.html";
     file = file.substring(file.lastIndexOf(";")+1);
+    popup = fRootPath.getAbsolutePath() + File.separator + "_doc" + File.separator  + "testSite" + File.separator + "popup.html";
+    popup = popup.substring(popup.lastIndexOf(";")+1);
 
     selenium.getWebdriver().navigate().to(file);
   }
@@ -92,16 +95,15 @@ public class SelectTest
   }
 
   /**
-   * Test of execute method, of class Select.
+   * Test of execute method, of class Navigate.
    */
   @Test
-  public void testExecute() throws Exception
+  public void testExecute()
   {
     System.out.println("execute");
-    Select instance = new Select(selenium);
-    instance.select.setValue(Boolean.FALSE);
-    instance.setAttribute("XPATH", "//body/a");
+    Navigate instance = new Navigate(selenium);
     TestStatus expResult = TestStatus.PASSED;
+    instance.setAttribute("HYPERLINK", "file:" + File.separator + File.separator + File.separator + popup);
     TestStatus result = instance.execute();
     assertEquals(expResult, result);
   }
