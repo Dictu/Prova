@@ -48,13 +48,42 @@ public class TestCase
    * Constructor. Provided ID must be unique and is an identifier for the input
    * plug-in to locate the test case
    *
-   * @param newId
+   * @param id
    *
    * @throws InvalidParameterException
    */
-  public TestCase(String newId) throws InvalidParameterException
+  public TestCase(String id) throws InvalidParameterException
   {
-    LOGGER.debug("Creation of new testcase with test id '{}'", () -> newId);
+    LOGGER.debug("Creation of new testcase with test id '{}'", () -> id);
+
+    setId(id);
+  }
+
+
+  /**
+   * Set the ID of this test case
+   *
+   * @param id
+   *
+   * @throws InvalidParameterException
+   */
+  private void setId(String id) throws InvalidParameterException
+  {
+    LOGGER.trace("Set id of test case to '{}'", () -> id);
+
+    if(id == null)
+    {
+      LOGGER.debug("Id can not be null ({})", () -> id);
+      throw new InvalidParameterException("Id can not be null");
+    }
+
+    if(id.trim().length() < 1)
+    {
+      LOGGER.debug("Invalid testcase Id ({})", () -> id);
+      throw new InvalidParameterException("Invalid testcase Id (" + id + ")");
+    }
+
+    this.id = id.trim();
   }
 
 
@@ -65,9 +94,9 @@ public class TestCase
    */
   public String getId()
   {
-    LOGGER.debug("Request for test id '{}'", () -> this.id);
+    LOGGER.trace("Request for test id '{}'", () -> this.id);
     
-    return this.id;
+    return id;
   }
 
 
@@ -78,9 +107,9 @@ public class TestCase
    */
   public TestStatus getTestStatus()
   {
-    LOGGER.debug("Request for test status '{}'", () -> this.testStatus);
+    LOGGER.debug("Request for test status '{}'", () -> testStatus);
     
-    return this.testStatus;
+    return testStatus;
   }
 
 
@@ -89,22 +118,28 @@ public class TestCase
    * Accepted new states:
    * - Blocked
    *
-   * @param newTestStatus
+   * @param testStatus
    * @param reason
    *
    * @return
    *
    * @throws InvalidParameterException
    */
-  public TestStatus updateTestStatus(TestStatus newTestStatus, String reason)
+  public TestStatus updateTestStatus(TestStatus testStatus, String reason)
           throws
           InvalidParameterException
   {
-    LOGGER.debug("Updating testStatus to '{}' with reason '{}'", () -> newTestStatus, () -> reason);
+    LOGGER.debug("Updating testStatus to '{}' with reason '{}'",
+                 () -> testStatus, () -> reason);
+
+    if(testStatus == null)
+    {
+      throw new InvalidParameterException("TestStatus null not allowed!");
+    }
+
+    this.testStatus = testStatus;
     
-    testStatus = newTestStatus;
-    
-    return testStatus;
+    return this.testStatus;
   }
 
 
@@ -118,8 +153,14 @@ public class TestCase
   public void addSetUpAction(TestAction setUpAction) throws
           InvalidParameterException
   {
-    LOGGER.debug("Add setup action '{}'", () -> setUpAction.toString());
-    
+    LOGGER.debug("Add setup action '{}'",
+                 () -> setUpAction == null ? "null" : setUpAction.toString());
+
+    if(setUpAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
+
     setUpActions.add(setUpAction);
   }
 

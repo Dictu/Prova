@@ -21,6 +21,8 @@ package nl.dictu.prova.framework;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,7 +52,7 @@ public class TestSuite
    */
   public TestSuite(String id) throws InvalidParameterException
   {
-    LOGGER.trace("Create a new test suite with id '{}'", () -> id);
+    LOGGER.debug("Create a new test suite with id '{}'", () -> id);
 
     setId(id);
   }
@@ -68,12 +70,13 @@ public class TestSuite
   public TestSuite(String id, TestSuite parent) throws
           InvalidParameterException
   {
-    LOGGER.trace("Create new test suite with id '{}' and parent {}", () -> id,
+    LOGGER.debug("Create new test suite with id '{}' and parent {}", () -> id,
                  () -> parent == null ? "" : parent.getId());
 
     setId(id);
     setParent(parent);
   }
+
 
 
   /**
@@ -93,15 +96,17 @@ public class TestSuite
 
     if(id == null)
     {
+      LOGGER.debug("Id can not be null ({})", () -> id);
       throw new InvalidParameterException("Id can not be null");
     }
 
     if(id.trim().length() < 1)
     {
+      LOGGER.debug("Invalid testsuite Id ({})", () -> id);
       throw new InvalidParameterException("Invalid testsuite Id (" + id + ")");
     }
 
-    this.id = id;
+    this.id = id.trim();
   }
 
 
@@ -118,6 +123,7 @@ public class TestSuite
   }
 
 
+
   /**
    * Configure a parent test suite.
    * Use NULL to set no parent.
@@ -126,13 +132,16 @@ public class TestSuite
    *
    * @throws InvalidParameterException
    */
-  private void setParent(TestSuite testSuite) throws InvalidParameterException
+  public void setParent(TestSuite testSuite) throws InvalidParameterException
   {
     LOGGER.trace("Set the parent of this test suite to ({})",
-                 () -> testSuite == null ? "" : testSuite.getId());
+                 () -> testSuite == null ? "null" : testSuite.getId());
 
-    if(hasTestSuite(parent.getId(), true))
+    if(id != null && hasTestSuite(testSuite.getId(), true))
     {
+      LOGGER.debug(
+              "This testsuite already exists (as a child) in this suite! ({})",
+              () -> testSuite.getId());
       throw new InvalidParameterException(
               "This testsuite already exists (as a child) in this suite!");
     }
@@ -181,15 +190,18 @@ public class TestSuite
     LOGGER.trace("Get the root parent of this test suite ({})",
                  () -> parent == null ? "No parent" : parent.getId());
 
-    TestSuite testSuite = this;
+    TestSuite rootTestSuite = this;
 
-    while(testSuite.getParent() != null)
+    while(rootTestSuite.getParent() != null)
     {
-      testSuite = testSuite.getParent();
+      rootTestSuite = rootTestSuite.getParent();
     }
 
-    return testSuite;
+    LOGGER.debug("Rootparent of '{}': '{}'", getId(), rootTestSuite.getId());
+
+    return rootTestSuite;
   }
+
 
 
   /**
@@ -210,7 +222,7 @@ public class TestSuite
     }
 
     // First check if this test suite doesn't exist yet in the structure
-    if(!this.hasTestSuite(testSuite.getRootParent(), true))
+    if(!this.hasTestSuite(testSuite.getRootParent().getId(), true))
     {
       testSuites.put(testSuite.getId(), testSuite);
       testSuite.setParent(this);
@@ -250,7 +262,17 @@ public class TestSuite
             "Count the number of test suites in this test suite. (Count subTestSuites: {}",
             () -> countSubTestSuites);
 
-    return -1;
+    int iCount = testSuites.size();
+
+    if(countSubTestSuites)
+    {
+      iCount = testSuites.entrySet().stream().
+              map((entry) -> entry.getValue().numberOfTestSuites(
+                      countSubTestSuites)).
+              reduce(iCount, Integer::sum);
+    }
+
+    return iCount;
   }
 
 
@@ -282,9 +304,28 @@ public class TestSuite
   {
     LOGGER.trace(
             "Check if this test suites has a test suite with id '{}' (Check subTestSuites: {}",
-            () -> checkSubTestSuites);
+            () -> id, () -> checkSubTestSuites);
 
-    return null;
+    if(this.getId().equals(id))
+    {
+      return true;
+    }
+
+    for(Map.Entry<String, TestSuite> entry : testSuites.entrySet())
+    {
+      if(entry.getValue().getId().equals(id))
+      {
+        return true;
+      }
+
+      if(checkSubTestSuites
+              && entry.getValue().hasTestSuite(id, checkSubTestSuites))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 
@@ -294,12 +335,26 @@ public class TestSuite
    * @param id
    *
    * @return
+   *
+   * @throws NoSuchElementException
+   *
    */
-  public TestSuite getTestSuite(String id)
+  public TestSuite getTestSuite(String id) throws NoSuchElementException
   {
     LOGGER.trace("Find and return sub test suites with id '{}'", () -> id);
 
-    return null;
+    try
+    {
+      return this.testSuites.get(id);
+    }
+    catch (Exception eX)
+    {
+      LOGGER.debug("Element '{}' not found ({})", () -> id, () -> eX.
+                   getMessage());
+
+      throw new NoSuchElementException(id);
+    }
+
   }
 
 
@@ -310,7 +365,7 @@ public class TestSuite
    */
   public LinkedHashMap<String, TestSuite> getTestSuites()
   {
-    LOGGER.trace("Return all test suites");
+    LOGGER.trace("Return all test suites (nr: {})", testSuites.size());
 
     return testSuites;
   }
@@ -332,6 +387,12 @@ public class TestSuite
     if(testCase == null)
     {
       throw new InvalidParameterException("testSuite can not be null");
+    }
+
+    if(this.hasTestCase(testCase.getId()))
+    {
+      throw new InvalidParameterException(
+              "TestCase " + testCase.getId() + " is already a member of this testsuite.");
     }
 
     testCases.put(testCase.getId(), testCase);
@@ -361,8 +422,20 @@ public class TestSuite
    */
   public int numberOfTestCases(boolean countSubTestCases)
   {
+    LOGGER.trace("Count the number of test cases in this test suite");
 
-    return -1;
+    int iCount = testCases.size();
+
+    if(countSubTestCases)
+    {
+      iCount = testSuites.entrySet().stream().
+              map((entry) -> entry.getValue().numberOfTestCases(
+                      countSubTestCases)).
+              reduce(iCount,
+                     Integer::sum);
+    }
+
+    return iCount;
   }
 
 
@@ -375,7 +448,43 @@ public class TestSuite
    */
   public Boolean hasTestCase(String id)
   {
-    return null;
+    return hasTestCase(id, false);
+  }
+
+
+  /**
+   * Check if test suite has a test case with {@link id}
+   *
+   * @param id
+   * @param checkSubTestSuites
+   *
+   * @return
+   */
+  public Boolean hasTestCase(String id, boolean checkSubTestSuites)
+  {
+    LOGGER.trace(
+            "Check if this test case has a test case with id '{}' (Check subTestSuites: {}",
+            () -> id, () -> checkSubTestSuites);
+
+    for(Map.Entry<String, TestCase> entry : testCases.entrySet())
+    {
+      if(entry.getValue().getId().equals(id))
+      {
+        return true;
+      }
+    }
+
+    if(checkSubTestSuites)
+    {
+      if(testSuites.entrySet().stream().
+              anyMatch((entry) -> (entry.getValue().hasTestCase(id,
+                                                                checkSubTestSuites))))
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 
@@ -388,7 +497,20 @@ public class TestSuite
    */
   public TestCase getTestCase(String id)
   {
-    return null;
+    LOGGER.trace("Find and return sub test case with id '{}'", () -> id);
+
+    try
+    {
+      return testCases.get(id);
+    }
+    catch (Exception eX)
+    {
+      LOGGER.debug("Element '{}' not found ({})", () -> id, () -> eX.
+                   getMessage());
+
+      throw new NoSuchElementException(id);
+    }
+
   }
 
 
@@ -399,7 +521,7 @@ public class TestSuite
    */
   public LinkedHashMap<String, TestCase> getTestCases()
   {
-    return null;
+    return testCases;
   }
 
 }
