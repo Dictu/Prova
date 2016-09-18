@@ -175,7 +175,13 @@ public class TestCase
   public void addTestAction(TestAction testAction) throws
           InvalidParameterException
   {
-    LOGGER.debug("Add test action '{}'", () -> testAction.toString());
+    LOGGER.debug("Add test action '{}'",
+                 () -> testAction == null ? "null" : testAction.toString());
+
+    if(testAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
     
     testActions.add(testAction);
   }
@@ -191,7 +197,14 @@ public class TestCase
   public void addTearDownAction(TestAction tearDownAction) throws
           InvalidParameterException
   {
-    LOGGER.debug("Add teardown action '{}'", () -> tearDownAction.toString());
+    LOGGER.debug("Add teardown action '{}'",
+                 () -> tearDownAction == null ? "null" : tearDownAction.
+                         toString());
+
+    if(tearDownAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
     
     tearDownActions.add(tearDownAction);
   }
@@ -209,7 +222,13 @@ public class TestCase
           InvalidParameterException
   {
     LOGGER.trace("Set value of header with key '{}' to '{}'", () -> key, () -> value);
-    
+
+    if(key == null || value == null)
+    {
+      throw new InvalidParameterException(
+              "Invalid key or value for header.(" + key + ":" + value + ")");
+    }
+
     headers.put(key, value);
   }
 
@@ -251,8 +270,10 @@ public class TestCase
                   () -> headers.containsKey(key) ? headers.getProperty(key) : "Not found");
     
     if(!headers.containsKey(key))
+    {
       throw new InvalidParameterException("No header with value '" + key + "' found!");
-    
+    }
+
     return headers.getProperty(key);
   }
 
@@ -264,7 +285,8 @@ public class TestCase
    */
   public LinkedList<TestAction> getSetUpActions()
   {
-    LOGGER.trace("Request for ({}) setup actions", () -> this.setUpActions.size());
+    LOGGER.trace("Request for all setup actions (size: {})",
+                 () -> setUpActions.size());
     
     return setUpActions;
   }
@@ -277,7 +299,8 @@ public class TestCase
    */
   public LinkedList<TestAction> getTestActions()
   {
-    LOGGER.trace("Request for ({}) test actions", () -> this.testActions.size());
+    LOGGER.trace("Request for all test actions (size: {})",
+                 () -> testActions.size());
     
     return testActions;
   }
@@ -290,7 +313,8 @@ public class TestCase
    */
   public LinkedList<TestAction> getTearDownActions()
   {
-    LOGGER.trace("Request for ({}) teardown actions", () -> this.tearDownActions.size());
+    LOGGER.trace("Request for all teardown actions (size: {})",
+                 () -> tearDownActions.size());
     
     return tearDownActions;
   }
@@ -307,7 +331,13 @@ public class TestCase
   public void setVariable(String key, String value) throws InvalidParameterException
   {
     LOGGER.trace("Set value of variable with key '{}' to '{}'", () -> key, () -> value);
-    
+
+    if(key == null || value == null)
+    {
+      throw new InvalidParameterException(
+              "Invalid key or value for variable.(" + key + ":" + value + ")");
+    }
+
     variables.put(key, value);
   }
 
@@ -326,7 +356,12 @@ public class TestCase
     LOGGER.trace("Get value of variable: '{}' ({})", 
                   () -> key, 
                   () -> variables.containsKey(key) ? variables.getProperty(key) : "Not found");
-    
+
+    if(key == null)
+    {
+      throw new InvalidParameterException("Key 'null' not allowed");
+    }
+
     return variables.containsKey(key);
   }
 

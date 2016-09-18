@@ -19,15 +19,90 @@
  */
 package nl.dictu.prova.framework;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
- * Defines the different states a test case can have
+ * PROVA-12: Structure to handle test suites, cases and actions
+ * <p>
+ * Defines the different states a test case can have.
  *
  * @author Sjoerd Boerhout
  */
 public enum TestStatus
 {
-  NOTRUN,
-  BLOCKED,
-  PASSED,
-  FAILED;
+  NOTRUN("NotRun"),
+  BLOCKED("Blocked"),
+  PASSED("Passed"),
+  FAILED("Failed");
+
+  private final static Logger LOGGER = LogManager.getLogger(TestStatus.class.
+          getName());
+
+  private final String name;
+
+
+  private TestStatus(String name)
+  {
+    this.name = name;
+  }
+
+
+  /**
+   * Get the name of this log level
+   *
+   * @return
+   */
+  @Override
+  public String toString()
+  {
+    return name;
+  }
+
+
+  /**
+   * Get the name for this test status
+   *
+   * @return
+   */
+  public String getValue()
+  {
+    return name;
+  }
+
+
+  /**
+   * Find enum by it's name
+   *
+   * @param name
+   *
+   * @return
+   */
+  public static TestStatus lookup(String name) throws IllegalArgumentException
+  {
+    LOGGER.trace("Lookup for enum with value '{}'", name);
+
+    try
+    {
+      name = name.toUpperCase();
+
+      for(TestStatus testStatus : TestStatus.values())
+      {
+        if(testStatus.name().equalsIgnoreCase(name))
+        {
+          LOGGER.trace("Found enum with value '{}'", name);
+
+          return testStatus;
+        }
+      }
+    }
+    catch (Exception eX)
+    {
+      LOGGER.error("'{}' not found in TestStatus. ({})", name, eX);
+    }
+
+    LOGGER.trace("Lookup for enum with value '{}' failed.", name);
+
+    throw new IllegalArgumentException(name + " not found in TestStatus");
+  }
 }

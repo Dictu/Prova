@@ -19,6 +19,7 @@
  */
 package nl.dictu.prova.framework;
 
+import nl.dictu.prova.GlobalSetup;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -32,14 +33,13 @@ import org.junit.Test;
 public class TestCaseTest
 {
 
-  public TestCaseTest()
-  {
-  }
-
-
+  /*
+   * One-time initialization code
+   */
   @BeforeClass
   public static void setUpClass()
   {
+    GlobalSetup.configure();
   }
 
 

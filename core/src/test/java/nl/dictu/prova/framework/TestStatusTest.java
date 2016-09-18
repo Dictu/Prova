@@ -19,63 +19,96 @@
  */
 package nl.dictu.prova.framework;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
+import nl.dictu.prova.GlobalSetup;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
+ * PROVA-12: Structure to handle test suites, cases and actions
+ * <p>
  * @author Sjoerd Boerhout
  */
 public class TestStatusTest
 {
+  /*
+   * NOTRUN("NotRun")
+   * BLOCKED("Blocked")
+   * PASSED("Passed")
+   * FAILED("Failed")
+   */
 
-  public TestStatusTest()
-  {
-  }
+  private final static Logger LOGGER = LogManager.getLogger(
+          TestStatusTest.class.getName());
 
+  private final int NUMBER_OF_STATES = 4;
 
+  /*
+   * One-time initialization code
+   */
   @BeforeClass
   public static void setUpClass()
   {
+    GlobalSetup.configure();
   }
 
 
-  @AfterClass
-  public static void tearDownClass()
-  {
-  }
-
-
-  @Before
-  public void setUp()
-  {
-  }
-
-
-  @After
-  public void tearDown()
-  {
-  }
-
-
-  /**
-   * Test of values method, of class TestStatus.
-   */
   @Test
-  public void testValues()
+  public void checkNumberOfEnums()
   {
+    LOGGER.debug("checkNumberOfEnums");
+
+    assertTrue(TestStatus.values().length == NUMBER_OF_STATES);
   }
 
 
-  /**
-   * Test of valueOf method, of class TestStatus.
-   */
   @Test
-  public void testValueOf()
+  public void checkNotRun()
   {
+    LOGGER.debug("checkNotRun");
+
+    assertTrue(TestStatus.NOTRUN.getValue().equals("NotRun"));
+    assertTrue(TestStatus.lookup("notrun").name().equals("NOTRUN"));
+    assertTrue(TestStatus.lookup("NOTRUN").name().equals("NOTRUN"));
+    assertTrue(TestStatus.lookup("NotRun").toString().equals("NotRun"));
+  }
+
+
+  @Test
+  public void checkBlocked()
+  {
+    LOGGER.debug("checkBlocked");
+
+    assertTrue(TestStatus.BLOCKED.getValue().equals("Blocked"));
+    assertTrue(TestStatus.lookup("blocked").name().equals("BLOCKED"));
+    assertTrue(TestStatus.lookup("BLOCKED").name().equals("BLOCKED"));
+    assertTrue(TestStatus.lookup("Blocked").toString().equals("Blocked"));
+  }
+
+
+  @Test
+  public void checkPassed()
+  {
+    LOGGER.debug("checkPassed");
+
+    assertTrue(TestStatus.PASSED.getValue().equals("Passed"));
+    assertTrue(TestStatus.lookup("passed").name().equals("PASSED"));
+    assertTrue(TestStatus.lookup("PASSED").name().equals("PASSED"));
+    assertTrue(TestStatus.lookup("Passed").toString().equals("Passed"));
+  }
+
+
+  @Test
+  public void checkFailed()
+  {
+    LOGGER.debug("checkFailed");
+
+    assertTrue(TestStatus.FAILED.getValue().equals("Failed"));
+    assertTrue(TestStatus.lookup("failed").name().equals("FAILED"));
+    assertTrue(TestStatus.lookup("FAILED").name().equals("FAILED"));
+    assertTrue(TestStatus.lookup("Failed").toString().equals("Failed"));
   }
 
 }

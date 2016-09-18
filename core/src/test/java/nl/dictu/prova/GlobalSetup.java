@@ -38,7 +38,7 @@ public class GlobalSetup
 
   private static void configureLog4j()
   {
-    System.setProperty("prova.log.level", LogLevel.DEBUG.name());
+    System.setProperty("prova.log.level", LogLevel.TRACE.name());
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     ctx.reconfigure();
   }

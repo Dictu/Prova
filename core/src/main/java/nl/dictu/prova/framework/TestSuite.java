@@ -27,6 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * A test suite is a container for sub-test suites and test cases.
  *
  * @author Sjoerd Boerhout
  */

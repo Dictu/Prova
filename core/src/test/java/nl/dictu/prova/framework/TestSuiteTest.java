@@ -19,8 +19,9 @@
  */
 package nl.dictu.prova.framework;
 
-import java.util.Map.Entry;
 import nl.dictu.prova.GlobalSetup;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -30,11 +31,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
+ * PROVA-12: Structure to handle test suites, cases and actions
+ * <p>
  * @author Sjoerd Boerhout
  */
 public class TestSuiteTest
 {
+  private final static Logger LOGGER = LogManager.getLogger(TestSuiteTest.class.
+          getName());
 
   private static TestSuite testRoot;
   private static TestSuite childTestSuite;
@@ -89,6 +93,8 @@ public class TestSuiteTest
      */
     try
     {
+      LOGGER.debug("Create a test structure of test suites and test cases");
+
       TestSuite tmpTestSuiteI;
       TestSuite tmpTestSuiteJ;
       TestSuite tmpTestSuiteK;
@@ -135,6 +141,12 @@ public class TestSuiteTest
           }
         }
       }
+
+      if(LOGGER.isTraceEnabled())
+      {
+        LOGGER.trace("Root test suite: '{}'", testRoot.getId());
+        printTestSuite(testRoot, 0);
+      }
     }
     catch (Exception eX)
     {
@@ -153,13 +165,15 @@ public class TestSuiteTest
    */
   private static void printLine(int level, String name)
   {
-    System.out.print(level + ":");
+    String line = level + ":";
 
     for(int i = 0; i < level; i++)
     {
-      System.out.print(" ");
+      line += " ";
     }
-    System.out.println(name);
+    line += name;
+
+    LOGGER.trace(line);
   }
 
 
@@ -173,35 +187,30 @@ public class TestSuiteTest
    */
   private static void printTestSuite(TestSuite rootTestSuite, int level)
   {
-    for(Entry<String, TestCase> entry : rootTestSuite.getTestCases().entrySet())
-    {
+    rootTestSuite.getTestCases().entrySet().stream().
+            forEach((entry)
+                    ->    {
       printLine(level, "TC: " + entry.getValue().getId());
-    }
-    System.out.println("");
+            });
+    LOGGER.trace("");
 
-    for(Entry<String, TestSuite> entry : rootTestSuite.getTestSuites().
-            entrySet())
-    {
+    rootTestSuite.getTestSuites().
+            entrySet().stream().
+            map((entry)
+                    ->    {
       printLine(level, "TS: " + entry.getValue().getId());
-      printTestSuite(entry.getValue(), level + 1);
-    }
+                      return entry;
+            }).
+            forEach((entry)
+                    ->
+                    {
+                      printTestSuite(entry.getValue(), level + 1);
+            });
   }
 
 
   /*
-   * Temp test to print the created structure.
-   */
-  @Test
-  //@Ignore
-  public void printTestStructure()
-  {
-    System.out.println("Root test suite:" + testRoot.getId());
-    printTestSuite(testRoot, 0);
-  }
-
-
-  /*
-   * Issue ID: PROVA-32
+   * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement: Unique identifier per test suite which is not empty
    *
    * Create a test suite with a valid identifier.
@@ -222,7 +231,7 @@ public class TestSuiteTest
 
 
   /*
-   * Issue ID: PROVA-32
+   * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement: Unique identifier per test suite which is not empty
    *
    * Validate that ' ' is not a valid identifier
@@ -244,20 +253,20 @@ public class TestSuiteTest
 
 
   /*
-   * Issue ID: PROVA-32
+   * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement: Unique identifier per test suite which is not empty
    *
    * Validate that 'null' is not a valid identifier
    */
   @Test
-  public void createTestSuiteWithNoIdentifier()
+  public void createTestSuiteWithNullAsIdentifier()
   {
     try
     {
       @SuppressWarnings("unused")
       TestSuite tmpTestSuite1 = new TestSuite(null);
 
-      fail("Empty identifier is not allowed!");
+      fail("Null as identifier is not allowed!");
     }
     catch (Exception eX)
     {
@@ -266,17 +275,19 @@ public class TestSuiteTest
 
 
   /*
-   * Issue ID: PROVA-32
+   * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement: Unique identifier per test suite which is not empty
    *
    * Create a test suite with a parent and a valid identifier.
    */
   @Test
-  public void createTestSuiteWithParentAndValidIdentifier()
+  public void createTestSuiteWithValidIdentifierAndParent()
   {
     try
     {
-      TestSuite testSuite = new TestSuite("qwerty");
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty", parent);
+
       assertTrue(testSuite.getId().contentEquals("qwerty"));
     }
     catch (Exception eX)
@@ -287,25 +298,26 @@ public class TestSuiteTest
 
 
   /*
-   * Issue ID: PROVA-32
+   * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement: Unique identifier per test suite which is not empty
    *
    * Validate that ' ' is not a valid identifier
    */
   @Test
-  public void createTestSuiteWithParentAndEmptyIdentifier()
+  public void createTestSuiteWithEmptyIdentifierAndParent()
   {
-    TestSuite tmpTestSuite1 = null;
+    TestSuite testSuite = null;
 
     try
     {
-      tmpTestSuite1 = new TestSuite(" ");
+      TestSuite parent = new TestSuite("parent");
+      testSuite = new TestSuite(" ", parent);
 
       fail("Empty identifier is not allowed!");
     }
     catch (Exception eX)
     {
-      assertTrue(tmpTestSuite1 == null);
+      assertTrue(testSuite == null);
     }
   }
 
