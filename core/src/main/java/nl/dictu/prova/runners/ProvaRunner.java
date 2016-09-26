@@ -155,13 +155,14 @@ public class ProvaRunner
   /**
    * Update the log level for Log4j2
    *
+   * @param loggerName
    * @param newLogLevel
    *
    * @return
    *
    * @throws IllegalArgumentException
    */
-  protected String setLogLevel(String newLogLevel) throws
+  protected String setLogLevel(String loggerName, String newLogLevel) throws
           IllegalArgumentException
   {
     return "currentLogLevel";
