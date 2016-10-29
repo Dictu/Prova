@@ -1,31 +1,41 @@
-Prova is a java-based modular keyword driven framework able to combine different kind of tests in a single test case.
-The project was started in an attempt to create a user friendly frond-end for tests scripts for Oracle ATS that allows us to separate test flow and data and doesn't require any technical knowledge about a tool. 
+Prova is a java-based modular keyword driven framework able to combine different kind of tests in a single test script.
+The project was started in an attempt to create a user friendly frond-end for tests scripts for Oracle ATS that allows us to separate test flow and data and doesn't require programming skills or technical knowledge of a tool. 
 Now it's a standalone framework able to read test from different sources and execute tests in different types of test tools.
+
+# History
+Prova version 1 was developed as an internal project. Version 2 will be developed as an open source project here on Github. We will start from scratch and only parts of the original code are re-used.
+If you are interested in verion 1 please contact Robert Bralts and request a compiled version of version 1.
 
 # Plugin structure
 All input, output and reporting goes through plugins for maximum flexibility. Prova connects all the plugins and directs the data from input to output without exact knowledge about the test type and specific action. 
 
-# Available input plugins
+# Input plugins
 - MS Excel (using Apache POI)
 
-# Available output plugins
+# Output plugins
 ## WEB tests
 - Selenium: Test web pages with the well known Selenium web driver.
 
 ## Shell commands
-- planned: Execute commands on the OS command line.
+- Execute commands on the OS command line.
+
+## Image comparation
+- Compare two images and check if they are (more or less) the same (Usefull to verify if a webpage is displayed correctly
 
 ## Database tests
-- Under development: Validate db scheme's and execute queries.
+- JDBC: Validate db scheme's and execute queries.
 
 ## SOAP tests
-- Under development: Send and receive SOAP messages.
+- Apache SOAP: Send and receive SOAP messages.
 
 ## JSON tests
-- planned: Send and receive JSON messages.
+- Send and receive JSON messages.
 
 ## Script Printer
-- planned: Print all tests and test data as a manual for manually testing
+- Print all tests and test data to execute tests manually
+
+## (S)FTP
+- Download and upload files with the (S)FTP-protocol
 
 # Authors and Contributors
 Prova started as an internal company project when no suitable tools were found for our needs. While developing the proof of concept other parties also showed interest in the project and we decided to release Prova for the public as an open source tool.
