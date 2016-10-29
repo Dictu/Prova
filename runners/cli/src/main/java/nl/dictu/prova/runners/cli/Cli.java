@@ -133,9 +133,8 @@ public class Cli extends ProvaRunner
                    () -> cliProperties.containsKey(Config.PROVA_LOG_LEVEL));
       if(cliProperties.containsKey(Config.PROVA_LOG_LEVEL))
       {
-        super.setLogLevel(newLogLevel)
-        setDebugLevel(this.getClass().getName(), cliProperties.getProperty(
-                      Config.PROVA_LOG_LEVEL));
+        super.setLogLevel(Cli.class.getName(), cliProperties.getProperty(Config.PROVA_LOG_LEVEL));
+        setLogLevel(this.getClass().getName(), cliProperties.getProperty(Config.PROVA_LOG_LEVEL));
       }
 
       // Check if a project name is provided
@@ -144,7 +143,7 @@ public class Cli extends ProvaRunner
       if(cliArguments.size() > 0)
       {
         LOGGER.debug("Provided project name: '{}'", () -> cliArguments.get(0));
-        provaProperties.setProperty(Config.PROVA_PROJECT, cliArguments.get(0));
+        properties.setProperty(Config.PROVA_PROJECT, cliArguments.get(0));
       }
 
       // Detect the Prova rootdir and load default and project property files
@@ -159,26 +158,22 @@ public class Cli extends ProvaRunner
         LOGGER.debug("Load user defined property file '{}'",
                      () -> cliProperties.
                      getProperty(Config.PROVA_CONF_FILE_USER));
-        provaProperties.putAll(loadPropertiesFromFile(cliProperties.getProperty(
+        properties.putAll(super.loadProjectPropertiesFromFile(cliProperties.getProperty(
                 Config.PROVA_CONF_FILE_USER)));
       }
 
       // And last but not least apply the cli properties that rule them all
-      provaProperties.putAll(cliProperties);
+      properties.putAll(cliProperties);
 
       // Update logging settings
       LOGGER.trace("Update logging properties after loading all properties");
-      setDebugLevel(ProvaRunner.class.getName(), provaProperties.getProperty(
-                    Config.PROVA_LOG_LEVEL));
-      setLogPatternConsole(provaProperties.getProperty(
-              Config.PROVA_LOG_PATTERN_CONS));
-      setLogPatternFile(provaProperties.getProperty(
-              Config.PROVA_LOG_PATTERN_FILE));
+      setLogLevel(ProvaRunner.class.getName(), properties.getProperty(Config.PROVA_LOG_LEVEL));
+      super.setLogLevelPatternStdOut(properties.getProperty(Config.PROVA_LOG_PATTERN_CONS));
+      super.setLogLevelPatternFile(properties.getProperty(Config.PROVA_LOG_PATTERN_FILE));
 
       // SetUp Prova with all the collected properties
       LOGGER.trace("Start Prova setup");
-      prova.setUp(provaProperties.getProperty(Config.PROVA_PROJECT),
-                  provaProperties);
+      testRunner.setProperties(properties);
     }
     catch (Exception eX)
     {

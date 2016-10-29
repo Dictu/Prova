@@ -66,8 +66,8 @@ public class ProvaRunner
    */
   protected void init() throws Exception
   {
+	LOGGER.debug("Init ProvaRunner");
     properties = new Properties();
-    LOGGER.debug("init");
   }
 
 

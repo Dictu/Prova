@@ -21,6 +21,8 @@ package nl.dictu.prova;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
+import java.util.Properties;
+
 import nl.dictu.prova.framework.TestSuite;
 import nl.dictu.prova.plugins.input.InputPlugin;
 import nl.dictu.prova.plugins.output.OutputPlugin;
@@ -67,6 +69,7 @@ public interface TestRunner
   public LinkedList<ReportingPlugin> getReportingPlugins();
 
 
+  
   /**
    * Registers the given input plug-in to the TestRunner
    *
@@ -92,6 +95,7 @@ public interface TestRunner
   public void addReportingPlugin(ReportingPlugin reportingPlugin);
 
 
+  
   /**
    * Adds the provided test suite to the test runner. Test suites
    * are executed in the order of registration in the test runner
@@ -101,6 +105,7 @@ public interface TestRunner
    */
   public void addTestSuite(TestSuite testSuite, InputPlugin inputPlugin);
 
+  
 
   /**
    * Set or update the value of property with {@link key} to {@link value}
@@ -109,6 +114,15 @@ public interface TestRunner
    * @param value
    */
   public void setProperty(String key, String value) throws NullPointerException;
+  
+  
+  /**
+   * Set or update the value of property with {@link key} to {@link value}
+   *
+   * @param key
+   * @param value
+   */
+  public void setProperties(Properties properties) throws NullPointerException;
 
 
   /**
@@ -133,6 +147,7 @@ public interface TestRunner
   public String getProperty(String key) throws InvalidParameterException;
 
 
+  
   /**
    * Start the execution of the test runner
    */
@@ -143,5 +158,4 @@ public interface TestRunner
    * Wait until the execution of the test runner is finished
    */
   public void join();
-
 }

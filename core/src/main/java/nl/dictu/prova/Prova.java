@@ -191,6 +191,13 @@ public class Prova implements TestRunner
 
 
   @Override
+  public void setProperties(Properties properties) throws NullPointerException
+  {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
+
+
+  @Override
   public boolean hasProperty(String key)
   {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
