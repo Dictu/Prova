@@ -6,6 +6,9 @@ Now it's a standalone framework able to read test from different sources and exe
 Prova version 1 was developed as an internal project. Version 2 will be developed as an open source project here on Github. We will start from scratch and only parts of the original code are re-used.
 If you are interested in verion 1 please contact Robert Bralts and request a compiled version of version 1.
 
+# Prova architecture
+See https://github.com/Dictu/Prova/issues/1
+
 # Plugin structure
 All input, output and reporting goes through plugins for maximum flexibility. Prova connects all the plugins and directs the data from input to output without exact knowledge about the test type and specific action. 
 
