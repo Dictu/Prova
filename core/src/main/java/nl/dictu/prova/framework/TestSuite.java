@@ -130,10 +130,10 @@ public class TestSuite
   public void setParent(TestSuite testSuite) throws InvalidParameterException
   {
     LOGGER.trace("Set the parent of this test suite to ({})",
-                 () -> testSuite == null ? "null" : testSuite.getId());
+                 (testSuite == null ? "null" : testSuite.getId()));
 
     // Prevent a loop! Can be caused when a test suite exists more than once
-    if(id != null && hasTestSuite(testSuite.getId(), true))
+    if(testSuite != null && hasTestSuite(testSuite.getId(), true))
     {
       LOGGER.error("This testsuite already exists (as a child) in this suite! ({})",
                    () -> testSuite.getId());
@@ -173,14 +173,14 @@ public class TestSuite
 
 
   /**
-   * Get the root parent of this test suite. Returns NULL when no parent is set.
+   * Get the root parent of this test suite. Returns 'this' when no parent is set.
    * 
    * @return
    */
   public TestSuite getRootParent()
   {
     LOGGER.trace("Get the root parent of this test suite ({})",
-                 () -> parent == null ? "No parent" : parent.getId());
+                 (parent == null ? "No parent" : parent.getId()));
 
     TestSuite rootTestSuite = this;
 

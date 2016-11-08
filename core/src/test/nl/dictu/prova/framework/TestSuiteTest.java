@@ -26,6 +26,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.security.InvalidParameterException;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -189,11 +192,13 @@ public class TestSuiteTest
   }
 
 
+  
+  
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Create a test suite
-   * with a valid identifier.
+   * Unique identifier per test suite which is not empty.
+   * Create a test suite with a valid identifier.
    */
   @Test
   public void createTestSuiteWithValidIdentifier()
@@ -213,8 +218,8 @@ public class TestSuiteTest
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Validate that ' ' is
-   * not a valid identifier
+   * Unique identifier per test suite which is not empty.
+   * Validate that ' ' is not a valid identifier
    */
   @Test
   public void createTestSuiteWithEmptyIdentifier()
@@ -226,8 +231,12 @@ public class TestSuiteTest
 
       fail("Empty identifier is not allowed!");
     }
+    catch(InvalidParameterException eX)
+    {
+    }
     catch(Exception eX)
     {
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
 
@@ -235,8 +244,8 @@ public class TestSuiteTest
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Validate that 'null' is
-   * not a valid identifier
+   * Unique identifier per test suite which is not empty.
+   * Validate that 'null' is not a valid identifier
    */
   @Test
   public void createTestSuiteWithNullAsIdentifier()
@@ -248,17 +257,23 @@ public class TestSuiteTest
 
       fail("Null as identifier is not allowed!");
     }
+    catch(InvalidParameterException eX)
+    {
+    }
     catch(Exception eX)
     {
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
 
-
+  
+  
+  
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Create a test suite
-   * with a parent and a valid identifier.
+   * Unique identifier per test suite which is not empty.
+   * Create a test suite with a parent and a valid identifier.
    */
   @Test
   public void createTestSuiteWithValidIdentifierAndParent()
@@ -280,24 +295,26 @@ public class TestSuiteTest
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Validate that ' ' is
-   * not a valid identifier
+   * Unique identifier per test suite which is not empty.
+   * Validate that ' ' is not a valid identifier
    */
   @Test
   public void createTestSuiteWithEmptyIdentifierAndParent()
   {
-    TestSuite testSuite = null;
-
     try
     {
       TestSuite parent = new TestSuite("parent");
-      testSuite = new TestSuite(" ", parent);
+      @SuppressWarnings("unused")
+      TestSuite testSuite = new TestSuite(" ", parent);
 
       fail("Empty identifier is not allowed!");
     }
+    catch(InvalidParameterException eX)
+    {
+    }
     catch(Exception eX)
     {
-      assertTrue(testSuite == null);
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
 
@@ -305,27 +322,278 @@ public class TestSuiteTest
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Unique identifier per test suite which is not empty Validate that 'null' is
-   * not a valid identifier
+   * Unique identifier per test suite which is not empty.
+   * Validate that 'null' is not a valid identifier
    */
   @Test
-  public void createTestSuiteWithoutParentAndNoIdentifier()
+  public void createTestSuiteWithoutParentAndNullAsIdentifier()
   {
-    TestSuite tmpTestSuite1 = null;
-
     try
     {
-      tmpTestSuite1 = new TestSuite(null);
+      TestSuite parent = new TestSuite("parent");
+      @SuppressWarnings("unused")
+      TestSuite testSuite = new TestSuite(null, parent);
 
       fail("'Null' identifier is not allowed!");
     }
+    catch(InvalidParameterException eX)
+    {
+    }
     catch(Exception eX)
     {
-      assertTrue(tmpTestSuite1 == null);
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
 
 
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Test the getId-function.
+   */
+  @Test
+  public void getId()
+  {
+    try
+    {
+      TestSuite testSuite = new TestSuite("qwerty");
+      assertTrue(testSuite.getId().contentEquals("qwerty"));
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
+  }
+  
+  
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Set parent with a valid identifier
+   */
+  @Test
+  public void checkSetParentWithSetParent()
+  {
+    try
+    {
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty");
+      
+      testSuite.setParent(parent);
+      
+      assertTrue(testSuite.hasParent());
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Identifier 'parent' is valid!");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Reset parent with identifier 'null'
+   */
+  @Test
+  public void checkSetParentWithResetParent()
+  {
+    try
+    {
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty");
+      
+      testSuite.setParent(parent);
+      
+      assertTrue(testSuite.hasParent());
+      
+      testSuite.setParent(null);
+      
+      assertFalse(testSuite.hasParent());
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Identifier 'null' is valid to reset the parent!");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check if test suite has a parent with valid parent
+   */
+  @Test
+  public void checkHasParentWithParent()
+  {
+    try
+    {
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite1 = new TestSuite("qwerty", parent);
+      TestSuite testSuite2 = new TestSuite("qwerty");
+      testSuite2.setParent(parent);
+      
+      assertTrue(testSuite1.hasParent());
+      assertTrue(testSuite2.hasParent());
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Identifier 'parent' is valid!");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check if test suite has a parent without a parent
+   */
+  @Test
+  public void checkHasParentWithoutParent()
+  {
+    try
+    {
+      TestSuite testSuite1 = new TestSuite("qwerty", null);
+      TestSuite testSuite2 = new TestSuite("qwerty");
+      testSuite2.setParent(null);
+      
+      assertFalse(testSuite1.hasParent());
+      assertFalse(testSuite2.hasParent());
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Identifier 'null' is valid!");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check get parent test suite with a valid parent.
+   */
+  @Test
+  public void checkGetParentWithValidParent()
+  {
+    try
+    {
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty", parent);
+      assertTrue(testSuite.getParent().getId().contentEquals("parent"));
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
+  }
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check get parent test suite with no parent.
+   */
+  @Test
+  public void checkGetParentWithoutParent()
+  {
+    try
+    {
+      TestSuite testSuite = new TestSuite("qwerty");
+      assertTrue(testSuite.getParent() == null);
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
+  }
+
+  
+
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check get root parent test suite with a valid parent.
+   */
+  @Test
+  public void checkGetRootParentWithValidParent()
+  {
+    try
+    {
+      assertTrue(subTestSuite.getRootParent().equals(testRoot));
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
+  }
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Check get root parent test suite with no parent.
+   */
+  @Test
+  public void checkGetRootParentWithoutParent()
+  {
+    try
+    {
+      TestSuite testSuite = new TestSuite("qwerty");
+      assertTrue(testSuite.getRootParent() == testSuite);
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
+  }
+
+ 
+  /*
+  public void setParent(TestSuite testSuite) throws InvalidParameterException
+  public Boolean hasParent()
+  public TestSuite getParent()
+  public TestSuite getRootParent()
+  */
+  
+  
+  
+
+  
+  
   /*
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
