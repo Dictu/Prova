@@ -29,8 +29,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * A test suite is a container for sub-test suites and test cases. It is a
  * container with a unique ID and optional a parent test suite
- *
- * Issues: 
+ * Issues:
  * - PROVA-12: Structure to handle test suites, cases and actions
  *
  * @author Sjoerd Boerhout
@@ -122,7 +121,9 @@ public class TestSuite
 
 
   /**
-   * Configure a parent test suite. Use NULL to set no parent.
+   * Configures a parent test suite. Uses NULL to set no parent.
+   * NOTE: Do not directly call this function! Use the addTestSuite() function
+   * of the parent.
    *
    * @param testSuite
    * @throws InvalidParameterException
@@ -173,7 +174,8 @@ public class TestSuite
 
 
   /**
-   * Get the root parent of this test suite. Returns 'this' when no parent is set.
+   * Get the root parent of this test suite. Returns 'this' when no parent is
+   * set.
    * 
    * @return
    */
@@ -282,7 +284,7 @@ public class TestSuite
    */
   public Boolean hasTestSuite(String id, boolean checkSubTestSuites)
   {
-    LOGGER.trace("Check if this test suites has a test suite with id '{}' (Check subTestSuites: {}",
+    LOGGER.trace("Check if this test suites has a test suite with id '{}' (Check subTestSuites: {})",
                  () -> id, () -> checkSubTestSuites);
 
     if(this.getId().equals(id))
@@ -446,7 +448,7 @@ public class TestSuite
           return true;
         }
       }
-   
+
       if(checkSubTestSuites)
       {
         if(testSuites.entrySet().stream()
@@ -454,13 +456,13 @@ public class TestSuite
         {
           return true;
         }
-      }  
+      }
     }
     catch(Exception eX)
     {
       LOGGER.error("hasTestCase exception: {}", eX.getMessage());
     }
-    
+
     return false;
   }
 
