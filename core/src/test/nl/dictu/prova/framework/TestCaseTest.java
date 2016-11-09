@@ -20,6 +20,14 @@
 package nl.dictu.prova.framework;
 
 import nl.dictu.prova.GlobalSetup;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.security.InvalidParameterException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -61,111 +69,203 @@ public class TestCaseTest
   }
 
 
-  /**
-   * Test of getId method, of class TestCase.
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test case which is not empty.
+   * Create a test case with a valid identifier.
    */
   @Test
-  public void testGetId()
+  public void createTestCaseWithValidIdentifier()
   {
+    try
+    {
+      TestCase testCase = new TestCase("qwerty");
+      assertNotNull(testCase);
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
   }
 
 
-  /**
-   * Test of getTestStatus method, of class TestCase.
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test case which is not empty.
+   * Validate that ' ' is not a valid identifier
    */
   @Test
-  public void testGetTestStatus()
+  public void createTestCaseWithEmptyIdentifier()
   {
+    try
+    {
+      @SuppressWarnings("unused")
+      TestCase testCase = new TestCase(" ");
+
+      fail("Empty identifier is not allowed!");
+    }
+    catch(InvalidParameterException eX)
+    {
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
 
 
-  /**
-   * Test of updateTestStatus method, of class TestCase.
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test case which is not empty.
+   * Validate that 'null' is not a valid identifier
    */
   @Test
-  public void testUpdateTestStatus()
+  public void createTestCaseWithNullAsIdentifier()
   {
+    try
+    {
+      @SuppressWarnings("unused")
+      TestCase testCase = new TestCase(null);
+
+      fail("Null as identifier is not allowed!");
+    }
+    catch(InvalidParameterException eX)
+    {
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
-
-
-  /**
-   * Test of addSetUpAction method, of class TestCase.
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test case which is not empty.
+   * Test the getId-function.
    */
   @Test
-  public void testAddSetUpAction()
+  public void getId()
   {
+    try
+    {
+      TestCase testCase = new TestCase("qwerty");
+      assertTrue(testCase.getId().contentEquals("qwerty"));
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
+    }
   }
-
-
-  /**
-   * Test of addTestAction method, of class TestCase.
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test case has a test status.
+   * Validate that a new test case has initial state NotRun.
    */
   @Test
-  public void testAddTestAction()
+  public void getTestCaseStatus()
   {
+    try
+    {
+      TestCase testCase = new TestCase("tc");
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.NOTRUN);
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Unexpected failure.");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
-
-
-  /**
-   * Test of addTearDownAction method, of class TestCase.
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test case has a test status.
+   * Validate that a test case can be updated.
    */
   @Test
-  public void testAddTearDownAction()
+  public void updateTestCaseStatusToValidStatus()
   {
-  }
-
-
-  /**
-   * Test of setHeader method, of class TestCase.
+    try
+    {
+      TestCase testCase = new TestCase("tc");
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.NOTRUN);
+      
+      testCase.updateTestCaseStatus(TestStatus.BLOCKED);
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.BLOCKED);
+      
+      testCase.updateTestCaseStatus(TestStatus.FAILED);
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.FAILED);
+      
+      testCase.updateTestCaseStatus(TestStatus.PASSED);
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.PASSED);
+    }
+    catch(InvalidParameterException eX)
+    {
+      fail("Unexpected failure.");
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  } 
+  
+  
+  /*
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test case has a test status.
+   * Validate that a test case can not be updated to 'null'.
    */
   @Test
-  public void testSetHeader()
+  public void updateTestCaseStatusToNull()
   {
+    try
+    {
+      TestCase testCase = new TestCase("tc");
+      assertTrue(testCase.getTestCaseStatus() == TestStatus.NOTRUN);
+      
+      testCase.updateTestCaseStatus(null);
+
+      fail("Test case status can't be 'null'");
+    }
+    catch(InvalidParameterException eX)
+    {
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
+  
+  
+  /*
+  public void addSetUpAction(TestAction setUpAction) throws InvalidParameterException
+  public void addTestAction(TestAction testAction) throws InvalidParameterException
+  public void addTearDownAction(TestAction tearDownAction) throws InvalidParameterException
 
+  public LinkedList<TestAction> getSetUpActions()
+  public LinkedList<TestAction> getTestActions()
+  public LinkedList<TestAction> getTearDownActions()
 
-  /**
-   * Test of hasHeader method, of class TestCase.
+  public void setHeader(String key, String value) throws InvalidParameterException
+  public boolean hasHeader(String key) throws InvalidParameterException
+  public String getHeader(String key) throws InvalidParameterException
+
+  public void setVariable(String key, String value) throws InvalidParameterException
+  public boolean hasVariable(String key) throws InvalidParameterException
+  public String getVariable(String key) throws InvalidParameterException
    */
-  @Test
-  public void testHasHeader()
-  {
-  }
-
-
-  /**
-   * Test of getHeader method, of class TestCase.
-   */
-  @Test
-  public void testGetHeader()
-  {
-  }
-
-
-  /**
-   * Test of getSetUpActions method, of class TestCase.
-   */
-  @Test
-  public void testGetSetUpActions()
-  {
-  }
-
-
-  /**
-   * Test of getTestActions method, of class TestCase.
-   */
-  @Test
-  public void testGetTestActions()
-  {
-  }
-
-
-  /**
-   * Test of getTearDownActions method, of class TestCase.
-   */
-  @Test
-  public void testGetTearDownActions()
-  {
-  }
 
 }
