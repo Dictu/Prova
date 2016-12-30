@@ -245,13 +245,16 @@ public class TestCase
   {
     LOGGER.trace("Set value of header with key '{}' to '{}'", () -> key, () -> value);
 
-    if(key == null || value == null)
+    if(key == null || 
+       value == null || 
+       key.trim().length() < 1 || 
+       value.trim().length() < 1)
     {
       throw new InvalidParameterException("Invalid key or value for header.(" + key + ":" + value
                                           + ")");
     }
 
-    headers.put(key, value);
+    headers.put(key.trim(), value.trim());
   }
 
 
@@ -303,13 +306,16 @@ public class TestCase
   {
     LOGGER.trace("Set value of variable with key '{}' to '{}'", () -> key, () -> value);
 
-    if(key == null || value == null)
+    if(key == null || 
+       value == null || 
+       key.trim().length() < 1 || 
+       value.trim().length() < 1)
     {
       throw new InvalidParameterException("Invalid key or value for variable.(" + key + ":" + value
                                           + ")");
     }
 
-    variables.put(key, value);
+    variables.put(key.trim(), value.trim());
   }
 
 
