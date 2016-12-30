@@ -27,6 +27,12 @@ import org.apache.logging.log4j.Logger;
 
 
 /**
+ * A test case is a container for test actions. It offers a set of actions
+ * (0...*) which are executed as one test case. The action share a set of
+ * variables to exchange values.
+ * Issues:
+ * - PROVA-12: Structure to handle test suites, cases and actions
+ *
  * @author Sjoerd Boerhout
  */
 public class TestCase
@@ -194,7 +200,7 @@ public class TestCase
     tearDownActions.add(tearDownAction);
   }
 
-  
+
   /**
    * Return a list of the setup actions in this test case
    *
@@ -232,8 +238,8 @@ public class TestCase
 
     return tearDownActions;
   }
-  
-  
+
+
   /**
    * Set or update the given header {@link key} with {@link value}
    *
@@ -245,16 +251,13 @@ public class TestCase
   {
     LOGGER.trace("Set value of header with key '{}' to '{}'", () -> key, () -> value);
 
-    if(key == null || 
-       value == null || 
-       key.trim().length() < 1 || 
-       value.trim().length() < 1)
+    if(key == null || value == null || key.trim().length() < 1)
     {
       throw new InvalidParameterException("Invalid key or value for header.(" + key + ":" + value
                                           + ")");
     }
 
-    headers.put(key.trim(), value.trim());
+    headers.put(key.trim(), value);
   }
 
 
@@ -306,16 +309,13 @@ public class TestCase
   {
     LOGGER.trace("Set value of variable with key '{}' to '{}'", () -> key, () -> value);
 
-    if(key == null || 
-       value == null || 
-       key.trim().length() < 1 || 
-       value.trim().length() < 1)
+    if(key == null || value == null || key.trim().length() < 1)
     {
       throw new InvalidParameterException("Invalid key or value for variable.(" + key + ":" + value
                                           + ")");
     }
 
-    variables.put(key.trim(), value.trim());
+    variables.put(key.trim(), value);
   }
 
 

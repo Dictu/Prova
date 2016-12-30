@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,10 +12,11 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      27-08-2016
+ * Date: 27-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova.framework;
 
 import nl.dictu.prova.GlobalSetup;
@@ -31,11 +31,9 @@ import java.util.LinkedList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 /**
  * PROVA-12: Structure to handle test suites, cases and actions
@@ -47,7 +45,8 @@ public class TestCaseTest
 {
   private final static Logger LOGGER = LogManager.getLogger(TestCaseTest.class.getName());
 
-  /*
+
+  /**
    * One-time initialization code
    */
   @BeforeClass
@@ -57,25 +56,7 @@ public class TestCaseTest
   }
 
 
-  @AfterClass
-  public static void tearDownClass()
-  {
-  }
-
-
-  @Before
-  public void setUp()
-  {
-  }
-
-
-  @After
-  public void tearDown()
-  {
-  }
-
-
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test case which is not empty.
@@ -96,7 +77,7 @@ public class TestCaseTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test case which is not empty.
@@ -122,7 +103,7 @@ public class TestCaseTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test case which is not empty.
@@ -146,9 +127,9 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-  
-  
-  /*
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test case which is not empty.
@@ -167,9 +148,9 @@ public class TestCaseTest
       fail(eX.getMessage());
     }
   }
-  
-  
-  /*
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test case has a test status.
@@ -192,9 +173,9 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-  
-  
-  /*
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test case has a test status.
@@ -207,13 +188,13 @@ public class TestCaseTest
     {
       TestCase testCase = new TestCase("tc");
       assertTrue(testCase.getTestCaseStatus() == TestStatus.NOTRUN);
-      
+
       testCase.updateTestCaseStatus(TestStatus.BLOCKED);
       assertTrue(testCase.getTestCaseStatus() == TestStatus.BLOCKED);
-      
+
       testCase.updateTestCaseStatus(TestStatus.FAILED);
       assertTrue(testCase.getTestCaseStatus() == TestStatus.FAILED);
-      
+
       testCase.updateTestCaseStatus(TestStatus.PASSED);
       assertTrue(testCase.getTestCaseStatus() == TestStatus.PASSED);
     }
@@ -225,10 +206,10 @@ public class TestCaseTest
     {
       fail("Unexpected exception " + eX.getMessage());
     }
-  } 
-  
-  
-  /*
+  }
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test case has a test status.
@@ -241,7 +222,7 @@ public class TestCaseTest
     {
       TestCase testCase = new TestCase("tc");
       assertTrue(testCase.getTestCaseStatus() == TestStatus.NOTRUN);
-      
+
       testCase.updateTestCaseStatus(null);
 
       fail("Test case status can't be 'null'");
@@ -254,9 +235,9 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-  
-  
-  /*
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -269,13 +250,13 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addSetUpAction(testAction);
       assertTrue(testCase.getSetUpActions().size() == 1);
-      
+
       testActions = testCase.getSetUpActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -284,7 +265,8 @@ public class TestCaseTest
     }
   }
 
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case. Null is not allowed.
@@ -295,14 +277,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.addSetUpAction(null);
 
       fail("'Null' is not allowed to add as action");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -310,8 +292,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -324,12 +306,12 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addSetUpAction(testAction);
-      
+
       testActions = testCase.getSetUpActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -338,10 +320,8 @@ public class TestCaseTest
     }
   }
 
-  
-  
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -354,13 +334,13 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addTestAction(testAction);
       assertTrue(testCase.getTestActions().size() == 1);
-      
+
       testActions = testCase.getTestActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -369,7 +349,8 @@ public class TestCaseTest
     }
   }
 
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case. Null is not allowed.
@@ -380,14 +361,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.addTestAction(null);
 
       fail("'Null' is not allowed to add as action");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -395,8 +376,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -409,12 +390,12 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addTestAction(testAction);
-      
+
       testActions = testCase.getTestActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -423,9 +404,8 @@ public class TestCaseTest
     }
   }
 
-  
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -438,13 +418,13 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addTearDownAction(testAction);
       assertTrue(testCase.getTearDownActions().size() == 1);
-      
+
       testActions = testCase.getTearDownActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -453,7 +433,8 @@ public class TestCaseTest
     }
   }
 
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case. Null is not allowed.
@@ -464,14 +445,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.addTearDownAction(null);
 
       fail("'Null' is not allowed to add as action");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -479,8 +460,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Actions can be added to a test case
@@ -493,12 +474,12 @@ public class TestCaseTest
       TestCase testCase = new TestCase("tc");
       TestAction testAction = new AbstractTestAction(LOGGER);
       LinkedList<TestAction> testActions;
-      
+
       testCase.addTearDownAction(testAction);
-      
+
       testActions = testCase.getTearDownActions();
       assertTrue(testActions.size() == 1);
-      
+
       assertTrue(testActions.get(0).equals(testAction));
     }
     catch(Exception eX)
@@ -507,8 +488,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -519,9 +500,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader("abc", "def");
-      
+
       assertTrue(testCase.getHeader("abc").equals("def"));
     }
     catch(Exception eX)
@@ -530,8 +511,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -542,10 +523,10 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader("  abc  ", "def");
       assertTrue(testCase.getHeader("abc").equals("def"));
-      
+
     }
     catch(Exception eX)
     {
@@ -553,8 +534,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -565,10 +546,10 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader("abc", "  def  ");
-      assertTrue(testCase.getHeader("abc").equals("def"));
-      
+      assertTrue(testCase.getHeader("abc").equals("  def  "));
+
     }
     catch(Exception eX)
     {
@@ -576,8 +557,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -588,14 +569,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader(" ", "abc");
-      
-      fail("'' is not allowed to add as key");
+
+      fail("' ' is not allowed to add as key");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -603,8 +584,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -615,14 +596,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader(null, "abc");
-      
+
       fail("'Null' is not allowed to add as key");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -630,8 +611,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -642,9 +623,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader("abc", "def");
-      
+
       assertTrue(testCase.hasHeader("abc"));
 
       assertFalse(testCase.hasHeader("def"));
@@ -655,8 +636,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* headers. A key value pair chosen by the user.
@@ -667,9 +648,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setHeader("abc", "def");
-      
+
       assertTrue(testCase.getHeader("abc").equals("def"));
     }
     catch(Exception eX)
@@ -678,8 +659,35 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Testcases can contain 0..* headers. A key value pair chosen by the user.
+   */
+  @Test
+  public void getHeaderWithNonExistingKey()
+  {
+    try
+    {
+      TestCase testCase = new TestCase("tc");
+
+      testCase.getHeader("abc");
+
+      fail("Request for non-existing key 'abc' should throw an exception");
+    }
+    catch(InvalidParameterException eX)
+    {
+
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -690,9 +698,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable("abc", "def");
-      
+
       assertTrue(testCase.getVariable("abc").equals("def"));
     }
     catch(Exception eX)
@@ -701,8 +709,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -713,10 +721,10 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable("  abc  ", "def");
       assertTrue(testCase.getVariable("abc").equals("def"));
-      
+
     }
     catch(Exception eX)
     {
@@ -724,8 +732,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -736,10 +744,10 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable("abc", "  def  ");
-      assertTrue(testCase.getVariable("abc").equals("def"));
-      
+      assertTrue(testCase.getVariable("abc").equals("  def  "));
+
     }
     catch(Exception eX)
     {
@@ -747,8 +755,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -759,14 +767,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable(" ", "abc");
-      
-      fail("'' is not allowed to add as key");
+
+      fail("' ' is not allowed to add as key");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -774,8 +782,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -786,14 +794,14 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable(null, "abc");
-      
+
       fail("'Null' is not allowed to add as key");
     }
     catch(InvalidParameterException eX)
     {
-      
+
     }
     catch(Exception eX)
     {
@@ -801,8 +809,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -813,9 +821,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable("abc", "def");
-      
+
       assertTrue(testCase.hasVariable("abc"));
 
       assertFalse(testCase.hasVariable("def"));
@@ -826,8 +834,8 @@ public class TestCaseTest
     }
   }
 
-  
-  /*
+
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
@@ -838,9 +846,9 @@ public class TestCaseTest
     try
     {
       TestCase testCase = new TestCase("tc");
-      
+
       testCase.setVariable("abc", "def");
-      
+
       assertTrue(testCase.getVariable("abc").equals("def"));
     }
     catch(Exception eX)
@@ -849,14 +857,47 @@ public class TestCaseTest
     }
   }
 
-  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Testcases can contain 0..* variables. A key value pair chosen by the user.
+   */
+  @Test
+  public void getVariableWithNonExistingKey()
+  {
+    try
+    {
+      TestCase testCase = new TestCase("tc");
+
+      testCase.getVariable("abc");
+
+      fail("Request for non-existing key 'abc' should throw an exception");
+    }
+    catch(InvalidParameterException eX)
+    {
+
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * Basic implementation of abstract class TestAction to be able to run tests
+   * 
+   * @author Sjoerd Boerhout
+   */
   private class AbstractTestAction extends TestAction
   {
 
     protected AbstractTestAction(Logger newLogger) throws NullPointerException
     {
-      super(newLogger);
+      super(newLogger, 71183);
     }
+
 
     @Override
     public TestStatus execute()
@@ -864,18 +905,20 @@ public class TestCaseTest
       return null;
     }
 
+
     @Override
     public boolean isValid()
     {
       return false;
     }
 
+
     @Override
     public String toString()
     {
       return null;
     }
-    
+
   }
 
 }

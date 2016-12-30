@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,10 +12,11 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      27-08-2016
+ * Date: 27-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova.framework;
 
 import nl.dictu.prova.GlobalSetup;
@@ -26,9 +26,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
 /**
  * PROVA-12: Structure to handle test suites, cases and actions
- * <p>
+ * 
  * @author Sjoerd Boerhout
  */
 public class TestStatusTest
@@ -40,12 +41,12 @@ public class TestStatusTest
    * FAILED("Failed")
    */
 
-  private final static Logger LOGGER = LogManager.getLogger(
-          TestStatusTest.class.getName());
+  private final static Logger LOGGER = LogManager.getLogger(TestStatusTest.class.getName());
 
   private final int NUMBER_OF_STATES = 4;
 
-  /*
+
+  /**
    * One-time initialization code
    */
   @BeforeClass
@@ -55,19 +56,25 @@ public class TestStatusTest
   }
 
 
+  /**
+   * Validate the total number of test statuses
+   */
   @Test
-  public void checkNumberOfEnums()
+  public void testTotalNumberOfTestStatusEnums()
   {
-    LOGGER.debug("checkNumberOfEnums");
+    LOGGER.debug("TC: testTotalNumberOfTestStatusEnums");
 
     assertTrue(TestStatus.values().length == NUMBER_OF_STATES);
   }
 
 
+  /**
+   * Validate the NotRun test status
+   */
   @Test
-  public void checkNotRun()
+  public void testTestStatusNotRun()
   {
-    LOGGER.debug("checkNotRun");
+    LOGGER.debug("TC: testTestStatusNotRun");
 
     assertTrue(TestStatus.NOTRUN.getValue().equals("NotRun"));
     assertTrue(TestStatus.lookup("notrun").name().equals("NOTRUN"));
@@ -76,10 +83,13 @@ public class TestStatusTest
   }
 
 
+  /**
+   * Validate the Blocked test status
+   */
   @Test
-  public void checkBlocked()
+  public void testTestStatusBlocked()
   {
-    LOGGER.debug("checkBlocked");
+    LOGGER.debug("TC: testTestStatusBlocked");
 
     assertTrue(TestStatus.BLOCKED.getValue().equals("Blocked"));
     assertTrue(TestStatus.lookup("blocked").name().equals("BLOCKED"));
@@ -88,10 +98,13 @@ public class TestStatusTest
   }
 
 
+  /**
+   * Validate the Passed test status
+   */
   @Test
-  public void checkPassed()
+  public void testTestStatusPassed()
   {
-    LOGGER.debug("checkPassed");
+    LOGGER.debug("TC: testTestStatusPassed");
 
     assertTrue(TestStatus.PASSED.getValue().equals("Passed"));
     assertTrue(TestStatus.lookup("passed").name().equals("PASSED"));
@@ -100,10 +113,13 @@ public class TestStatusTest
   }
 
 
+  /**
+   * Validate the Failed test status
+   */
   @Test
-  public void checkFailed()
+  public void testTestStatusFailed()
   {
-    LOGGER.debug("checkFailed");
+    LOGGER.debug("TC: testTestStatusFailed");
 
     assertTrue(TestStatus.FAILED.getValue().equals("Failed"));
     assertTrue(TestStatus.lookup("failed").name().equals("FAILED"));

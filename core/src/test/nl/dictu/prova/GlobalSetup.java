@@ -24,7 +24,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 
 /**
- * Configure Junit
+ * Configuration for all unit tests
  *
  * @author Sjoerd Boerhout
  */
@@ -36,9 +36,13 @@ public class GlobalSetup
   }
 
 
+  /**
+   * Configure jUnit to display logging while running the unit tests.
+   * Available options: Fatal, Error, Warning, Info, Debug and Trace.
+   */
   private static void configureLog4j()
   {
-    System.setProperty("prova.log.level", LogLevel.TRACE.name());
+    System.setProperty("prova.log.level", LogLevel.DEBUG.name());
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     ctx.reconfigure();
   }

@@ -49,7 +49,7 @@ public class TestSuiteTest
   private static TestSuite subTestSuite;
 
 
-  /*
+  /**
    * One-time initialization code
    */
   @BeforeClass
@@ -200,7 +200,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -222,7 +222,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -248,7 +248,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -274,7 +274,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -297,7 +297,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -324,7 +324,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -351,7 +351,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each child test suite must be unique to prevent a loop Validate that an
@@ -381,7 +381,7 @@ public class TestSuiteTest
     }
   }
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each child test suite must be unique to prevent a loop. Validate that an
@@ -407,7 +407,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each child test suite must be unique to prevent a loop. Validate that an
@@ -434,7 +434,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -455,7 +455,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -488,7 +488,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -524,7 +524,7 @@ public class TestSuiteTest
   }
 
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -554,7 +554,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -586,7 +586,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -610,7 +610,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -631,7 +631,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -651,7 +651,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
@@ -672,7 +672,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * A test suite can have 0...* child test suites.
@@ -700,7 +700,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * A test suite can have 0...* child test suites.
@@ -733,7 +733,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * A test suite can have 0...* child test suites.
@@ -760,7 +760,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can have 0...* child test suites. Check that test suites
@@ -790,7 +790,7 @@ public class TestSuiteTest
   }
   
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can have 0...* child test suites. Check for correct number
@@ -805,7 +805,7 @@ public class TestSuiteTest
   }
   
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * A test suite can check if it has a specific test suite as a child.
@@ -819,7 +819,7 @@ public class TestSuiteTest
   }
   
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can have 0...* child test suites. Check that test suites
@@ -850,7 +850,7 @@ public class TestSuiteTest
   }
 
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can have 0...* child test suites. Check that test suites
@@ -871,7 +871,7 @@ public class TestSuiteTest
   }
   
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases
@@ -900,7 +900,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -926,7 +926,7 @@ public class TestSuiteTest
   }  
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases
@@ -960,7 +960,7 @@ public class TestSuiteTest
   } 
   
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -993,7 +993,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -1008,7 +1008,7 @@ public class TestSuiteTest
   }
   
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -1035,7 +1035,7 @@ public class TestSuiteTest
   }
 
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -1057,7 +1057,7 @@ public class TestSuiteTest
   } 
 
   
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
@@ -1088,7 +1088,7 @@ public class TestSuiteTest
   }
 
 
-  /*
+  /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.

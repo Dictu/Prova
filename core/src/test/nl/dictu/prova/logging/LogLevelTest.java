@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,22 +12,22 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      27-08-2016
+ * Date: 27-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova.logging;
 
 import nl.dictu.prova.GlobalSetup;
 import nl.dictu.prova.framework.TestAction;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertTrue;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 /**
  * PROVA-8: Option to log program execution with different log levels
@@ -45,60 +44,40 @@ import org.junit.Test;
 public class LogLevelTest
 {
 
-  private final static Logger LOGGER = LogManager.getLogger(TestAction.class.
-          getName());
+  private final static Logger LOGGER = LogManager.getLogger(TestAction.class.getName());
 
   private final int NUMBER_OF_STATES = 6;
 
-  public LogLevelTest()
-  {
-  }
 
-
+  /**
+   * One-time initialization code
+   */
   @BeforeClass
   public static void setUpClass()
   {
-    // Do global configurations
     GlobalSetup.configure();
   }
 
 
-  @AfterClass
-  public static void tearDownClass()
-  {
-  }
-
-
-  @Before
-  public void setUp()
-  {
-  }
-
-
-  @After
-  public void tearDown()
-  {
-  }
-
-
   /**
-   * Test if the total number of enums is correct
+   * Validate the total number of log levels
    */
   @Test
-  public void checkNumberOfEnums()
+  public void testNumberOfLogLevelEnums()
   {
-    LOGGER.debug("checkNumberOfEnums");
+    LOGGER.debug("TC: testNumberOfLogLevelEnums");
+
     assertTrue(LogLevel.values().length == NUMBER_OF_STATES);
   }
 
 
   /**
-   * Test the order of the enum values.
+   * Validate the priority of the log level enums
    */
   @Test
-  public void testValues()
+  public void testLogLevelsOrder()
   {
-    LOGGER.debug("testValues");
+    LOGGER.debug("TC: testLogLevelsOrder");
 
     assertTrue(LogLevel.FATAL.getValue() == 0);
     assertTrue(LogLevel.ERROR.getValue() == 1);
@@ -109,10 +88,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Fatal log level
+   */
   @Test
-  public void checkFatal()
+  public void testLogLevelFatal()
   {
-    LOGGER.debug("checkFatal");
+    LOGGER.debug("TC: testLogLevelFatal");
 
     assertTrue(LogLevel.lookup("fatal").name().equals("FATAL"));
     assertTrue(LogLevel.lookup("FaTaL").name().equals("FATAL"));
@@ -122,10 +104,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Error log level
+   */
   @Test
-  public void checkError()
+  public void testLogLevelError()
   {
-    LOGGER.debug("checkError");
+    LOGGER.debug("TC: testLogLevelError");
 
     assertTrue(LogLevel.lookup("error").name().equals("ERROR"));
     assertTrue(LogLevel.lookup("ErRoR").name().equals("ERROR"));
@@ -135,10 +120,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Warning log level
+   */
   @Test
-  public void checkWarning()
+  public void testLogLevelWarning()
   {
-    LOGGER.debug("checkWarning");
+    LOGGER.debug("TC: testLogLevelWarning");
 
     assertTrue(LogLevel.lookup("warn").name().equals("WARN"));
     assertTrue(LogLevel.lookup("WaRn").name().equals("WARN"));
@@ -148,10 +136,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Info log level
+   */
   @Test
-  public void checkInfo()
+  public void testLogLevelInfo()
   {
-    LOGGER.debug("checkInfo");
+    LOGGER.debug("TC: testLogLevelInfo");
 
     assertTrue(LogLevel.lookup("info").name().equals("INFO"));
     assertTrue(LogLevel.lookup("InFo").name().equals("INFO"));
@@ -161,10 +152,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Debug log level
+   */
   @Test
-  public void checkDebug()
+  public void testLogLevelDebug()
   {
-    LOGGER.debug("checkDebug");
+    LOGGER.debug("TC: testLogLevelDebug");
 
     assertTrue(LogLevel.lookup("debug").name().equals("DEBUG"));
     assertTrue(LogLevel.lookup("DeBuG").name().equals("DEBUG"));
@@ -174,10 +168,13 @@ public class LogLevelTest
   }
 
 
+  /**
+   * Validate the Trace log level
+   */
   @Test
-  public void checkTrace()
+  public void testLogLevelTrace()
   {
-    LOGGER.debug("checkTrace");
+    LOGGER.debug("TC: testLogLevelTrace");
 
     assertTrue(LogLevel.lookup("trace").name().equals("TRACE"));
     assertTrue(LogLevel.lookup("TrAcE").name().equals("TRACE"));
