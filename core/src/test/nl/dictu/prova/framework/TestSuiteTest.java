@@ -157,15 +157,19 @@ public class TestSuiteTest
    */
   private static void printLine(int level, String name)
   {
-    String line = level + ":";
-
-    for(int i = 0; i < level; i++)
+    if(LOGGER.isTraceEnabled())
     {
-      line += " ";
+      String line = level + ":";
+  
+      for(int i = 0; i < level; i++)
+      {
+        line += " ";
+      }
+      
+      line += name;
+  
+      LOGGER.trace(line);
     }
-    line += name;
-
-    LOGGER.trace(line);
   }
 
 
@@ -179,17 +183,20 @@ public class TestSuiteTest
    */
   private static void printTestSuite(TestSuite rootTestSuite, int level)
   {
-    rootTestSuite.getTestCases().entrySet().stream().forEach((entry) -> {
-      printLine(level, "TC: " + entry.getValue().getId());
-    });
-    LOGGER.trace("");
-
-    rootTestSuite.getTestSuites().entrySet().stream().map((entry) -> {
-      printLine(level, "TS: " + entry.getValue().getId());
-      return entry;
-    }).forEach((entry) -> {
-      printTestSuite(entry.getValue(), level + 1);
-    });
+    if(LOGGER.isTraceEnabled())
+    {
+      rootTestSuite.getTestCases().entrySet().stream().forEach((entry) -> {
+        printLine(level, "TC: " + entry.getValue().getId());
+      });
+      LOGGER.trace("");
+  
+      rootTestSuite.getTestSuites().entrySet().stream().map((entry) -> {
+        printLine(level, "TS: " + entry.getValue().getId());
+        return entry;
+      }).forEach((entry) -> {
+        printTestSuite(entry.getValue(), level + 1);
+      });
+    }
   }
 
 

@@ -121,24 +121,24 @@ public class TestSuite
 
 
   /**
-   * Configures a parent test suite. Uses NULL to set no parent.
+   * Configures a parent test suite. Uses NULL to (re)set (to) no parent.
    * NOTE: Do not directly call this function! Use the addTestSuite() function
    * of the parent.
    *
    * @param testSuite
    * @throws InvalidParameterException
    */
-  public void setParent(TestSuite testSuite) throws InvalidParameterException
+  protected void setParent(TestSuite testSuite) throws InvalidParameterException
   {
     LOGGER.trace("Set the parent of this test suite to ({})",
                  (testSuite == null ? "null" : testSuite.getId()));
 
-    // Prevent a loop! Can be caused when a test suite exists more than once
-    if(testSuite != null && hasTestSuite(testSuite.getId(), true))
+    // Prevent a loop! Can be caused when a test suite exists more than once in the structure
+    if(testSuite != null && getRootParent().hasTestSuite(testSuite.getId(), true))
     {
-      LOGGER.error("This testsuite already exists (as a child) in this suite! ({})",
+      LOGGER.error("This testsuite already exists (as a child) in this test suite structure! ({})",
                    () -> testSuite.getId());
-      throw new InvalidParameterException("This testsuite already exists (as a child) in this suite!");
+      throw new InvalidParameterException("This testsuite already exists (as a child) in this test suite structure!");
     }
 
     parent = testSuite;
