@@ -28,7 +28,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * A test suite is a container for sub-test suites and test cases. It is a
- * container with a unique ID and optional a parent test suite
+ * container with an unique ID and optional a parent test suite
  * Issues:
  * - PROVA-12: Structure to handle test suites, cases and actions
  *
@@ -99,7 +99,7 @@ public class TestSuite
 
     if(id.length() < 1)
     {
-      LOGGER.error("Invalid ID for new testsuite ({})", id);
+      LOGGER.error("Invalid ID length for new testsuite ({})", id);
       throw new InvalidParameterException("Invalid testsuite Id (" + id + ")");
     }
 
@@ -264,7 +264,7 @@ public class TestSuite
 
 
   /**
-   * Check if test suite has a test suite with {@link id}
+   * Check if test suite has a test suite with {@link id}.
    *
    * @param id
    * @return
@@ -276,7 +276,8 @@ public class TestSuite
 
 
   /**
-   * Check if test suite has a test suite with {@link id}
+   * Check if test suite has a test suite with {@link id}. When
+   * {@link checkSubTestSuites} is set to true all sub-suites are checked as well.
    *
    * @param id
    * @param checkSubTestSuites
@@ -291,7 +292,7 @@ public class TestSuite
     {
       return true;
     }
-
+    
     for(Map.Entry<String, TestSuite> entry : testSuites.entrySet())
     {
       if(entry.getValue().getId().equals(id))
