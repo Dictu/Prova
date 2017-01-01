@@ -29,8 +29,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.security.InvalidParameterException;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -934,10 +937,27 @@ public class TestSuiteTest
       testSuites = parent.getTestSuites();
       
       assertTrue(testSuites.size() == 3);
-      // TODO update to get the required element
-      assertTrue(testSuites.get(0).equals(child1));
-      assertTrue(testSuites.get(1).equals(child2));
-      assertTrue(testSuites.get(2).equals(child3));
+
+      Iterator<String> kyIt = testSuites.keySet().iterator();
+      String key = kyIt.next();
+      assertTrue(key.equals("child1"));
+      
+      key = kyIt.next();
+      assertTrue(key.equals("child2"));
+      
+      key = kyIt.next();
+      assertTrue(key.equals("child3"));
+      
+      
+      Iterator<TestSuite> tsIt = testSuites.values().iterator();
+      TestSuite testSuite = tsIt.next();
+      assertTrue(testSuite.equals(child1));
+      
+      testSuite = tsIt.next();
+      assertTrue(testSuite.equals(child2));
+      
+      testSuite = tsIt.next();
+      assertTrue(testSuite.equals(child3));
     }
     catch(Exception eX)
     {
@@ -974,10 +994,27 @@ public class TestSuiteTest
       testCases = parent.getTestCases();
       
       assertTrue(testCases.size() == 3);
-      // TODO update to get the required element
-      assertTrue(testCases.get(0).equals(child1));
-      assertTrue(testCases.get(1).equals(child2));
-      assertTrue(testCases.get(2).equals(child3));
+
+      Iterator<String> kyIt = testCases.keySet().iterator();
+      String key = kyIt.next();
+      assertTrue(key.equals("child1"));
+      
+      key = kyIt.next();
+      assertTrue(key.equals("child2"));
+      
+      key = kyIt.next();
+      assertTrue(key.equals("child3"));
+      
+      
+      Iterator<TestCase> tsIt = testCases.values().iterator();
+      TestCase testCase = tsIt.next();
+      assertTrue(testCase.equals(child1));
+      
+      testCase = tsIt.next();
+      assertTrue(testCase.equals(child2));
+      
+      testCase = tsIt.next();
+      assertTrue(testCase.equals(child3));
     }
     catch(Exception eX)
     {
