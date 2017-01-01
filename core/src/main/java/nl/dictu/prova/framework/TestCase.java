@@ -21,6 +21,7 @@ package nl.dictu.prova.framework;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -158,6 +159,11 @@ public class TestCase
       throw new InvalidParameterException("Setup action can not be 'null'");
     }
 
+    if(setUpActions.contains(setUpAction))
+    {
+      throw new InvalidParameterException("Action '" + setUpAction.getId() + "' already added to test case.");
+    }
+
     setUpActions.add(setUpAction);
   }
 
@@ -177,6 +183,11 @@ public class TestCase
       throw new InvalidParameterException("Setup action can not be 'null'");
     }
 
+    if(testActions.contains(testAction))
+    {
+      throw new InvalidParameterException("Action '" + testAction.getId() + "' already added to test case.");
+    }
+    
     testActions.add(testAction);
   }
 
@@ -195,6 +206,11 @@ public class TestCase
     if(tearDownAction == null)
     {
       throw new InvalidParameterException("Setup action can not be 'null'");
+    }
+
+    if(tearDownActions.contains(tearDownAction))
+    {
+      throw new InvalidParameterException("Action '" + tearDownAction.getId() + "' already added to test case.");
     }
 
     tearDownActions.add(tearDownAction);
@@ -291,7 +307,7 @@ public class TestCase
 
     if( !headers.containsKey(key))
     {
-      throw new InvalidParameterException("No header with value '" + key + "' found!");
+      throw new NoSuchElementException("No header with value '" + key + "' found!");
     }
 
     return headers.getProperty(key);
@@ -352,7 +368,7 @@ public class TestCase
     LOGGER.trace("Get value of variable: '{}' ({})", () -> key,
                  () -> variables.containsKey(key) ? variables.getProperty(key) : "Not found");
 
-    if( !variables.containsKey(key)) throw new InvalidParameterException("No variable with value '"
+    if( !variables.containsKey(key)) throw new NoSuchElementException("No variable with value '"
                                                                          + key + "' found!");
 
     return variables.getProperty(key);

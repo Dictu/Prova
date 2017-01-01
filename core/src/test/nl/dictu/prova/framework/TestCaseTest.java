@@ -1082,16 +1082,6 @@ public class TestCaseTest
     }
   }
 
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
@@ -1099,10 +1089,12 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void setVariableWithValidValue()
+  public void testThatVariablesWithCustomValuesCanBeAddedToAndRetrievedFromTestCases()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithCustomValuesCanBeAddedToAndRetrievedFromTestCases");
+      
       TestCase testCase = new TestCase("tc");
 
       testCase.setVariable("abc", "def");
@@ -1125,11 +1117,14 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void setVariableWithValidKeyIncludingPrefixAndPostfixSpacesInKey()
+  public void testThatVariablesWithPreAndPostSpacesInKeysAreTrimmed()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithPreAndPostSpacesInKeysAreTrimmed");
+      
       TestCase testCase = new TestCase("tc");
+
       testCase.setVariable("  abc  ", "def");
       
       assertTrue(testCase.getVariable("abc").equals("def"));
@@ -1150,13 +1145,16 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void setVariableWithValidKeyIncludingPrefixAndPostfixSpacesInValue()
+  public void testThatVariablesWithPreAndPostSpacesInValuesAreNotTrimmed()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithPreAndPostSpacesInValuesAreNotTrimmed");
+      
       TestCase testCase = new TestCase("tc");
 
       testCase.setVariable("abc", "  def  ");
+      
       assertTrue(testCase.getVariable("abc").equals("  def  "));
     }
     catch(Exception eX)
@@ -1175,10 +1173,12 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void setVariableWithInvalidKey()
+  public void testThatVariablesWithOnlySpacesInKeyAreNotAccepted()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithOnlySpacesInKeyAreNotAccepted");
+      
       TestCase testCase = new TestCase("tc");
 
       testCase.setVariable(" ", "abc");
@@ -1205,15 +1205,17 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void setVariableWithNullAsKey()
+  public void testThatVariablesWithOnlySpacesInValuesAreAccepted()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithOnlySpacesInValuesAreAccepted");
+      
       TestCase testCase = new TestCase("tc");
 
-      testCase.setVariable(null, "abc");
+      testCase.setVariable("abc", " ");
 
-      fail("'Null' is not allowed to add as key");
+      assertTrue(testCase.getVariable("abc").equals(" "));
     }
     catch(InvalidParameterException eX)
     {
@@ -1229,16 +1231,76 @@ public class TestCaseTest
   }
 
 
+
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void hasVariable()
+  public void testThatVariablesWithNullAsKeyAreNotAccepted()
   {
     try
     {
+      LOGGER.debug("TC: testThatVariablesWithNullAsKeyAreNotAccepted");
+      
+      TestCase testCase = new TestCase("tc");
+      testCase.setVariable(null, "abc");
+
+      fail("'Null' is not allowed to add as key");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Testcases can contain 0..* variables. A key value pair chosen by the user.
+   */
+  @Test
+  public void testThatVariablesWithNullAsValueAreNotAccepted()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatVariablesWithNullAsValueAreNotAccepted");
+      
+      TestCase testCase = new TestCase("tc");
+      testCase.setVariable("abc", null);
+
+      fail("'Null' is not allowed to add as value");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Testcases can contain 0..* variables. A key value pair chosen by the user.
+   */
+  @Test
+  public void testThatTestCasesCanBeSearchedForSpecificVariablesOnKeyValue()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestCasesCanBeSearchedForSpecificVariablesOnKeyValue");
+      
       TestCase testCase = new TestCase("tc");
       testCase.setVariable("abc", "def");
 
@@ -1253,7 +1315,7 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-
+  
 
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
@@ -1261,41 +1323,19 @@ public class TestCaseTest
    * Testcases can contain 0..* variables. A key value pair chosen by the user.
    */
   @Test
-  public void getVariableWithValidValue()
+  public void testThatTestCasesReturnAnExceptionWhenAnNonExisitingVariableIsRequested()
   {
     try
     {
-      TestCase testCase = new TestCase("tc");
-      testCase.setVariable("abc", "def");
-
-      assertTrue(testCase.getVariable("abc").equals("def"));
-    }
-    catch(Exception eX)
-    {
-      if(LOGGER.isErrorEnabled())
-        eX.printStackTrace();
+      LOGGER.debug("TC: testThatTestCasesReturnAnExceptionWhenAnNonExisitingVariableIsRequested");
       
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Testcases can contain 0..* variables. A key value pair chosen by the user.
-   */
-  @Test
-  public void getVariableWithNonExistingKey()
-  {
-    try
-    {
       TestCase testCase = new TestCase("tc");
+
       testCase.getVariable("abc");
 
-      fail("Request for non-existing key 'abc' should throw an exception");
+      fail("Request for non-existing key 'abc' should throw an NoSuchElementException");
     }
-    catch(InvalidParameterException eX)
+    catch(NoSuchElementException eX)
     {
       // Test passed
     }
