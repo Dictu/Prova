@@ -74,6 +74,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -102,6 +105,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -130,6 +136,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -156,6 +165,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -185,6 +197,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -208,6 +223,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -236,6 +254,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -264,6 +285,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -290,6 +314,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -321,6 +348,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -357,6 +387,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -377,11 +410,14 @@ public class TestActionTest
       AbstractTestAction testAction = new AbstractTestAction(LOGGER);
 
       testAction.setAttribute("  abc  ", "def");
+      
       assertTrue(testAction.getAttribute("abc").equals("def"));
-
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -406,6 +442,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -434,6 +473,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -462,6 +504,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -490,6 +535,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -514,6 +562,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -538,6 +589,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -566,6 +620,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -593,6 +650,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception: " + eX.getMessage());
     }
   }
@@ -618,6 +678,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -654,6 +717,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -679,6 +745,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -703,6 +772,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -731,6 +803,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -759,6 +834,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -787,6 +865,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -811,6 +892,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -835,6 +919,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -863,6 +950,9 @@ public class TestActionTest
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -934,9 +1024,7 @@ public class TestActionTest
     {
       Thread.sleep(50);
     }
-    catch(Exception eX)
-    {
-    }
+    catch(Exception eX){}
 
     endTime = testAction.endExecution();
 
@@ -952,12 +1040,11 @@ public class TestActionTest
   @Test
   public void testActionExecutionTimeWithInvalidStartTime()
   {
-    LOGGER.debug("TC: testActionExecutionTimeWithInvalidStartTime");
-
-    AbstractTestAction testAction = new AbstractTestAction(LOGGER);
-
     try
     {
+      LOGGER.debug("TC: testActionExecutionTimeWithInvalidStartTime");
+      
+      AbstractTestAction testAction = new AbstractTestAction(LOGGER);
       testAction.endExecution();
       testAction.getExecutionTime();
 
@@ -965,10 +1052,13 @@ public class TestActionTest
     }
     catch(InvalidParameterException eX)
     {
-
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -980,12 +1070,12 @@ public class TestActionTest
   @Test
   public void testActionExecutionTimeWithInvalidEndTime()
   {
-    LOGGER.debug("TC: testActionExecutionTimeWithInvalidEndTime");
-
-    AbstractTestAction testAction = new AbstractTestAction(LOGGER);
-
     try
     {
+      LOGGER.debug("TC: testActionExecutionTimeWithInvalidEndTime");
+
+      AbstractTestAction testAction = new AbstractTestAction(LOGGER);
+    
       testAction.startExecution();
       testAction.getExecutionTime();
 
@@ -993,10 +1083,13 @@ public class TestActionTest
     }
     catch(InvalidParameterException eX)
     {
-
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
