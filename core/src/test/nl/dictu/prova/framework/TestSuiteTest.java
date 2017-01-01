@@ -19,6 +19,7 @@
 package nl.dictu.prova.framework;
 
 import nl.dictu.prova.GlobalSetup;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
@@ -29,6 +30,7 @@ import static org.junit.Assert.fail;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -207,16 +209,22 @@ public class TestSuiteTest
    * Create a test suite with a valid identifier.
    */
   @Test
-  public void createTestSuiteWithValidIdentifier()
+  public void testThatTestSuiteCanBeCreatedWithAnIndentifier()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestSuiteCanBeCreatedWithAnIndentifier");
+
       TestSuite testSuite = new TestSuite("qwerty");
+      
       assertTrue(testSuite.getId().contentEquals("qwerty"));
       assertNull(testSuite.getParent());
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
   }
@@ -226,13 +234,109 @@ public class TestSuiteTest
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Unique identifier per test suite which is not empty.
-   * Validate that ' ' is not a valid identifier
+   * Create a test suite with a valid identifier.
    */
   @Test
-  public void createTestSuiteWithEmptyIdentifier()
+  public void testThatTestSuiteCanBeCreatedWithAnIndentifierAndWithParent()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestSuiteCanBeCreatedWithAnIndentifierAndWithParent");
+
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty", parent);
+      
+      assertTrue(testSuite.getId().contentEquals("qwerty"));
+      assertTrue(testSuite.getParent().equals(parent));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Validate that '' is not a valid identifier
+   */
+  @Test
+  public void testThatTestSuiteCantBeCreatedWithEmptyIdentifier()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantBeCreatedWithEmptyIdentifier");
+      
+      @SuppressWarnings("unused")
+      TestSuite tmpTestSuite1 = new TestSuite("");
+
+      fail("Empty identifier is not allowed!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Validate that '' is not a valid identifier
+   */
+  @Test
+  public void testThatTestSuiteCantBeCreatedWithEmptyIdentifierAndWithParent()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantBeCreatedWithEmptyIdentifierAndWithParent");
+
+      TestSuite parent = new TestSuite("");
+      @SuppressWarnings("unused")
+      TestSuite tmpTestSuite1 = new TestSuite("", parent);
+
+      fail("Empty identifier is not allowed!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Validate that ' ' is not a valid identifier
+   */
+  @Test
+  public void testThatTestSuiteCantBeCreatedWithSpaceAsIdentifier()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantBeCreatedWithSpaceAsIdentifier");
+      
       @SuppressWarnings("unused")
       TestSuite tmpTestSuite1 = new TestSuite(" ");
 
@@ -240,63 +344,18 @@ public class TestSuiteTest
     }
     catch(InvalidParameterException eX)
     {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
 
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Validate that 'null' is not a valid identifier
-   */
-  @Test
-  public void createTestSuiteWithNullAsIdentifier()
-  {
-    try
-    {
-      @SuppressWarnings("unused")
-      TestSuite tmpTestSuite1 = new TestSuite(null);
-
-      fail("Null as identifier is not allowed!");
-    }
-    catch(InvalidParameterException eX)
-    {
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Create a test suite with a parent and a valid identifier.
-   */
-  @Test
-  public void createTestSuiteWithValidIdentifierAndParent()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite = new TestSuite("qwerty", parent);
-
-      assertTrue(testSuite.getId().contentEquals("qwerty"));
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
+  
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
@@ -304,21 +363,27 @@ public class TestSuiteTest
    * Validate that ' ' is not a valid identifier
    */
   @Test
-  public void createTestSuiteWithEmptyIdentifierAndParent()
+  public void testThatTestSuiteCantBeCreatedWithSpaceAsIdentifierAndWithParent()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestSuiteCantBeCreatedWithSpaceAsIdentifierAndWithParent");
+      
       TestSuite parent = new TestSuite("parent");
       @SuppressWarnings("unused")
-      TestSuite testSuite = new TestSuite(" ", parent);
+      TestSuite tmpTestSuite1 = new TestSuite(" ", parent);
 
       fail("Empty identifier is not allowed!");
     }
     catch(InvalidParameterException eX)
     {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -331,21 +396,59 @@ public class TestSuiteTest
    * Validate that 'null' is not a valid identifier
    */
   @Test
-  public void createTestSuiteWithoutParentAndNullAsIdentifier()
+  public void testThatTestSuiteCantBeCreatedWithNullAsIdentifier()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestCaseCantBeCreatedWithNullAsIdentifier");
+      
+      @SuppressWarnings("unused")
+      TestSuite tmpTestSuite1 = new TestSuite(null);
+
+      fail("Null as identifier is not allowed!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+     
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Validate that 'null' is not a valid identifier
+   */
+  @Test
+  public void testThatTestSuiteCantBeCreatedWithNullAsIdentifierAndWithParent()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantBeCreatedWithNullAsIdentifierAndWithParent");
+
       TestSuite parent = new TestSuite("parent");
       @SuppressWarnings("unused")
-      TestSuite testSuite = new TestSuite(null, parent);
+      TestSuite tmpTestSuite1 = new TestSuite(null, parent);
 
-      fail("'Null' identifier is not allowed!");
+      fail("Null as identifier is not allowed!");
     }
     catch(InvalidParameterException eX)
     {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+     
       fail("Unexpected exception " + eX.getMessage());
     }
   }
@@ -354,364 +457,15 @@ public class TestSuiteTest
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Each child test suite must be unique to prevent a loop Validate that an
-   * added test suite doesn't already exists in the tree.
+   * Each (child)test suite in the structure has a unique identifier
    */
   @Test
-  public void createTestSuiteWithItselfAsParent()
-  {
-    TestSuite testSuiteRoot = null;
-
-    try
-    {
-      testSuiteRoot = new TestSuite("root");
-
-      testSuiteRoot.addTestSuite(testSuiteRoot);
-      testSuiteRoot.setParent(testSuiteRoot);
-
-      fail("A test suite can't be it's own parent!");
-    }
-    catch(InvalidParameterException eX)
-    {
-      assertEquals(0, testSuiteRoot.getTestSuites().size());
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-  
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each child test suite must be unique to prevent a loop. Validate that an
-   * added test suite doesn't already exists in the tree.
-   */
-  @Test
-  public void createTestSuiteWithDirectParentLoop()
-  {
-    TestSuite testSuiteRoot = new TestSuite("root");
-
-    try
-    {
-      TestSuite testSuite1 = new TestSuite("azerty", testSuiteRoot);
-
-      testSuiteRoot.addTestSuite(testSuite1);
-
-      fail("Child test suites must be unique!");
-    }
-    catch(Exception eX)
-    {
-      assertEquals(0, testSuiteRoot.getTestSuites().size());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each child test suite must be unique to prevent a loop. Validate that an
-   * added test suite doesn't already exists in the tree.
-   */
-  @Test
-  public void createTestSuiteWithIndirectParentLoop()
-  {
-    TestSuite testSuiteRoot = new TestSuite("root");
-
-    try
-    {
-      TestSuite testSuite1 = new TestSuite("azerty", testSuiteRoot);
-      TestSuite testSuite2 = new TestSuite("azerty", testSuite1);
-
-      testSuiteRoot.addTestSuite(testSuite2);
-
-      fail("Child test suites must be unique!");
-    }
-    catch(Exception eX)
-    {
-      assertEquals(0, testSuiteRoot.getTestSuites().size());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Test the getId-function.
-   */
-  @Test
-  public void getId()
+  public void testThatChildTestSuitesHaveUniqueId()
   {
     try
     {
-      TestSuite testSuite = new TestSuite("qwerty");
-      assertTrue(testSuite.getId().contentEquals("qwerty"));
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Set parent with a valid identifier
-   */
-  @Test
-  public void checkSetParentWithSetParent()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite = new TestSuite("qwerty");
-
-      testSuite.setParent(parent);
-
-      assertTrue(testSuite.hasParent());
-      assertFalse(parent.hasParent());
-      assertTrue(testSuite.getParent() == parent);
-      assertNull(parent.getParent());
-      //assertTrue(parent.getTestSuite("qwerty") == testSuite);
-    }
-    catch(InvalidParameterException eX)
-    {
-      fail("Identifier 'parent' is valid!");
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Reset parent with identifier 'null'
-   */
-  @Test
-  public void checkSetParentWithResetParent()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite = new TestSuite("qwerty");
-
-      testSuite.setParent(parent);
-
-      assertTrue(testSuite.hasParent());
-      assertTrue(testSuite.getParent() == parent);
-      //assertTrue(parent.getTestSuite("qwerty") == testSuite);
-
-      testSuite.setParent(null);
-
-      assertFalse(testSuite.hasParent());
-      assertNull(testSuite.getParent());
-    }
-    catch(InvalidParameterException eX)
-    {
-      fail("Identifier 'null' is valid to reset the parent!");
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-  
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check if test suite has a parent with valid parent
-   */
-  @Test
-  public void checkHasParentWithParent()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite1 = new TestSuite("qwerty", parent);
-      TestSuite testSuite2 = new TestSuite("qwerty");
-      testSuite2.setParent(parent);
-
-      assertTrue(testSuite1.hasParent());
-      assertTrue(testSuite2.hasParent());
-    }
-    catch(InvalidParameterException eX)
-    {
-      fail("Identifier 'parent' is valid!");
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check if test suite has a parent without a parent
-   */
-  @Test
-  public void checkHasParentWithoutParent()
-  {
-    try
-    {
-      TestSuite testSuite1 = new TestSuite("qwerty", null);
-      TestSuite testSuite2 = new TestSuite("qwerty");
-
-      assertFalse(testSuite2.hasParent());
-
-      testSuite2.setParent(null);
-
-      assertFalse(testSuite1.hasParent());
-      assertFalse(testSuite2.hasParent());
-    }
-    catch(InvalidParameterException eX)
-    {
-      fail("Identifier 'null' is valid!");
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check get parent test suite with a valid parent.
-   */
-  @Test
-  public void checkGetParentWithValidParent()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite = new TestSuite("qwerty", parent);
-
-      assertTrue(testSuite.getParent().equals(parent));
-      assertTrue(testSuite.getParent().getId().contentEquals("parent"));
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check get parent test suite with no parent.
-   */
-  @Test
-  public void checkGetParentWithoutParent()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("qwerty");
-      assertNull(testSuite.getParent());
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check get root parent test suite with a valid parent.
-   */
-  @Test
-  public void checkGetRootParentWithValidParent()
-  {
-    try
-    {
-      assertTrue(subTestSuite.getRootParent().equals(testRoot));
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Unique identifier per test suite which is not empty.
-   * Check get root parent test suite with no parent.
-   */
-  @Test
-  public void checkGetRootParentWithoutParent()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("qwerty");
-      assertTrue(testSuite.getRootParent() == testSuite);
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * A test suite can have 0...* child test suites.
-   * Check add a child test suite to the test suite.
-   */
-  @Test
-  public void checkAddTestSuiteWithValidTestSuite()
-  {
-    try
-    {
-      TestSuite parent = new TestSuite("parent");
-      TestSuite testSuite = new TestSuite("qwerty");
-
-      parent.addTestSuite(testSuite);
-      assertTrue(parent.getTestSuite("qwerty") == testSuite);
-    }
-    catch(InvalidParameterException eX)
-    {
-
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * A test suite can have 0...* child test suites.
-   * Check add a child test suite with already existing id to the test suite
-   * results in an exception.
-   */
-  @Test
-  public void checkAddTestSuiteWithAnInvalidTestSuite()
-  {
-    try
-    {
+      LOGGER.debug("TC: testThatChildTestSuitesHaveUniqueId");
+      
       TestSuite parent = new TestSuite("parent");
       TestSuite testSuite1 = new TestSuite("qwerty");
       TestSuite testSuite2 = new TestSuite("qwerty");
@@ -725,25 +479,68 @@ public class TestSuiteTest
     }
     catch(InvalidParameterException eX)
     {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
-  }
+  }  
 
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each (child)test case in the structure has a unique identifier
+   */
+  @Test
+  public void testThatChildTestCasesHaveUniqueId()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatChildTestCasesHaveUniqueId");
+      
+      TestSuite parent = new TestSuite("parent");
+      TestCase testCase1 = new TestCase("qwerty");
+      TestCase testCase2 = new TestCase("qwerty");
 
+      parent.addTestCase(testCase1);
+      assertTrue(parent.getTestCase("qwerty") == testCase1);
+
+      parent.addTestCase(testCase2);
+
+      fail("Adding a test case with an already existing ID is not allowed.");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  } 
+ 
+  
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * A test suite can have 0...* child test suites.
-   * Check add a child test suite 'null' the test suite results in an exception.
+   * Each child test suite must be a valid test suite.
    */
   @Test
-  public void checkAddTestSuiteWithNullAsTestSuite()
+  public void testThatChildTestSuitesCantBeNull()
   {
     try
     {
+      LOGGER.debug("TC: testThatChildTestSuitesCantBeNull");
+      
       TestSuite parent = new TestSuite("parent");
 
       parent.addTestSuite(null);
@@ -752,40 +549,89 @@ public class TestSuiteTest
     }
     catch(InvalidParameterException eX)
     {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
     }
-  }
-
-
+  }  
+  
+  
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Each test suite can have 0...* child test suites. Check that test suites
-   * can be added to the set and counted correctly.
+   * A test suite can have 0...* child test suites.
+   * Each child test case must be a valid test case.
    */
   @Test
-  public void checkNumberOfTestSuites()
+  public void testThatChildTestCasesCantBeNull()
   {
     try
     {
-      TestSuite testSuite = new TestSuite("root");
-      TestSuite child1 = new TestSuite("child1");
-      TestSuite child2 = new TestSuite("child2");
+      LOGGER.debug("TC: testThatChildTestCasesCantBeNull");
+      
+      TestSuite parent = new TestSuite("parent");
 
-      assertEquals(0, testSuite.getTestSuites().size());
+      parent.addTestCase(null);
 
-      testSuite.addTestSuite(child1);
-      assertEquals(1, testSuite.getTestSuites().size());
-
-      testSuite.addTestSuite(child2);
-      assertEquals(2, testSuite.getTestSuites().size());
+      fail("Adding a test case 'null' is not allowed.");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
     }
     catch(Exception eX)
     {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
       fail(eX.getMessage());
+    }
+  }  
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each child test suite must be unique to prevent a loop Validate that an
+   * added test suite doesn't already exists in the tree.
+   */
+  @Test
+  public void testThatTestSuiteCantBeItsOwnParent()
+  {
+    TestSuite testSuiteRoot = null;
+
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantBeItsOwnParent");
+      
+      testSuiteRoot = new TestSuite("root");
+
+      testSuiteRoot.addTestSuite(testSuiteRoot);
+      testSuiteRoot.setParent(testSuiteRoot);
+      
+      TestSuite parent = new TestSuite("parent");
+      testSuiteRoot = new TestSuite("root", parent);
+
+      testSuiteRoot.addTestSuite(testSuiteRoot);
+      testSuiteRoot.setParent(testSuiteRoot);
+
+      fail("A test suite can't be it's own parent!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      assertEquals(0, testSuiteRoot.getTestSuites().size());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
   
@@ -793,29 +639,454 @@ public class TestSuiteTest
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Each test suite can have 0...* child test suites. Check for correct number
-   * of child test suites.
+   * Each child test suite must be unique to prevent a loop. Validate that an
+   * added test suite doesn't already exists in the tree.
    */
   @Test
-  public void checkCountAllLevelsChildTestSuites()
+  public void testThatTestSuiteCantCreateDirectLoop()
   {
-    assertEquals(1, testRoot.numberOfTestSuites());
-    assertEquals(1, testRoot.numberOfTestSuites(false));
-    assertEquals(7, testRoot.numberOfTestSuites(true));
+    TestSuite testSuiteRoot = new TestSuite("root");
+
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantCreateDirectLoop");
+      
+      TestSuite testSuite1 = new TestSuite("azerty", testSuiteRoot);
+      testSuiteRoot.addTestSuite(testSuite1);
+
+      fail("Child test suites must be unique!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+      assertEquals(0, testSuiteRoot.getTestSuites().size());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each child test suite must be unique to prevent a loop. Validate that an
+   * added test suite doesn't already exists in the tree.
+   */
+  @Test
+  public void testThatTestSuiteCantCreateIndirectLoop()
+  {
+    TestSuite testSuiteRoot = new TestSuite("root");
+
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCantCreateIndirectLoop");
+      
+      TestSuite testSuite1 = new TestSuite("azerty", testSuiteRoot);
+      TestSuite testSuite2 = new TestSuite("azerty", testSuite1);
+
+      testSuiteRoot.addTestSuite(testSuite2);
+
+      fail("Child test suites must be unique!");
+    }
+    catch(InvalidParameterException eX)
+    {
+      // Test passed
+      assertEquals(0, testSuiteRoot.getTestSuites().size());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Test the getId-function.
+   */
+  @Test
+  public void testThatGetIdReturnsTheTestSuiteId()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatGetIdReturnsTheTestSuiteId");
+      
+      TestSuite testSuite = new TestSuite("qwerty");
+      
+      assertTrue(testSuite.getId().contentEquals("qwerty"));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Set parent with a valid identifier
+   */
+  @Test
+  public void testThatTestSuiteParentCanBeSetAndRetrieved()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteParentCanBeSetAndRetrieved");
+      
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty", parent);
+
+      assertTrue(testSuite.hasParent());
+      assertFalse(parent.hasParent());
+      assertTrue(testSuite.getParent() == parent);
+      assertNull(parent.getParent());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Unique identifier per test suite which is not empty.
+   * Reset parent with identifier 'null'
+   */
+  @Test
+  public void testThatTestSuiteParentCanBeCleared()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteParentCanBeCleared");
+      
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty");
+
+      testSuite.setParent(parent);
+
+      assertTrue(testSuite.hasParent());
+      assertTrue(testSuite.getParent() == parent);
+
+      testSuite.setParent(null);
+
+      assertFalse(testSuite.hasParent());
+      assertNull(testSuite.getParent());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * A parent test suite can be set after creating a test suite.
+   */
+  @Test
+  public void testTestSuiteParentCanBeSetAfterCreatingTestSuite()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTestSuiteParentCanBeSetAfterCreatingTestSuite");
+
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty");
+      testSuite.setParent(parent);
+
+      assertTrue(testSuite.hasParent());
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * A parent test suite can be set after adding as a child.
+   */
+  @Test
+  public void testTestSuiteParentLinkAfterAddingAsChildTestSuite()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTestSuiteParentLinkAfterAddingAsChildTestSuite");
+
+      TestSuite parent = new TestSuite("parent");
+      TestSuite testSuite = new TestSuite("qwerty");
+      parent.addTestSuite(testSuite);
+      
+      assertTrue(parent.getTestSuite("qwerty") == testSuite);
+      assertTrue(testSuite.getParent() == parent);
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test suite can have an optional parent test suite. 
+   */
+  @Test
+  public void testThatTheRootTestSuiteCanBeRetrieved()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTheRootTestSuiteCanBeRetrieved");
+      
+      // Use the pre-defined test suite structure for this test
+      assertTrue(subTestSuite.getRootParent().equals(testRoot));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test suite can have an optional parent test suite. 
+   */
+  @Test
+  public void testThatTestSuiteCanBeTheRootTestSuite()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuiteCanBeTheRootTestSuite");
+      
+      TestSuite testSuite = new TestSuite("qwerty");
+      assertTrue(testSuite.getRootParent() == testSuite);
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail(eX.getMessage());
+    }
+  }
+
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Test suites can be added to a test suite and retrieved in the same order.
+   */
+  @Test
+  public void testThatTestSuitesAddedToTestSuitesCanBeRetrievedInTheSameOrder()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuitesAddedToTestSuitesCanBeRetrievedInTheSameOrder");
+      
+      TestSuite parent = new TestSuite("parent");
+      TestSuite child1 = new TestSuite("child1");
+      TestSuite child2 = new TestSuite("child2");
+      TestSuite child3 = new TestSuite("child3");
+      LinkedHashMap<String, TestSuite> testSuites;
+      
+      parent.addTestSuite(child1);
+      parent.addTestSuite(child2);
+      parent.addTestSuite(child3);
+      
+      testSuites = parent.getTestSuites();
+      
+      assertTrue(testSuites.size() == 3);
+      // TODO update to get the required element
+      assertTrue(testSuites.get(0).equals(child1));
+      assertTrue(testSuites.get(1).equals(child2));
+      assertTrue(testSuites.get(2).equals(child3));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Test cases can be added to a test suite and retrieved in the same order.
+   */
+  @Test
+  public void testThatTestCasesAddedToTestSuitesCanBeRetrievedInTheSameOrder()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestCasesAddedToTestSuitesCanBeRetrievedInTheSameOrder");
+      
+      TestSuite parent = new TestSuite("parent");
+      TestCase child1 = new TestCase("child1");
+      TestCase child2 = new TestCase("child2");
+      TestCase child3 = new TestCase("child3");
+      LinkedHashMap<String, TestCase> testCases;
+      
+      parent.addTestCase(child1);
+      parent.addTestCase(child2);
+      parent.addTestCase(child3);
+      
+      testCases = parent.getTestCases();
+      
+      assertTrue(testCases.size() == 3);
+      // TODO update to get the required element
+      assertTrue(testCases.get(0).equals(child1));
+      assertTrue(testCases.get(1).equals(child2));
+      assertTrue(testCases.get(2).equals(child3));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be count for current level
+   */
+  @Test
+  public void testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted");
+      
+      assertEquals(1, testRoot.numberOfTestSuites());
+      assertEquals(1, testRoot.numberOfTestSuites(false));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be count for current and lower level
+   */
+  @Test
+  public void testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted");
+
+      assertEquals(7, testRoot.numberOfTestSuites(true));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be searched for a specific test suite
+   */
+  @Test
+  public void testTestSuitesCanBeSearchedForSpecificTestSuite()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestSuite");
+
+      assertTrue(testRoot.hasTestSuite(childTestSuite.getId()));
+      assertFalse(testRoot.hasTestSuite(subTestSuite.getId(), false));
+      assertTrue(testRoot.hasTestSuite(subTestSuite.getId(), true));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
   
   
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * A test suite can check if it has a specific test suite as a child.
+   * (Child) test suites can be searched for a specific test case
    */
   @Test
-  public void checkHasTestSuite()
+  public void testTestSuitesCanBeSearchedForSpecificTestCase()
   {
-    assertTrue(testRoot.hasTestSuite(childTestSuite.getId()));
-    assertFalse(testRoot.hasTestSuite(subTestSuite.getId(), false));
-    assertTrue(testRoot.hasTestSuite(subTestSuite.getId(), true));
+    try
+    {
+      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestCase");
+      
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01"));  
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01",false));         
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01",true));                 
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
   }
   
   
@@ -900,31 +1171,6 @@ public class TestSuiteTest
   }
 
 
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Validate that 'null' is not a valid test case to add.
-   */
-  @Test
-  public void addTestCaseWithNullAsIdentifier()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("ts");
-      testSuite.addTestCase(null);
-
-      fail("Identifier 'null' is not allowed!");
-    }
-    catch(InvalidParameterException eX)
-    {
-    }
-    catch(Exception eX)
-    {
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }  
-
 
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
@@ -1008,31 +1254,6 @@ public class TestSuiteTest
   }
   
 
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Validate that a test case is added to the test suite.
-   */
-  @Test
-  public void checkHasTestCase()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("ts");
-      TestCase testCase1 = new TestCase("tc1");
-      
-      testSuite.addTestCase(testCase1);
-      assertTrue(testSuite.getTestCases().size() == 1);
-      assertTrue(testSuite.hasTestCase("tc1"));  
-      assertTrue(testSuite.hasTestCase("tc1",false));         
-      assertTrue(testSuite.hasTestCase("tc1",true));                 
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
 
   
   /**

@@ -71,6 +71,7 @@ public class TestCaseTest
       LOGGER.debug("TC: testThatTestCaseCanBeCreatedWithAnIndentifier");
 
       TestCase testCase = new TestCase("qwerty");
+      
       assertTrue(testCase.getId().equals("qwerty"));
       assertNotNull(testCase);
     }
@@ -965,7 +966,6 @@ public class TestCaseTest
   }
 
 
-
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
@@ -992,7 +992,6 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-
 
 
   /**
@@ -1231,7 +1230,6 @@ public class TestCaseTest
   }
 
 
-
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
@@ -1258,7 +1256,6 @@ public class TestCaseTest
       fail("Unexpected exception " + eX.getMessage());
     }
   }
-
 
 
   /**
