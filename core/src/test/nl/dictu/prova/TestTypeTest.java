@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class TestTypeTest
    * Test of values method, of class TestType.
    */
   @Test
+  @Ignore
   public void testValues()
   {
   }
@@ -74,6 +76,7 @@ public class TestTypeTest
    * Test of valueOf method, of class TestType.
    */
   @Test
+  @Ignore
   public void testValueOf()
   {
   }

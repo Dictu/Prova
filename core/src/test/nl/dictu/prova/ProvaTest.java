@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class ProvaTest
    * Test of init method, of class Prova.
    */
   @Test
+  @Ignore
   public void testInit() throws Exception
   {
   }
@@ -74,6 +76,7 @@ public class ProvaTest
    * Test of setUp method, of class Prova.
    */
   @Test
+  @Ignore
   public void testSetUp() throws Exception
   {
   }
@@ -83,6 +86,7 @@ public class ProvaTest
    * Test of execute method, of class Prova.
    */
   @Test
+  @Ignore
   public void testExecute() throws Exception
   {
   }
@@ -92,6 +96,7 @@ public class ProvaTest
    * Test of tearDown method, of class Prova.
    */
   @Test
+  @Ignore
   public void testTearDown() throws Exception
   {
   }
@@ -101,6 +106,7 @@ public class ProvaTest
    * Test of shutDown method, of class Prova.
    */
   @Test
+  @Ignore
   public void testShutDown() throws Exception
   {
   }

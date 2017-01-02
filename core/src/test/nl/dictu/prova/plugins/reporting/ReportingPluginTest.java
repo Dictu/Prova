@@ -27,6 +27,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -69,6 +70,7 @@ public class ReportingPluginTest
    * Test of init method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testInit() throws Exception
   {
   }
@@ -78,6 +80,7 @@ public class ReportingPluginTest
    * Test of setOutputLocation method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testSetOutputLocation()
   {
   }
@@ -87,6 +90,7 @@ public class ReportingPluginTest
    * Test of setProjectName method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testSetProjectName()
   {
   }
@@ -96,6 +100,7 @@ public class ReportingPluginTest
    * Test of setUp method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testSetUp() throws Exception
   {
   }
@@ -105,6 +110,7 @@ public class ReportingPluginTest
    * Test of shutDown method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testShutDown() throws Exception
   {
   }
@@ -114,6 +120,7 @@ public class ReportingPluginTest
    * Test of getName method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testGetName()
   {
   }
@@ -123,6 +130,7 @@ public class ReportingPluginTest
    * Test of logStartTestSuite method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogStartTestSuite()
   {
   }
@@ -132,6 +140,7 @@ public class ReportingPluginTest
    * Test of logStartTestCase method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogStartTestCase()
   {
   }
@@ -141,6 +150,7 @@ public class ReportingPluginTest
    * Test of logSetupAction method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogSetupAction()
   {
   }
@@ -150,6 +160,7 @@ public class ReportingPluginTest
    * Test of logTestAction method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogTestAction()
   {
   }
@@ -159,6 +170,7 @@ public class ReportingPluginTest
    * Test of logTearDownAction method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogTearDownAction()
   {
   }
@@ -168,6 +180,7 @@ public class ReportingPluginTest
    * Test of logEndTestCase method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogEndTestCase()
   {
   }
@@ -177,6 +190,7 @@ public class ReportingPluginTest
    * Test of logEndTestSuite method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogEndTestSuite()
   {
   }
@@ -186,6 +200,7 @@ public class ReportingPluginTest
    * Test of logTestRunSummary method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogTestRunSummary()
   {
   }
@@ -195,6 +210,7 @@ public class ReportingPluginTest
    * Test of logMessage method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogMessage_String_TestSuite()
   {
   }
@@ -204,6 +220,7 @@ public class ReportingPluginTest
    * Test of logMessage method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogMessage_String_TestCase()
   {
   }
@@ -213,6 +230,7 @@ public class ReportingPluginTest
    * Test of logMessage method, of class ReportingPlugin.
    */
   @Test
+  @Ignore
   public void testLogMessage_String_TestAction()
   {
   }

@@ -28,6 +28,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -70,6 +71,7 @@ public class OutputPluginTest
    * Test of init method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testInit() throws Exception
   {
   }
@@ -79,6 +81,7 @@ public class OutputPluginTest
    * Test of shutDown method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testShutDown()
   {
   }
@@ -88,6 +91,7 @@ public class OutputPluginTest
    * Test of getName method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testGetName()
   {
   }
@@ -97,6 +101,7 @@ public class OutputPluginTest
    * Test of getTestType method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testGetTestType()
   {
   }
@@ -106,6 +111,7 @@ public class OutputPluginTest
    * Test of setUp method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testSetUp()
   {
   }
@@ -115,6 +121,7 @@ public class OutputPluginTest
    * Test of tearDown method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testTearDown()
   {
   }
@@ -124,6 +131,7 @@ public class OutputPluginTest
    * Test of getTestAction method, of class OutputPlugin.
    */
   @Test
+  @Ignore
   public void testGetTestAction()
   {
   }

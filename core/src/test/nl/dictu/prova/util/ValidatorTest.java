@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class ValidatorTest
    * Test of isValidFileName method, of class Validator.
    */
   @Test
+  @Ignore
   public void testIsValidFileName()
   {
   }
@@ -74,6 +76,7 @@ public class ValidatorTest
    * Test of isValidXpath method, of class Validator.
    */
   @Test
+  @Ignore
   public void testIsValidXpath()
   {
   }

@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class ProvaRunnerTest
    * Test of init method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testInit() throws Exception
   {
   }
@@ -74,6 +76,7 @@ public class ProvaRunnerTest
    * Test of getProvaRootPath method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testGetProvaRootPath()
   {
   }
@@ -83,6 +86,7 @@ public class ProvaRunnerTest
    * Test of loadDefaultProperties method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testLoadDefaultProperties() throws Exception
   {
   }
@@ -92,6 +96,7 @@ public class ProvaRunnerTest
    * Test of loadProjectPropertiesFromFile method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testLoadProjectPropertiesFromFile() throws Exception
   {
   }
@@ -101,6 +106,7 @@ public class ProvaRunnerTest
    * Test of loadPropertiesFromResource method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testLoadPropertiesFromResource() throws Exception
   {
   }
@@ -110,6 +116,7 @@ public class ProvaRunnerTest
    * Test of loadPropertiesFromFile method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testLoadPropertiesFromFile() throws Exception
   {
   }
@@ -119,6 +126,7 @@ public class ProvaRunnerTest
    * Test of setLogLevel method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testSetLogLevel()
   {
   }
@@ -128,6 +136,7 @@ public class ProvaRunnerTest
    * Test of setLogLevelPatternFile method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testSetLogLevelPatternFile()
   {
   }
@@ -137,6 +146,7 @@ public class ProvaRunnerTest
    * Test of setLogLevelPatternStdOut method, of class ProvaRunner.
    */
   @Test
+  @Ignore
   public void testSetLogLevelPatternStdOut()
   {
   }

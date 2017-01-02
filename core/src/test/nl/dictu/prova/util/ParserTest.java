@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class ParserTest
    * Test of ParseNumber method, of class Parser.
    */
   @Test
+  @Ignore
   public void testParseNumber()
   {
   }
@@ -74,6 +76,7 @@ public class ParserTest
    * Test of ParseNumberWithDecimal method, of class Parser.
    */
   @Test
+  @Ignore
   public void testParseNumberWithDecimal_String()
   {
   }
@@ -83,6 +86,7 @@ public class ParserTest
    * Test of ParseNumberWithDecimal method, of class Parser.
    */
   @Test
+  @Ignore
   public void testParseNumberWithDecimal_3args()
   {
   }

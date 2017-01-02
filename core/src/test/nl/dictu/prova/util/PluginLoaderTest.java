@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -65,6 +66,7 @@ public class PluginLoaderTest
    * Test of addFiles method, of class PluginLoader.
    */
   @Test
+  @Ignore
   public void testAddFiles() throws Exception
   {
   }
@@ -74,6 +76,7 @@ public class PluginLoaderTest
    * Test of addFile method, of class PluginLoader.
    */
   @Test
+  @Ignore
   public void testAddFile()
   {
   }
@@ -83,6 +86,7 @@ public class PluginLoaderTest
    * Test of getInstanceOf method, of class PluginLoader.
    */
   @Test
+  @Ignore
   public void testGetInstanceOf() throws Exception
   {
   }
