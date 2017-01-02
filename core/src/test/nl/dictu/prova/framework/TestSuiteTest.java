@@ -473,8 +473,12 @@ public class TestSuiteTest
       TestSuite testSuite1 = new TestSuite("qwerty");
       TestSuite testSuite2 = new TestSuite("qwerty");
 
+      assertTrue(parent.getTestSuites().size() == 0);
+      
       parent.addTestSuite(testSuite1);
+      
       assertTrue(parent.getTestSuite("qwerty") == testSuite1);
+      assertTrue(parent.getTestSuites().size() == 1);
 
       parent.addTestSuite(testSuite2);
 
@@ -510,9 +514,12 @@ public class TestSuiteTest
       TestCase testCase1 = new TestCase("qwerty");
       TestCase testCase2 = new TestCase("qwerty");
 
+      assertTrue(parent.getTestCases().size() == 0);
+      
       parent.addTestCase(testCase1);
       assertTrue(parent.getTestCase("qwerty") == testCase1);
-
+      assertTrue(parent.getTestCases().size() == 1);
+      
       parent.addTestCase(testCase2);
 
       fail("Adding a test case with an already existing ID is not allowed.");
@@ -911,6 +918,107 @@ public class TestSuiteTest
     }
   }
 
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be count for current level
+   */
+  @Test
+  public void testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted");
+      
+      assertEquals(1, testRoot.numberOfTestSuites());
+      assertEquals(1, testRoot.numberOfTestSuites(false));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be count for current and lower level
+   */
+  @Test
+  public void testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted");
+
+      assertEquals(7, testRoot.numberOfTestSuites(true));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be searched for a specific test suite
+   */
+  @Test
+  public void testTestSuitesCanBeSearchedForSpecificTestSuite()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestSuite");
+
+      assertTrue(testRoot.hasTestSuite(childTestSuite.getId()));
+      assertFalse(testRoot.hasTestSuite(subTestSuite.getId(), false));
+      assertTrue(testRoot.hasTestSuite(subTestSuite.getId(), true));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * (Child) test suites can be searched for a specific test case
+   */
+  @Test
+  public void testTestSuitesCanBeSearchedForSpecificTestCase()
+  {
+    try
+    {
+      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestCase");
+      
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01"));  
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01",false));         
+      assertTrue(childTestSuite.hasTestCase("Shl-00-01",true));                 
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+ 
 
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
@@ -1025,107 +1133,6 @@ public class TestSuiteTest
     }
   }
   
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * (Child) test suites can be count for current level
-   */
-  @Test
-  public void testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted()
-  {
-    try
-    {
-      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentLevelCanBeCounted");
-      
-      assertEquals(1, testRoot.numberOfTestSuites());
-      assertEquals(1, testRoot.numberOfTestSuites(false));
-    }
-    catch(Exception eX)
-    {
-      if(LOGGER.isErrorEnabled())
-        eX.printStackTrace();
-      
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-  
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * (Child) test suites can be count for current and lower level
-   */
-  @Test
-  public void testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted()
-  {
-    try
-    {
-      LOGGER.debug("TC: testTheNumberOfTestSuitesOnCurrentAndLowerLevelsCanBeCounted");
-
-      assertEquals(7, testRoot.numberOfTestSuites(true));
-    }
-    catch(Exception eX)
-    {
-      if(LOGGER.isErrorEnabled())
-        eX.printStackTrace();
-      
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-  
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * (Child) test suites can be searched for a specific test suite
-   */
-  @Test
-  public void testTestSuitesCanBeSearchedForSpecificTestSuite()
-  {
-    try
-    {
-      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestSuite");
-
-      assertTrue(testRoot.hasTestSuite(childTestSuite.getId()));
-      assertFalse(testRoot.hasTestSuite(subTestSuite.getId(), false));
-      assertTrue(testRoot.hasTestSuite(subTestSuite.getId(), true));
-    }
-    catch(Exception eX)
-    {
-      if(LOGGER.isErrorEnabled())
-        eX.printStackTrace();
-      
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-  
-  
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * (Child) test suites can be searched for a specific test case
-   */
-  @Test
-  public void testTestSuitesCanBeSearchedForSpecificTestCase()
-  {
-    try
-    {
-      LOGGER.debug("TC: testTestSuitesCanBeSearchedForSpecificTestCase");
-      
-      assertTrue(childTestSuite.hasTestCase("Shl-00-01"));  
-      assertTrue(childTestSuite.hasTestCase("Shl-00-01",false));         
-      assertTrue(childTestSuite.hasTestCase("Shl-00-01",true));                 
-    }
-    catch(Exception eX)
-    {
-      if(LOGGER.isErrorEnabled())
-        eX.printStackTrace();
-      
-      fail("Unexpected exception " + eX.getMessage());
-    }
-  }
-  
   
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
@@ -1134,10 +1141,64 @@ public class TestSuiteTest
    * can be retrieved after adding to the set.
    */
   @Test
-  public void getTestSuite()
+  public void testThatTestSuitesAddedToTestSuitesCanBeRetrievedAllAtOnce()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestSuitesAddedToTestSuitesCanBeRetrievedAllAtOnce");
+      
+      LinkedHashMap<String, TestSuite> allTestSuites = childTestSuite.getTestSuites();
+      assertTrue(allTestSuites.size() == 2);
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test suite can have 0...* child test suites. Check that test cases
+   * can be retrieved after adding to the set.
+   */
+  @Test
+  public void testThatTestCasesAddedToTestSuitesCanBeRetrievedAllAtOnce()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestCasesAddedToTestSuitesCanBeRetrievedAllAtOnce");
+      
+      LinkedHashMap<String, TestCase> allTestCases = childTestSuite.getTestCases();
+      assertTrue(allTestCases.size() == 2);
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+  
+
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test suite can have 0...* child test suites. Check that test suites
+   * can be retrieved after adding to the set.
+   */
+  @Test
+  public void testThatTestSuitesAddedToTestSuitesCanBeRetrievedIndivdually()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestSuitesAddedToTestSuitesCanBeRetrievedIndivdually");
+      
       TestSuite testSuite = new TestSuite("root");
       TestSuite child1 = new TestSuite("child1");
       TestSuite child2 = new TestSuite("child2");
@@ -1153,157 +1214,87 @@ public class TestSuiteTest
     }
     catch(Exception eX)
     {
-      fail(eX.getMessage());
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
+      
+      fail("Unexpected exception " + eX.getMessage());
     }
   }
 
-  
+
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
-   * Each test suite can have 0...* child test suites. Check that test suites
+   * Each test suite can have 0...* child test cases. Check that test cases
    * can be retrieved after adding to the set.
    */
   @Test
-  public void checkGetAllTestSuites()
+  public void testThatTestCasesAddedToTestSuitesCanBeRetrievedIndivdually()
   {
     try
     {
-      LinkedHashMap<String, TestSuite> allTestSuites = childTestSuite.getTestSuites();
-      assertTrue(allTestSuites.size() == 2);
+      LOGGER.debug("TC: testThatTestCasesAddedToTestSuitesCanBeRetrievedIndivdually");
+      
+      TestSuite testSuite = new TestSuite("root");
+      TestCase child1 = new TestCase("child1");
+      TestCase child2 = new TestCase("child2");
+
+      testSuite.addTestCase(child1);
+      testSuite.addTestCase(child2);
+
+      assertTrue(testSuite.getTestCase("child1").equals(child1));
+      assertTrue(testSuite.getTestCases().get("child1").equals(child1));
+
+      assertTrue(testSuite.getTestCase("child2").equals(child2));
+      assertTrue(testSuite.getTestCases().get("child2").equals(child2));
     }
     catch(Exception eX)
     {
-      fail(eX.getMessage());
-    }
-  }
-  
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases
-   */
-  @Test
-  public void addTestCaseWithValidIdentifier()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("ts");
-      TestCase testCase1 = new TestCase("tc1");
-      TestCase testCase2 = new TestCase("tc2");
+      if(LOGGER.isErrorEnabled())
+        eX.printStackTrace();
       
-      assertTrue(testSuite.getTestCases().size() == 0);
-      
-      testSuite.addTestCase(testCase1);
-      assertTrue(testSuite.getTestCases().size() == 1);
-      
-      testSuite.addTestCase(testCase2);
-      assertTrue(testSuite.getTestCases().size() == 2);      
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases
-   * Validate that each test case identifier is unique
-   */
-  @Test
-  public void addTestCaseWithExistingIdentifier()
-  {
-    try
-    {
-
-      TestSuite testSuite = new TestSuite("ts");
-      TestCase testCase1 = new TestCase("tc1");
-      
-      assertTrue(testSuite.getTestCases().size() == 0);
-      
-      testSuite.addTestCase(testCase1);
-      assertTrue(testSuite.getTestCases().size() == 1);
-      
-      testSuite.addTestCase(testCase1);
-
-      fail("A test case can only be added once to a test suite!");
-    }
-    catch(InvalidParameterException eX)
-    {
-    }
-    catch(Exception eX)
-    {
       fail("Unexpected exception " + eX.getMessage());
+    }
+  }
+
+  
+  /**
+   * PROVA-12: Structure to handle test suites, cases and actions
+   * Requirement:
+   * Each test suite can hold a collection of 0...* test cases.
+   * A test suite can lookup individual (sub-) test suites
+   */
+  @Test
+  public void testThatTestSuitesAddedToTestSuitesCanBeLookedUpIndivdually()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatTestCasesAddedToTestSuitesCanBeRetrievedIndivdually");
+      
+      assertFalse(testRoot.hasTestSuite("TestSuite-01-02-01"));  
+      assertFalse(testRoot.hasTestSuite("TestSuite-01-02-01",false));         
+      assertTrue(testRoot.hasTestSuite("TestSuite-01-02-01",true));                 
+    }
+    catch(Exception eX)
+    {
+      fail(eX.getMessage());
     }
   } 
   
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Check for correct number of child test suites.
-   */
-  @Test
-  public void CountChildTestCases()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("root");
-
-      assertEquals(0, testSuite.numberOfTestCases());
-      assertEquals(0, testSuite.numberOfTestCases(false));
-      assertEquals(0, testSuite.numberOfTestCases(true));
-
-      testSuite.addTestCase(new TestCase("child1"));
-      assertEquals(1, testSuite.numberOfTestCases());
-      assertEquals(1, testSuite.numberOfTestCases(false));
-      assertEquals(1, testSuite.numberOfTestCases(true));
-
-      testSuite.addTestCase(new TestCase("child2"));
-      assertEquals(2, testSuite.numberOfTestCases(false));
-      assertEquals(2, testSuite.numberOfTestCases(true));
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Check for correct number of child test suites.
-   */
-  @Test
-  public void CountAllLevelsChildTestCases()
-  {
-    assertEquals(2, testRoot.numberOfTestCases());
-    assertEquals(2, testRoot.numberOfTestCases(false));
-    assertEquals(20, testRoot.numberOfTestCases(true));
-  }
-  
-
-
   
   /**
    * PROVA-12: Structure to handle test suites, cases and actions
    * Requirement:
    * Each test suite can hold a collection of 0...* test cases.
-   * Validate that a test case is added to a sub-test suite.
+   * A test suite can lookup individual (sub-) test cases
    */
   @Test
-  public void checkHasTestCaseInSubTestSuites()
+  public void testThatTestCasesAddedToTestSuitesCanBeLookedUpIndivdually()
   {
     try
     {
+      LOGGER.debug("TC: testThatTestCasesAddedToTestSuitesCanBeLookedUpIndivdually");
+      
       assertFalse(testRoot.hasTestCase("Web-01-02-01-01"));  
       assertFalse(testRoot.hasTestCase("Web-01-02-01-01",false));         
       assertTrue(testRoot.hasTestCase("Web-01-02-01-01",true));                 
@@ -1313,68 +1304,5 @@ public class TestSuiteTest
       fail(eX.getMessage());
     }
   } 
-
-  
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Validate that added test cases can be retrieved from the test suite.
-   */
-  @Test
-  public void checkGetTestCase()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("ts");
-      TestCase testCase1 = new TestCase("tc1");
-      TestCase testCase2 = new TestCase("tc2");
-      TestCase testCase3 = new TestCase("tc3");
-      
-      
-      testSuite.addTestCase(testCase1);
-      testSuite.addTestCase(testCase2);
-      testSuite.addTestCase(testCase3);
-      assertTrue(testSuite.getTestCase("tc1") == testCase1); 
-      assertTrue(testSuite.getTestCase("tc2") == testCase2); 
-      assertTrue(testSuite.getTestCase("tc3") == testCase3);     
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
-
-
-  /**
-   * PROVA-12: Structure to handle test suites, cases and actions
-   * Requirement:
-   * Each test suite can hold a collection of 0...* test cases.
-   * Validate that added test cases can be retrieved from the test suite.
-   */
-  @Test
-  public void checkGetTestCases()
-  {
-    try
-    {
-      TestSuite testSuite = new TestSuite("ts");
-      TestCase testCase1 = new TestCase("tc1");
-      TestCase testCase2 = new TestCase("tc2");
-      TestCase testCase3 = new TestCase("tc3");
-      
-      testSuite.addTestCase(testCase1);
-      testSuite.addTestCase(testCase2);
-      testSuite.addTestCase(testCase3);
-      
-      LinkedHashMap<String, TestCase> testCases = testSuite.getTestCases();
-      
-      
-      assertTrue(testCases.size() == 3);   
-    }
-    catch(Exception eX)
-    {
-      fail(eX.getMessage());
-    }
-  }
 
 }
