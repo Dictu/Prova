@@ -3,7 +3,7 @@
 <Configuration status="warn" name="Prova" monitorInterval="30">
 
   <Properties>
-    <property name="prova.log.level" >debug</property>
+    <property name="prova.log.level" >trace</property>
     <property name="prova.log.dir" >log</property>
     <property name="prova.log.dir.history" >$${date:yyyy-MM-dd}</property>
     <property name="prova.log.filename" >Prova</property>
