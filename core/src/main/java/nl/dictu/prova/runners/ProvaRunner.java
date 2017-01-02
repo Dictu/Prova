@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,10 +12,11 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      23-08-2016
+ * Date: 23-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova.runners;
 
 import java.io.File;
@@ -28,6 +28,7 @@ import nl.dictu.prova.TestRunner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
  * Base class for Prova runners providing some common functions
  *
@@ -36,8 +37,7 @@ import org.apache.logging.log4j.Logger;
 public class ProvaRunner
 {
 
-  private static Logger LOGGER = LogManager.getLogger(ProvaRunner.class.
-          getName());
+  private static Logger LOGGER = LogManager.getLogger(ProvaRunner.class.getName());
 
   protected TestRunner testRunner;
   protected Properties properties;
@@ -62,12 +62,14 @@ public class ProvaRunner
 
   /**
    * Initialize local variables
+   * 
    * @throws java.lang.Exception
    */
   protected void init() throws Exception
   {
+    LOGGER.trace("ProvaRunner - init");
+    
     properties = new Properties();
-    LOGGER.debug("init");
   }
 
 
@@ -88,12 +90,11 @@ public class ProvaRunner
    * - The default properties file from the 'config' directory
    *
    * @return
-   *
    * @throws FileNotFoundException
    * @throws InvalidPropertiesFormatException
    */
   protected Properties loadDefaultProperties() throws FileNotFoundException,
-                                                      InvalidPropertiesFormatException
+                                               InvalidPropertiesFormatException
   {
     return new Properties();
   }
@@ -104,13 +105,12 @@ public class ProvaRunner
    *
    * @param projectName
    * @return
-   *
    * @throws FileNotFoundException
    * @throws InvalidPropertiesFormatException
    */
-  protected Properties loadProjectPropertiesFromFile(String projectName) throws
-          InvalidPathException, FileNotFoundException,
-          InvalidPropertiesFormatException
+  protected Properties loadProjectPropertiesFromFile(String projectName) throws InvalidPathException,
+                                                                         FileNotFoundException,
+                                                                         InvalidPropertiesFormatException
   {
     return new Properties();
   }
@@ -120,15 +120,13 @@ public class ProvaRunner
    * Load properties from the given resource file
    *
    * @param fileName
-   *
    * @return
-   *
    * @throws FileNotFoundException
    * @throws InvalidPropertiesFormatException
    */
-  protected Properties loadPropertiesFromResource(File fileName) throws
-          InvalidPathException, FileNotFoundException,
-          InvalidPropertiesFormatException
+  protected Properties loadPropertiesFromResource(File fileName) throws InvalidPathException,
+                                                                 FileNotFoundException,
+                                                                 InvalidPropertiesFormatException
   {
     return new Properties();
   }
@@ -138,15 +136,13 @@ public class ProvaRunner
    * Load properties from the given file
    *
    * @param fileName
-   *
    * @return
-   *
    * @throws FileNotFoundException
    * @throws InvalidPropertiesFormatException
    */
-  protected Properties loadPropertiesFromFile(File fileName) throws
-          InvalidPathException, FileNotFoundException,
-          InvalidPropertiesFormatException
+  protected Properties loadPropertiesFromFile(File fileName) throws InvalidPathException,
+                                                             FileNotFoundException,
+                                                             InvalidPropertiesFormatException
   {
     return new Properties();
   }
@@ -156,13 +152,10 @@ public class ProvaRunner
    * Update the log level for Log4j2
    *
    * @param newLogLevel
-   *
    * @return
-   *
    * @throws IllegalArgumentException
    */
-  protected String setLogLevel(String newLogLevel) throws
-          IllegalArgumentException
+  protected String setLogLevel(String newLogLevel) throws IllegalArgumentException
   {
     return "currentLogLevel";
   }
@@ -172,13 +165,10 @@ public class ProvaRunner
    * Update the log pattern for files for Log4j2
    *
    * @param newLogPattern
-   *
    * @return
-   *
    * @throws IllegalArgumentException
    */
-  protected String setLogLevelPatternFile(String newLogPattern) throws
-          IllegalArgumentException
+  protected String setLogLevelPatternFile(String newLogPattern) throws IllegalArgumentException
   {
     return "currentLogLevel";
   }
@@ -188,13 +178,10 @@ public class ProvaRunner
    * Update the log pattern for std out for Log4j2
    *
    * @param newLogPattern
-   *
    * @return
-   *
    * @throws IllegalArgumentException
    */
-  protected String setLogLevelPatternStdOut(String newLogPattern) throws
-          IllegalArgumentException
+  protected String setLogLevelPatternStdOut(String newLogPattern) throws IllegalArgumentException
   {
     return "currentLogLevel";
   }
