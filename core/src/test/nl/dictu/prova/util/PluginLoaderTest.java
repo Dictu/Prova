@@ -17,22 +17,23 @@
  * Author(s): Sjoerd Boerhout
  * <p>
  */
-package nl.dictu.prova;
+package nl.dictu.prova.util;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class ConfigTest
+public class PluginLoaderTest
 {
 
-  public ConfigTest()
+  public PluginLoaderTest()
   {
   }
 
@@ -61,8 +62,32 @@ public class ConfigTest
   }
 
 
+  /**
+   * Test of addFiles method, of class PluginLoader.
+   */
   @Test
-  public void testSomeMethod()
+  @Ignore
+  public void testAddFiles() throws Exception
+  {
+  }
+
+
+  /**
+   * Test of addFile method, of class PluginLoader.
+   */
+  @Test
+  @Ignore
+  public void testAddFile()
+  {
+  }
+
+
+  /**
+   * Test of getInstanceOf method, of class PluginLoader.
+   */
+  @Test
+  @Ignore
+  public void testGetInstanceOf() throws Exception
   {
   }
 

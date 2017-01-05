@@ -17,22 +17,23 @@
  * Author(s): Sjoerd Boerhout
  * <p>
  */
-package nl.dictu.prova.framework;
+package nl.dictu.prova;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class TestStatusTest
+public class TestTypeTest
 {
 
-  public TestStatusTest()
+  public TestTypeTest()
   {
   }
 
@@ -62,18 +63,20 @@ public class TestStatusTest
 
 
   /**
-   * Test of values method, of class TestStatus.
+   * Test of values method, of class TestType.
    */
   @Test
+  @Ignore
   public void testValues()
   {
   }
 
 
   /**
-   * Test of valueOf method, of class TestStatus.
+   * Test of valueOf method, of class TestType.
    */
   @Test
+  @Ignore
   public void testValueOf()
   {
   }

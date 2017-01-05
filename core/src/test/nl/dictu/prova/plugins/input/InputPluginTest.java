@@ -26,6 +26,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -104,6 +105,7 @@ public class InputPluginTest
    * Test of loadTestCase method, of class InputPlugin.
    */
   @Test
+  @Ignore
   public void testLoadTestCase()
   {
   }
@@ -113,6 +115,7 @@ public class InputPluginTest
    * Test of shutDown method, of class InputPlugin.
    */
   @Test
+  @Ignore
   public void testShutDown()
   {
   }
@@ -122,6 +125,7 @@ public class InputPluginTest
    * Test of getName method, of class InputPlugin.
    */
   @Test
+  @Ignore
   public void testGetName()
   {
   }

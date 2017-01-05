@@ -17,22 +17,23 @@
  * Author(s): Sjoerd Boerhout
  * <p>
  */
-package nl.dictu.prova.framework;
+package nl.dictu.prova.runners;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class TestActionTest
+public class ProvaRunnerTest
 {
 
-  public TestActionTest()
+  public ProvaRunnerTest()
   {
   }
 
@@ -62,118 +63,91 @@ public class TestActionTest
 
 
   /**
-   * Test of setStatus method, of class TestAction.
+   * Test of init method, of class ProvaRunner.
    */
   @Test
-  public void testSetStatus()
+  @Ignore
+  public void testInit() throws Exception
   {
   }
 
 
   /**
-   * Test of getStatus method, of class TestAction.
+   * Test of getProvaRootPath method, of class ProvaRunner.
    */
   @Test
-  public void testGetStatus()
+  @Ignore
+  public void testGetProvaRootPath()
   {
   }
 
 
   /**
-   * Test of setAttribute method, of class TestAction.
+   * Test of loadDefaultProperties method, of class ProvaRunner.
    */
   @Test
-  public void testSetAttribute()
+  @Ignore
+  public void testLoadDefaultProperties() throws Exception
   {
   }
 
 
   /**
-   * Test of hasAttribute method, of class TestAction.
+   * Test of loadProjectPropertiesFromFile method, of class ProvaRunner.
    */
   @Test
-  public void testHasAttribute()
+  @Ignore
+  public void testLoadProjectPropertiesFromFile() throws Exception
   {
   }
 
 
   /**
-   * Test of getAttribute method, of class TestAction.
+   * Test of loadPropertiesFromResource method, of class ProvaRunner.
    */
   @Test
-  public void testGetAttribute()
+  @Ignore
+  public void testLoadPropertiesFromResource() throws Exception
   {
   }
 
 
   /**
-   * Test of setReturnValue method, of class TestAction.
+   * Test of loadPropertiesFromFile method, of class ProvaRunner.
    */
   @Test
-  public void testSetReturnValue_String_String()
+  @Ignore
+  public void testLoadPropertiesFromFile() throws Exception
   {
   }
 
 
   /**
-   * Test of getReturnValues method, of class TestAction.
+   * Test of setLogLevel method, of class ProvaRunner.
    */
   @Test
-  public void testGetReturnValues()
+  @Ignore
+  public void testSetLogLevel()
   {
   }
 
 
   /**
-   * Test of setReturnValue method, of class TestAction.
+   * Test of setLogLevelPatternFile method, of class ProvaRunner.
    */
   @Test
-  public void testSetReturnValue_File()
+  @Ignore
+  public void testSetLogLevelPatternFile()
   {
   }
 
 
   /**
-   * Test of getResultFile method, of class TestAction.
+   * Test of setLogLevelPatternStdOut method, of class ProvaRunner.
    */
   @Test
-  public void testGetResultFile()
-  {
-  }
-
-
-  /**
-   * Test of getLastException method, of class TestAction.
-   */
-  @Test
-  public void testGetLastException()
-  {
-  }
-
-
-  /**
-   * Test of execute method, of class TestAction.
-   */
-  @Test
-  public void testExecute()
-  {
-  }
-
-
-  /**
-   * Test of isValid method, of class TestAction.
-   */
-  @Test
-  public void testIsValid()
-  {
-  }
-
-
-  /**
-   * Test of toString method, of class TestAction.
-   */
-  @Test
-  public void testToString()
+  @Ignore
+  public void testSetLogLevelPatternStdOut()
   {
   }
 

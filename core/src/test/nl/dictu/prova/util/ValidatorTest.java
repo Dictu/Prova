@@ -23,16 +23,17 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class ParserTest
+public class ValidatorTest
 {
 
-  public ParserTest()
+  public ValidatorTest()
   {
   }
 
@@ -62,28 +63,21 @@ public class ParserTest
 
 
   /**
-   * Test of ParseNumber method, of class Parser.
+   * Test of isValidFileName method, of class Validator.
    */
   @Test
-  public void testParseNumber()
+  @Ignore
+  public void testIsValidFileName()
   {
   }
 
 
   /**
-   * Test of ParseNumberWithDecimal method, of class Parser.
+   * Test of isValidXpath method, of class Validator.
    */
   @Test
-  public void testParseNumberWithDecimal_String()
-  {
-  }
-
-
-  /**
-   * Test of ParseNumberWithDecimal method, of class Parser.
-   */
-  @Test
-  public void testParseNumberWithDecimal_3args()
+  @Ignore
+  public void testIsValidXpath()
   {
   }
 

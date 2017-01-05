@@ -23,16 +23,17 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class PluginLoaderTest
+public class ParserTest
 {
 
-  public PluginLoaderTest()
+  public ParserTest()
   {
   }
 
@@ -62,28 +63,31 @@ public class PluginLoaderTest
 
 
   /**
-   * Test of addFiles method, of class PluginLoader.
+   * Test of ParseNumber method, of class Parser.
    */
   @Test
-  public void testAddFiles() throws Exception
+  @Ignore
+  public void testParseNumber()
   {
   }
 
 
   /**
-   * Test of addFile method, of class PluginLoader.
+   * Test of ParseNumberWithDecimal method, of class Parser.
    */
   @Test
-  public void testAddFile()
+  @Ignore
+  public void testParseNumberWithDecimal_String()
   {
   }
 
 
   /**
-   * Test of getInstanceOf method, of class PluginLoader.
+   * Test of ParseNumberWithDecimal method, of class Parser.
    */
   @Test
-  public void testGetInstanceOf() throws Exception
+  @Ignore
+  public void testParseNumberWithDecimal_3args()
   {
   }
 

@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,50 +12,83 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      23-08-2016
+ * Date: 23-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova.framework;
 
 import java.security.InvalidParameterException;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
+ * A test case is a container for test actions. It offers a set of actions
+ * (0...*) which are executed as one test case. The action share a set of
+ * variables to exchange values.
+ * Issues:
+ * - PROVA-12: Structure to handle test suites, cases and actions
  *
  * @author Sjoerd Boerhout
  */
 public class TestCase
 {
-
-  private final static Logger LOGGER = LogManager.getLogger(TestCase.class.
-          getName());
+  private final static Logger LOGGER = LogManager.getLogger(TestCase.class.getName());
 
   private String id;
-  private TestStatus testStatus;
+  private TestStatus testStatus = TestStatus.NOTRUN;
 
-  private Properties headers;
-  private Properties variables;
+  private Properties headers = new Properties();
+  private Properties variables = new Properties();
 
-  private LinkedList<TestAction> setUpActions;
-  private LinkedList<TestAction> testActions;
-  private LinkedList<TestAction> tearDownActions;
+  private LinkedList<TestAction> setUpActions = new LinkedList<TestAction>();
+  private LinkedList<TestAction> testActions = new LinkedList<TestAction>();
+  private LinkedList<TestAction> tearDownActions = new LinkedList<TestAction>();
 
 
   /**
    * Constructor. Provided ID must be unique and is an identifier for the input
    * plug-in to locate the test case
    *
-   * @param newId
-   *
+   * @param id
    * @throws InvalidParameterException
    */
-  public TestCase(String newId) throws InvalidParameterException
+  public TestCase(String id) throws InvalidParameterException
   {
+    LOGGER.debug("Creation of new testcase with test id '{}'", () -> id);
 
+    setId(id);
+  }
+
+
+  /**
+   * Set the ID of this test case
+   *
+   * @param id
+   * @throws InvalidParameterException
+   */
+  private void setId(String id) throws InvalidParameterException
+  {
+    LOGGER.trace("Set id of test case to '{}'", () -> id);
+
+    if(id == null)
+    {
+      LOGGER.debug("Id can not be null ({})", () -> id);
+      throw new InvalidParameterException("Id can not be null");
+    }
+
+    if(id.trim().length() < 1)
+    {
+      LOGGER.debug("Invalid testcase Id ({})", () -> id);
+      throw new InvalidParameterException("Invalid testcase Id (" + id + ")");
+    }
+
+    this.id = id.trim();
   }
 
 
@@ -67,7 +99,9 @@ public class TestCase
    */
   public String getId()
   {
-    return null;
+    LOGGER.trace("Request for test id '{}'", () -> this.id);
+
+    return id;
   }
 
 
@@ -76,9 +110,11 @@ public class TestCase
    *
    * @return
    */
-  public TestStatus getTestStatus()
+  public TestStatus getTestCaseStatus()
   {
-    return null;
+    LOGGER.debug("Request for test status '{}'", () -> testStatus);
+
+    return testStatus;
   }
 
 
@@ -87,20 +123,23 @@ public class TestCase
    * Accepted new states:
    * - Blocked
    *
-   * @param newTestStatus
+   * @param testStatus
    * @param reason
-   *
    * @return
-   *
    * @throws InvalidParameterException
    */
-  public TestStatus updateTestStatus(TestStatus newTestStatus, String reason)
-          throws
-          InvalidParameterException
+  public TestStatus updateTestCaseStatus(TestStatus testStatus) throws InvalidParameterException
   {
+    LOGGER.debug("Updating testStatus to '{}'", () -> testStatus);
 
-    // Log update to reporting plugin(s)
-    return null;
+    if(testStatus == null)
+    {
+      throw new InvalidParameterException("TestStatus null not allowed!");
+    }
+
+    this.testStatus = testStatus;
+
+    return this.testStatus;
   }
 
 
@@ -108,13 +147,24 @@ public class TestCase
    * Add the given {@link setUpAction} to this test case
    *
    * @param setUpAction
-   *
    * @throws InvalidParameterException
    */
-  public void addSetUpAction(TestAction setUpAction) throws
-          InvalidParameterException
+  public void addSetUpAction(TestAction setUpAction) throws InvalidParameterException
   {
+    LOGGER.debug("Add setup action '{}'",
+                 () -> setUpAction == null ? "null" : setUpAction.toString());
 
+    if(setUpAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
+
+    if(setUpActions.contains(setUpAction))
+    {
+      throw new InvalidParameterException("Action '" + setUpAction.getId() + "' already added to test case.");
+    }
+
+    setUpActions.add(setUpAction);
   }
 
 
@@ -122,13 +172,23 @@ public class TestCase
    * Add the given {@link testAction} to this test case
    *
    * @param testAction
-   *
    * @throws InvalidParameterException
    */
-  public void addTestAction(TestAction testAction) throws
-          InvalidParameterException
+  public void addTestAction(TestAction testAction) throws InvalidParameterException
   {
+    LOGGER.debug("Add test action '{}'", () -> testAction == null ? "null" : testAction.toString());
 
+    if(testAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
+
+    if(testActions.contains(testAction))
+    {
+      throw new InvalidParameterException("Action '" + testAction.getId() + "' already added to test case.");
+    }
+    
+    testActions.add(testAction);
   }
 
 
@@ -136,60 +196,24 @@ public class TestCase
    * Add the given {@link tearDownAction} to this test case
    *
    * @param tearDownAction
-   *
    * @throws InvalidParameterException
    */
-  public void addTearDownAction(TestAction tearDownAction) throws
-          InvalidParameterException
+  public void addTearDownAction(TestAction tearDownAction) throws InvalidParameterException
   {
+    LOGGER.debug("Add teardown action '{}'",
+                 () -> tearDownAction == null ? "null" : tearDownAction.toString());
 
-  }
+    if(tearDownAction == null)
+    {
+      throw new InvalidParameterException("Setup action can not be 'null'");
+    }
 
+    if(tearDownActions.contains(tearDownAction))
+    {
+      throw new InvalidParameterException("Action '" + tearDownAction.getId() + "' already added to test case.");
+    }
 
-  /**
-   * Set or update the given header {@link key} with {@link value}
-   *
-   * @param key
-   * @param value
-   *
-   * @throws InvalidParameterException
-   */
-  public void setHeader(String key, String value) throws
-          InvalidParameterException
-  {
-
-  }
-
-
-  /**
-   * Check if the given header {@link key} is set in the test case
-   *
-   * @param key
-   *
-   * @return
-   *
-   * @throws InvalidParameterException
-   */
-  public boolean hasHeader(String key) throws
-          InvalidParameterException
-  {
-    return false;
-  }
-
-
-  /**
-   * Return the {@link value} of the given header {@link key}
-   *
-   * @param key
-   *
-   * @return
-   *
-   * @throws InvalidParameterException
-   */
-  public String getHeader(String key) throws
-          InvalidParameterException
-  {
-    return null;
+    tearDownActions.add(tearDownAction);
   }
 
 
@@ -200,7 +224,9 @@ public class TestCase
    */
   public LinkedList<TestAction> getSetUpActions()
   {
-    return null;
+    LOGGER.trace("Request for all setup actions (size: {})", () -> setUpActions.size());
+
+    return setUpActions;
   }
 
 
@@ -211,7 +237,9 @@ public class TestCase
    */
   public LinkedList<TestAction> getTestActions()
   {
-    return null;
+    LOGGER.trace("Request for all test actions (size: {})", () -> testActions.size());
+
+    return testActions;
   }
 
 
@@ -222,7 +250,128 @@ public class TestCase
    */
   public LinkedList<TestAction> getTearDownActions()
   {
-    return null;
+    LOGGER.trace("Request for all teardown actions (size: {})", () -> tearDownActions.size());
+
+    return tearDownActions;
+  }
+
+
+  /**
+   * Set or update the given header {@link key} with {@link value}
+   *
+   * @param key
+   * @param value
+   * @throws InvalidParameterException
+   */
+  public void setHeader(String key, String value) throws InvalidParameterException
+  {
+    LOGGER.trace("Set value of header with key '{}' to '{}'", () -> key, () -> value);
+
+    if(key == null || value == null || key.trim().length() < 1)
+    {
+      throw new InvalidParameterException("Invalid key or value for header.(" + key + ":" + value
+                                          + ")");
+    }
+
+    headers.put(key.trim(), value);
+  }
+
+
+  /**
+   * Check if the given header {@link key} is set in the test case
+   *
+   * @param key
+   * @return
+   * @throws InvalidParameterException
+   */
+  public boolean hasHeader(String key) throws InvalidParameterException
+  {
+    LOGGER.trace("Has header: '{}': ({})", () -> key,
+                 () -> headers.containsKey(key) ? headers.getProperty(key) : "No");
+
+    return headers.containsKey(key);
+  }
+
+
+  /**
+   * Return the {@link value} of the given header {@link key}
+   *
+   * @param key
+   * @return
+   * @throws InvalidParameterException
+   */
+  public String getHeader(String key) throws InvalidParameterException
+  {
+    LOGGER.trace("Get value of header: '{}' ({})", () -> key,
+                 () -> headers.containsKey(key) ? headers.getProperty(key) : "Not found");
+
+    if( !headers.containsKey(key))
+    {
+      throw new NoSuchElementException("No header with value '" + key + "' found!");
+    }
+
+    return headers.getProperty(key);
+  }
+
+
+  /**
+   * Set or update the given variable {@link key} with {@link value}
+   *
+   * @param key
+   * @param value
+   * @throws InvalidParameterException
+   */
+  public void setVariable(String key, String value) throws InvalidParameterException
+  {
+    LOGGER.trace("Set value of variable with key '{}' to '{}'", () -> key, () -> value);
+
+    if(key == null || value == null || key.trim().length() < 1)
+    {
+      throw new InvalidParameterException("Invalid key or value for variable.(" + key + ":" + value
+                                          + ")");
+    }
+
+    variables.put(key.trim(), value);
+  }
+
+
+  /**
+   * Check if the given variable {@link key} is set in the test case
+   *
+   * @param key
+   * @return
+   * @throws InvalidParameterException
+   */
+  public boolean hasVariable(String key) throws InvalidParameterException
+  {
+    LOGGER.trace("Get value of variable: '{}' ({})", () -> key,
+                 () -> variables.containsKey(key) ? variables.getProperty(key) : "Not found");
+
+    if(key == null)
+    {
+      throw new InvalidParameterException("Key 'null' not allowed");
+    }
+
+    return variables.containsKey(key);
+  }
+
+
+  /**
+   * Return the {@link value} of the given variable {@link key}
+   *
+   * @param key
+   * @return
+   * @throws InvalidParameterException
+   */
+  public String getVariable(String key) throws InvalidParameterException
+  {
+    LOGGER.trace("Get value of variable: '{}' ({})", () -> key,
+                 () -> variables.containsKey(key) ? variables.getProperty(key) : "Not found");
+
+    if( !variables.containsKey(key)) throw new NoSuchElementException("No variable with value '"
+                                                                         + key + "' found!");
+
+    return variables.getProperty(key);
   }
 
 }

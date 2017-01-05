@@ -23,16 +23,17 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class ProvaTest
+public class ConfigTest
 {
 
-  public ProvaTest()
+  public ConfigTest()
   {
   }
 
@@ -61,47 +62,9 @@ public class ProvaTest
   }
 
 
-  /**
-   * Test of init method, of class Prova.
-   */
   @Test
-  public void testInit() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of setUp method, of class Prova.
-   */
-  @Test
-  public void testSetUp() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of execute method, of class Prova.
-   */
-  @Test
-  public void testExecute() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of tearDown method, of class Prova.
-   */
-  @Test
-  public void testTearDown() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of shutDown method, of class Prova.
-   */
-  @Test
-  public void testShutDown() throws Exception
+  @Ignore
+  public void testSomeMethod()
   {
   }
 

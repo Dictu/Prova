@@ -13,69 +13,37 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      27-08-2016
+ * Date:      28-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
 package nl.dictu.prova;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import nl.dictu.prova.logging.LogLevel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
 
 /**
+ * Configuration for all unit tests
  *
  * @author Sjoerd Boerhout
  */
-public class TestTypeTest
+public class GlobalSetup
 {
-
-  public TestTypeTest()
+  public static void configure()
   {
-  }
-
-
-  @BeforeClass
-  public static void setUpClass()
-  {
-  }
-
-
-  @AfterClass
-  public static void tearDownClass()
-  {
-  }
-
-
-  @Before
-  public void setUp()
-  {
-  }
-
-
-  @After
-  public void tearDown()
-  {
+    configureLog4j();
   }
 
 
   /**
-   * Test of values method, of class TestType.
+   * Configure jUnit to display logging while running the unit tests.
+   * Available options: Fatal, Error, Warning, Info, Debug and Trace.
    */
-  @Test
-  public void testValues()
+  private static void configureLog4j()
   {
+    System.setProperty("prova.log.level", LogLevel.DEBUG.name());
+    LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+    ctx.reconfigure();
   }
-
-
-  /**
-   * Test of valueOf method, of class TestType.
-   */
-  @Test
-  public void testValueOf()
-  {
-  }
-
 }

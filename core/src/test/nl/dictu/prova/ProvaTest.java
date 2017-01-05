@@ -17,22 +17,23 @@
  * Author(s): Sjoerd Boerhout
  * <p>
  */
-package nl.dictu.prova.runners;
+package nl.dictu.prova;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Sjoerd Boerhout
  */
-public class ProvaRunnerTest
+public class ProvaTest
 {
 
-  public ProvaRunnerTest()
+  public ProvaTest()
   {
   }
 
@@ -62,82 +63,51 @@ public class ProvaRunnerTest
 
 
   /**
-   * Test of init method, of class ProvaRunner.
+   * Test of init method, of class Prova.
    */
   @Test
+  @Ignore
   public void testInit() throws Exception
   {
   }
 
 
   /**
-   * Test of getProvaRootPath method, of class ProvaRunner.
+   * Test of setUp method, of class Prova.
    */
   @Test
-  public void testGetProvaRootPath()
+  @Ignore
+  public void testSetUp() throws Exception
   {
   }
 
 
   /**
-   * Test of loadDefaultProperties method, of class ProvaRunner.
+   * Test of execute method, of class Prova.
    */
   @Test
-  public void testLoadDefaultProperties() throws Exception
+  @Ignore
+  public void testExecute() throws Exception
   {
   }
 
 
   /**
-   * Test of loadProjectPropertiesFromFile method, of class ProvaRunner.
+   * Test of tearDown method, of class Prova.
    */
   @Test
-  public void testLoadProjectPropertiesFromFile() throws Exception
+  @Ignore
+  public void testTearDown() throws Exception
   {
   }
 
 
   /**
-   * Test of loadPropertiesFromResource method, of class ProvaRunner.
+   * Test of shutDown method, of class Prova.
    */
   @Test
-  public void testLoadPropertiesFromResource() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of loadPropertiesFromFile method, of class ProvaRunner.
-   */
-  @Test
-  public void testLoadPropertiesFromFile() throws Exception
-  {
-  }
-
-
-  /**
-   * Test of setLogLevel method, of class ProvaRunner.
-   */
-  @Test
-  public void testSetLogLevel()
-  {
-  }
-
-
-  /**
-   * Test of setLogLevelPatternFile method, of class ProvaRunner.
-   */
-  @Test
-  public void testSetLogLevelPatternFile()
-  {
-  }
-
-
-  /**
-   * Test of setLogLevelPatternStdOut method, of class ProvaRunner.
-   */
-  @Test
-  public void testSetLogLevelPatternStdOut()
+  @Ignore
+  public void testShutDown() throws Exception
   {
   }
 

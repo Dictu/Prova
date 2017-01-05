@@ -29,6 +29,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -71,6 +72,7 @@ public class TestRunnerTest
    * Test of getInputPlugins method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testGetInputPlugins()
   {
   }
@@ -80,6 +82,7 @@ public class TestRunnerTest
    * Test of getOutputPlugins method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testGetOutputPlugins_0args()
   {
   }
@@ -89,6 +92,7 @@ public class TestRunnerTest
    * Test of getOutputPlugins method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testGetOutputPlugins_TestType()
   {
   }
@@ -98,6 +102,7 @@ public class TestRunnerTest
    * Test of getReportingPlugins method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testGetReportingPlugins()
   {
   }
@@ -107,6 +112,7 @@ public class TestRunnerTest
    * Test of addInputPlugin method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testAddInputPlugin()
   {
   }
@@ -116,6 +122,7 @@ public class TestRunnerTest
    * Test of addOutputPlugin method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testAddOutputPlugin()
   {
   }
@@ -125,6 +132,7 @@ public class TestRunnerTest
    * Test of addReportingPlugin method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testAddReportingPlugin()
   {
   }
@@ -134,6 +142,7 @@ public class TestRunnerTest
    * Test of addTestSuite method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testAddTestSuite()
   {
   }
@@ -143,6 +152,7 @@ public class TestRunnerTest
    * Test of setProperty method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testSetProperty()
   {
   }
@@ -152,6 +162,7 @@ public class TestRunnerTest
    * Test of hasProperty method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testHasProperty()
   {
   }
@@ -161,6 +172,7 @@ public class TestRunnerTest
    * Test of getProperty method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testGetProperty()
   {
   }
@@ -170,6 +182,7 @@ public class TestRunnerTest
    * Test of start method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testStart()
   {
   }
@@ -179,6 +192,7 @@ public class TestRunnerTest
    * Test of join method, of class TestRunner.
    */
   @Test
+  @Ignore
   public void testJoin()
   {
   }
