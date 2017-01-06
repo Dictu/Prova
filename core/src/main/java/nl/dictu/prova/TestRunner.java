@@ -1,5 +1,4 @@
 /**
- *
  * Licensed under the EUPL, Version 1.1 or - as soon they will be approved by
  * the European Commission - subsequent versions of the EUPL (the "Licence");
  * You may not use this work except in compliance with the Licence.
@@ -13,32 +12,92 @@
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
  * <p>
- * Date:      23-08-2016
+ * Date: 23-08-2016
  * Author(s): Sjoerd Boerhout
  * <p>
  */
+
 package nl.dictu.prova;
 
 import java.security.InvalidParameterException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import nl.dictu.prova.framework.TestSuite;
 import nl.dictu.prova.plugins.input.InputPlugin;
 import nl.dictu.prova.plugins.output.OutputPlugin;
 import nl.dictu.prova.plugins.reporting.ReportingPlugin;
+import nl.dictu.prova.util.PluginLoader;
+
 
 /**
- *
+ * This class is the base class for each test runner and acts as the central
+ * part of Prova.
+ * It load, initializes and run all plug-ins to load and run test scripts.
+ * The test runner is configured and started by a test runner (cli, gui, etc).
+ * Issues:
+ * - PROVA-9: Support for properties
+ * 
  * @author Sjoerd Boerhout
  */
-public interface TestRunner
+public abstract class TestRunner
 {
+
+  private static Logger LOGGER = LogManager.getLogger(TestRunner.class.getName());
+
+  private PluginLoader pluginLoader;
+
+  private LinkedHashMap<String, InputPlugin> inputPlugins;
+  private LinkedHashMap<String, OutputPlugin> outputPlugins;
+  private LinkedHashMap<String, ReportingPlugin> reportingPlugins;
+
+  private TestSuite rootTestSuite;
+
+  private Properties properties;
+
+  private Thread thread;
+
+
+  /**
+   * Constructor.
+   * Set the local logger to the logger of the implementing class
+   *
+   * @param newLogger
+   * @throws NullPointerException
+   */
+  protected TestRunner(Logger newLogger) throws NullPointerException
+  {
+    if(newLogger == null)
+    {
+      throw new NullPointerException("Logger instance is null");
+    }
+
+    LOGGER = newLogger;
+
+    properties = new Properties();
+    properties.putAll(System.getProperties());
+  }
+
 
   /**
    * Returns a list of all registered input plug-ins
    *
    * @return
    */
-  public LinkedList<InputPlugin> getInputPlugins();
+  public LinkedList<InputPlugin> getInputPlugins()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -46,17 +105,34 @@ public interface TestRunner
    *
    * @return
    */
-  public LinkedList<OutputPlugin> getOutputPlugins();
+  public LinkedList<OutputPlugin> getOutputPlugins()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
    * Returns a list of all registered output plug-ins of the requested type
    *
    * @param testType
-   *
    * @return
    */
-  public LinkedList<OutputPlugin> getOutputPlugins(TestType testType);
+  public LinkedList<OutputPlugin> getOutputPlugins(TestType testType)
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -64,7 +140,16 @@ public interface TestRunner
    *
    * @return
    */
-  public LinkedList<ReportingPlugin> getReportingPlugins();
+  public LinkedList<ReportingPlugin> getReportingPlugins()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -72,7 +157,16 @@ public interface TestRunner
    *
    * @param inputPlugin
    */
-  public void addInputPlugin(InputPlugin inputPlugin);
+  public void addInputPlugin(InputPlugin inputPlugin)
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -81,7 +175,16 @@ public interface TestRunner
    * @param outputPlugin
    * @param testType
    */
-  public void addOutputPlugin(OutputPlugin outputPlugin, TestType testType);
+  public void addOutputPlugin(OutputPlugin outputPlugin, TestType testType)
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -89,7 +192,16 @@ public interface TestRunner
    *
    * @param reportingPlugin
    */
-  public void addReportingPlugin(ReportingPlugin reportingPlugin);
+  public void addReportingPlugin(ReportingPlugin reportingPlugin)
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -99,7 +211,46 @@ public interface TestRunner
    * @param testSuite
    * @param inputPlugin
    */
-  public void addTestSuite(TestSuite testSuite, InputPlugin inputPlugin);
+  public void addTestSuite(TestSuite testSuite, InputPlugin inputPlugin)
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
+
+
+  /**
+   * Start the execution thread of the test runner
+   */
+  public void start()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
+
+
+  /**
+   * Wait until the execution of the test runner is finished
+   */
+  public void join()
+  {
+    throw new UnsupportedOperationException("Not supported yet."); // To change
+                                                                   // body of
+                                                                   // generated
+                                                                   // methods,
+                                                                   // choose
+                                                                   // Tools |
+                                                                   // Templates.
+  }
 
 
   /**
@@ -107,41 +258,132 @@ public interface TestRunner
    *
    * @param key
    * @param value
+   * @throws InvalidParameterException
    */
-  public void setProperty(String key, String value) throws NullPointerException;
+  public void setProperty(String key, String value) throws InvalidParameterException
+  {
+    try
+    {
+      LOGGER.trace("Set value of property with key '{}' to '{}'", () -> key, () -> value);
+
+      if(key == null)
+      {
+        throw new InvalidParameterException("Key value 'null' is not allowed for value '" + value
+                                            + "'!");
+      }
+
+      properties.put(key, value);
+    }
+    catch(InvalidParameterException eX)
+    {
+      LOGGER.warn("{}", eX.getMessage());
+      throw eX;
+    }
+    catch(Exception eX)
+    {
+      LOGGER.error("Unhandled exception!", eX);
+    }
+  }
+
+
+  /**
+   * Set or update a set of properties with {@link properties}
+   *
+   * @param properties
+   * @throws InvalidParameterException
+   */
+  public void setProperties(Properties properties) throws InvalidParameterException
+  {
+    try
+    {
+      LOGGER.trace("Add/update the values of {} supplied properties", () -> properties.size());
+
+      if(properties == null)
+      {
+        throw new InvalidParameterException("Set of properties is 'null'!");
+      }
+
+      if(LOGGER.isTraceEnabled())
+      {
+        for(String key : properties.stringPropertyNames())
+        {
+          LOGGER.trace(key + " => " + properties.getProperty(key));
+        }
+      }
+
+      this.properties.putAll(properties);
+    }
+    catch(InvalidParameterException eX)
+    {
+      LOGGER.warn("{}", eX.getMessage());
+      throw eX;
+    }
+    catch(Exception eX)
+    {
+      LOGGER.error("Unhandled exception!", eX);
+    }
+  }
 
 
   /**
    * Check if the given {@link key} exists in the properties
    *
    * @param key
-   *
    * @return
    */
-  public boolean hasProperty(String key);
+  public boolean hasProperty(String key)
+  {
+    try
+    {
+      LOGGER.trace("Check if property with key '{}' exists: {}", () -> key,
+                   () -> properties.containsKey(key) ? "yes" : "no");
+
+      return properties.containsKey(key);
+    }
+    catch(Exception eX)
+    {
+      LOGGER.error("Unhandled exception! ({})", eX.getCause().getMessage(), eX);
+    }
+
+    return false;
+  }
 
 
   /**
    * Get the value of the property with key {@link key}
    *
    * @param key
-   *
    * @return
-   *
    * @throws InvalidParameterException
    */
-  public String getProperty(String key) throws InvalidParameterException;
+  public String getProperty(String key) throws InvalidParameterException
+  {
+    try
+    {
+      LOGGER.trace("Get value of property with key '{}'", () -> key);
 
+      if(key == null)
+      {
+        throw new InvalidParameterException("Key value 'null' is not allowed!");
+      }
 
-  /**
-   * Start the execution of the test runner
-   */
-  public void start();
+      if( !hasProperty(key))
+      {
+        throw new InvalidParameterException("Key value '{}' doesn't exist!");
+      }
 
+      return properties.getProperty(key);
+    }
+    catch(InvalidParameterException eX)
+    {
+      LOGGER.warn("{}", eX.getMessage());
+      throw eX;
+    }
+    catch(Exception eX)
+    {
+      LOGGER.error("Unhandled exception!", eX);
+    }
 
-  /**
-   * Wait until the execution of the test runner is finished
-   */
-  public void join();
-
+    return "";
+  }
 }
