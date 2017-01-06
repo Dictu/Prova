@@ -386,4 +386,26 @@ public abstract class TestRunner
 
     return "";
   }
+
+
+  /**
+   * Get a copy of all properties
+   *
+   * @return
+   */
+  public Properties getProperties() throws InvalidParameterException
+  {
+    try
+    {
+      LOGGER.trace("Get a copy of the whole collection of properties");
+
+      return (Properties) properties.clone();
+    }
+    catch(Exception eX)
+    {
+      LOGGER.error("Unhandled exception!", eX);
+    }
+
+    return new Properties();
+  }
 }

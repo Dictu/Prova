@@ -20,6 +20,7 @@
 package nl.dictu.prova;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -148,6 +149,34 @@ public class TestRunnerTest
   @Ignore
   public void testAddTestSuite()
   {
+  }
+
+
+  /**
+   * PROVA-9: Support for properties
+   * Requirement:
+   * A test runner has a set of properties to configure its behavior.
+   * This set of properties also contains a copy of all system wide properties.
+   */
+  @Test
+  public void testThatSystemPropertiesInTestRunnerIsValidCollectionAfterCreation()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatSystemPropertiesInTestRunnerIsValidCollectionAfterCreation");
+
+      TestRunner prova = new Prova();
+      Properties properties = prova.getProperties();
+      
+      assertNotNull(properties);
+      assertTrue(properties instanceof Properties);
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled()) eX.printStackTrace();
+
+      fail(eX.getMessage());
+    }
   }
 
 
