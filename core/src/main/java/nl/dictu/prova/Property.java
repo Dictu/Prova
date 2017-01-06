@@ -19,14 +19,22 @@
  */
 package nl.dictu.prova;
 
+
 /**
- * All configuration options are defined in this class with a public final
+ * All configuration properties are defined in this class with a public final
  * constant string for an actual up to date overview of all configuration
- * options available in Prova. Plug-ins extend this class with their own options
+ * properties available in Prova. 
+ * Plug-ins extend this class with their own property names.
+ * Rules:
+ * - Property constants are defined in upper case using _ as separator
+ * - Property names are defined in upper case using . as separator
+ * - Property names are formatted like this:
+ *   'prova' 'module' 'category' 'keyname'
  *
  * @author Sjoerd Boerhout
  */
-public class Config
+public class Property
 {
-
+  //                         Name in Prova              Name in property file      Description & type
+  public final static String PROVA_CORE_ROOT_DIR        = "prova.core.root.dir";   // Root dir of Prova (String)
 }

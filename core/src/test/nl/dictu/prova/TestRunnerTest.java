@@ -304,7 +304,7 @@ public class TestRunnerTest
 
       assertTrue(prova.hasProperty("path.separator"));
       assertTrue(prova.hasProperty("file.separator"));
-      assertTrue(prova.hasProperty("testKey3"));
+      assertTrue(prova.hasProperty("os.version"));
     }
     catch(Exception eX)
     {
