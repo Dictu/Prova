@@ -1,0 +1,26 @@
+################################################################################
+#
+# Prova hard coded default properties
+# All properties that require a default value must be mentioned in this file!
+#
+################################################################################
+prova.conf.dir              = config
+prova.conf.file.pfx         = prova_
+prova.conf.file.default     = default
+prova.conf.file.test        = -test
+prova.conf.file.user        = 
+prova.conf.file.ext         = prop
+
+
+################################################################################
+#
+# LOG4J 2 properties
+#
+################################################################################
+prova.log.level             = info
+prova.log.dir.root          = log
+prova.log.dir.history       = $${date:yyyy-MM-dd}-%i
+prova.log.filename          = Prova
+prova.log.ext.txt           = log
+prova.log.pattern.console   = %d{HH:mm:ss} %-5p - %msg%n
+prova.log.pattern.file      = %d{yyyy-MM-dd HH:mm:ss,SSS} [%c:%t:%L] %-5p - %msg%n
