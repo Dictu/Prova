@@ -1,22 +1,25 @@
 Prova is a java-based modular keyword driven framework able to combine different kind of tests in a single test script.
 The project was started in an attempt to create a user friendly frond-end for tests scripts for Oracle ATS that allows us to separate test flow and data and doesn't require programming skills or technical knowledge of a tool. 
-Now it's a standalone framework able to read test from different sources and execute tests in different types of test tools.
+Now it's a standalone framework able to read test from different sources and execute tests in different types of test tools.  
+  
+Please read the Prova wiki on https://github.com/Dictu/Prova/wiki for all information about the project. 
 
 # History
 Prova version 1 was developed as an internal project. Version 2 will be developed as an open source project here on Github. We will start from scratch and only parts of the original code are re-used.
-If you are interested in verion 1 please contact Robert Bralts and request a compiled version of version 1.
+If you are interested in verion 1 please contact Robert Bralts and request a compiled version of version 1.  
 
 # Prova architecture
 See https://github.com/Dictu/Prova/issues/1
 
 # Plugin structure
 All input, output and reporting goes through plugins for maximum flexibility. Prova connects all the plugins and directs the data from input to output without exact knowledge about the test type and specific action. 
+Current road map contain these plugins: 
 
 # Input plugins
 - MS Excel (using Apache POI)
 
 # Output plugins
-## WEB tests
+## Web tests
 - Selenium: Test web pages with the well known Selenium web driver.
 
 ## Shell commands
