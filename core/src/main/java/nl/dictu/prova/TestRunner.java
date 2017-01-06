@@ -264,7 +264,7 @@ public abstract class TestRunner
   {
     try
     {
-      LOGGER.trace("Set value of property with key '{}' to '{}'", () -> key, () -> value);
+      LOGGER.debug("Set value of property with key '{}' to '{}'", () -> key, () -> value);
 
       if(key == null)
       {
@@ -292,26 +292,28 @@ public abstract class TestRunner
    * @param properties
    * @throws InvalidParameterException
    */
-  public void setProperties(Properties properties) throws InvalidParameterException
+  public void setProperties(Properties newProperties) throws InvalidParameterException
   {
     try
     {
-      LOGGER.trace("Add/update the values of {} supplied properties", () -> properties.size());
+      LOGGER.debug("Add/update the values of {} supplied properties", () -> newProperties.size());
 
-      if(properties == null)
+      if(newProperties == null)
       {
         throw new InvalidParameterException("Set of properties is 'null'!");
       }
 
       if(LOGGER.isTraceEnabled())
       {
-        for(String key : properties.stringPropertyNames())
+        LOGGER.debug("Found {} properties to set:", () -> newProperties.size());
+
+        for(String key : newProperties.stringPropertyNames())
         {
-          LOGGER.trace(key + " => " + properties.getProperty(key));
+          LOGGER.trace(key + " => " + newProperties.getProperty(key));
         }
       }
 
-      this.properties.putAll(properties);
+      this.properties.putAll(newProperties);
     }
     catch(InvalidParameterException eX)
     {
@@ -335,7 +337,7 @@ public abstract class TestRunner
   {
     try
     {
-      LOGGER.trace("Check if property with key '{}' exists: {}", () -> key,
+      LOGGER.debug("Check if property with key '{}' exists: {}", () -> key,
                    () -> properties.containsKey(key) ? "yes" : "no");
 
       return properties.containsKey(key);
@@ -360,14 +362,14 @@ public abstract class TestRunner
   {
     try
     {
-      LOGGER.trace("Get value of property with key '{}'", () -> key);
+      LOGGER.debug("Get value of property with key '{}'", () -> key);
 
       if(key == null)
       {
         throw new InvalidParameterException("Key value 'null' is not allowed!");
       }
 
-      if( !hasProperty(key))
+      if(!hasProperty(key))
       {
         throw new InvalidParameterException("Key value '{}' doesn't exist!");
       }
@@ -397,9 +399,32 @@ public abstract class TestRunner
   {
     try
     {
-      LOGGER.trace("Get a copy of the whole collection of properties");
+      LOGGER.debug("Get a copy of the whole collection of properties");
 
-      return (Properties) properties.clone();
+      if( !(properties instanceof Properties))
+      {
+        throw new InvalidParameterException("No valid set of properties to copy!");
+      }
+
+      Properties copyOfProperties = new Properties();
+      copyOfProperties.putAll(properties);
+
+      if(LOGGER.isTraceEnabled())
+      {
+        LOGGER.debug("Copied {} properties to return:", () -> copyOfProperties.size());
+
+        for(String key : copyOfProperties.stringPropertyNames())
+        {
+          LOGGER.trace(key + " => " + copyOfProperties.getProperty(key));
+        }
+      }
+
+      return copyOfProperties;
+    }
+    catch(InvalidParameterException eX)
+    {
+      LOGGER.warn("{}", eX.getMessage());
+      throw eX;
     }
     catch(Exception eX)
     {
