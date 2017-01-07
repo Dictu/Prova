@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<body>
+		<h1 id="title">This is a Popup</h1>
+<script>
+var app = angular.module("myShoppingList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = ["Milk", "Bread", "Cheese"];
+    $scope.addItem = function () {
+        $scope.products.push($scope.addMe);
+    }    
+	$scope.openPopUp = function() {
+		console.log("Opening new window!");
+		window.open("popup.html", "PopUp", "");
+	}
+});
+</script>
+
+</body>
+</html>
+

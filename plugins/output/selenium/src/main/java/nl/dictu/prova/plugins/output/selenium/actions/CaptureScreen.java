@@ -19,10 +19,16 @@
  */
 package nl.dictu.prova.plugins.output.selenium.actions;
 
+import java.io.File;
+import java.io.IOException;
 import nl.dictu.prova.framework.TestAction;
 import nl.dictu.prova.framework.TestStatus;
+import nl.dictu.prova.plugins.output.selenium.Selenium;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 /**
  *
@@ -33,35 +39,110 @@ public class CaptureScreen extends TestAction
 
   private final static Logger LOGGER = LogManager.getLogger(
           CaptureScreen.class.getName());
+  
+  //Action attribute names
+  public final static String ATTR_FILENAME = "FILENAME";
+  
+  private Selenium selenium;
+  private String fileName;
 
 
   /**
    * Constructor
    */
-  public CaptureScreen()
+  public CaptureScreen(Selenium selenium)
   {
     super(LOGGER);
+    
+    this.selenium = selenium;
   }
 
 
+  /**
+   * Execute this action
+   */
   @Override
   public TestStatus execute()
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    File scrFile = ((TakesScreenshot) selenium.getWebdriver()).getScreenshotAs(OutputType.FILE);
+    
+    try 
+    {
+      if(this.hasAttribute("filename"))
+      {
+        String fileNameAttribute = this.getAttribute("filename");
+        if(fileNameAttribute != null & !new File(fileNameAttribute).isFile())
+          fileName = fileNameAttribute;
+      }
+      
+      if(!isValid())
+      {
+        LOGGER.error("Action is not validated!");
+        return TestStatus.FAILED;
+      }
+      
+      FileUtils.copyFile(scrFile, new File(fileName + "x.png"));
+      LOGGER.debug("Placed screen shot in " + fileName + "x.png");
+      
+      return TestStatus.PASSED;
+    } 
+    catch (IOException e) 
+    {
+      LOGGER.error("IOException while taking screenshot!");
+      
+      e.printStackTrace();
+      
+      return TestStatus.FAILED;
+    }
   }
 
 
+  /**
+   * Return a string representation of the objects content
+   * 
+   * @return 
+   */
   @Override
   public String toString()
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    return("'" + this.getClass().getSimpleName().toUpperCase() + "': Save a screendump to file '" + fileName + "'");
   }
 
-
+  
+  /**
+   * Check if all requirements are met to execute this action
+   */
   @Override
   public boolean isValid()
   {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    if(selenium == null) return false;
+    if(fileName == null) return false;
+    
+    return true;
+  }
+  
+  
+  /**
+   * Set attribute <key> with <value>
+   * - Unknown attributes are ignored
+   * - Invalid values result in an exception
+   * 
+   * @param key
+   * @param value
+   * @throws Exception
+   */
+  @Override
+  public void setAttribute(String key, String value)
+  {
+    LOGGER.trace("Request to set '{}' to '{}'", () -> key, () -> value);
+    
+    switch(key.toUpperCase())
+    {
+      case ATTR_PARAMETER:
+      case ATTR_FILENAME:  
+        fileName = value;
+      break;
+    }
   }
 
 }
