@@ -19,6 +19,7 @@
 
 package nl.dictu.prova;
 
+import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -69,7 +70,7 @@ public abstract class TestRunner
    * @param newLogger
    * @throws NullPointerException
    */
-  protected TestRunner(Logger newLogger) throws NullPointerException
+  protected TestRunner(Logger newLogger) throws Exception
   {
     if(newLogger == null)
     {
@@ -78,11 +79,44 @@ public abstract class TestRunner
 
     LOGGER = newLogger;
 
-    properties = new Properties();
-    properties.putAll(System.getProperties());
+    loadDefaultProperties();
   }
 
 
+  /**
+   * Load the default configuration from resource file
+   */
+  private void loadDefaultProperties() throws Exception
+  {
+    try
+    {
+      properties = new Properties();
+      
+      // Include system properties for file.separator and related properties
+      properties.putAll(System.getProperties());
+      
+      LOGGER.debug("Loaded {} properties from system", properties.size());
+      
+      if(LOGGER.isTraceEnabled())
+      {
+        for(String key : properties.stringPropertyNames())
+        {
+          LOGGER.trace("> " + key + " => " + properties.getProperty(key));
+        }
+      }
+      
+      // Load the default Prova settings from resource file
+      LOGGER.trace("Load the hard coded Prova default properties");
+      properties.putAll(loadPropertiesFromResource("/config/prova-defaults.prop"));
+    }
+    catch(Exception eX)
+    {
+      LOGGER.fatal(eX);
+      throw eX;
+    }
+  }
+  
+  
   /**
    * Returns a list of all registered input plug-ins
    *
@@ -250,6 +284,49 @@ public abstract class TestRunner
                                                                    // choose
                                                                    // Tools |
                                                                    // Templates.
+  }
+  
+  
+  /**
+   * Load a set of properties from a resource
+   * 
+   * @param fileName
+   * @return
+   * @throws Exception
+   */
+  private Properties loadPropertiesFromResource(String fileName) throws Exception
+  {
+    Properties properties = new Properties();
+    InputStream inputStream = null;
+    
+    try
+    {      
+      inputStream = this.getClass().getResourceAsStream(fileName);
+    
+      properties.load(inputStream);
+    
+      LOGGER.debug("Loaded {} properties from resource '{}'", properties.size(), fileName);
+      
+      if(LOGGER.isTraceEnabled())
+      {
+        for(String key : properties.stringPropertyNames())
+        {
+          LOGGER.trace("> " + key + " => " + properties.getProperty(key));
+        }
+      }
+    }
+    catch(Exception eX) 
+    {
+      LOGGER.trace("Failed to load hard coded default property file", eX.getMessage());
+      throw eX;
+    }
+    finally
+    {
+      if(inputStream != null)
+        inputStream.close();
+    }
+    
+    return properties;
   }
 
 

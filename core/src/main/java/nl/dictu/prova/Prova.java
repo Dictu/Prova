@@ -41,7 +41,7 @@ public class Prova extends TestRunner
    * Constructor
    * - Create/initialize (local) variables
    */
-  public Prova()
+  public Prova() throws Exception
   {
     super(LOGGER);
     

@@ -19,9 +19,10 @@
  */
 package nl.dictu.prova;
 
+import static org.junit.Assert.assertTrue;
 
 /**
- * All configuration properties are defined in this class with a public final
+ * All configuration property names are defined in this class with a public final
  * constant string for an actual up to date overview of all configuration
  * properties available in Prova. 
  * Plug-ins extend this class with their own property names.
@@ -35,6 +36,37 @@ package nl.dictu.prova;
  */
 public class Property
 {
-  //                         Name in Prova              Name in property file      Description & type
-  public final static String PROVA_CORE_ROOT_DIR        = "prova.core.root.dir";   // Root dir of Prova (String)
+  //                         Name in Prova                Name in property file         Description & type
+  
+  public final static String SYSTEM_FILE_SEPARATOR        = "file.separator";           // System defined file separator (String)
+  public final static String SYSTEM_LINE_SEPARATOR        = "line.separator";           // System defined line separator (String)
+  public final static String SYSTEM_PATH_SEPARATOR        = "path.separator";           // System defined path separator (String)
+  
+  public final static String SYSTEM_OS_NAME               = "os.name";                  // OS Name (String)
+  public final static String SYSTEM_OS_ARCHITECTURE       = "os.arch";                  // OS Architecture (String)
+  public final static String SYSTEM_OS_VERSION            = "os.version";               // OS Version (String)
+  public final static String SYSTEM_JAVA_VM_VENDOR        = "java.vm.vendor";           // Java Virtual machine vendor (String)
+  public final static String SYSTEM_JAVA_RUNTIME_VERSION  = "java.runtime.version";     // Java Runtime version (String)
+  
+  public final static String SYSTEM_USER_NAME             = "user.name";                // User name (String)
+  public final static String SYSTEM_USER_DIR              = "user.dir";                 // System defined path separator (String)
+  public final static String SYSTEM_USER_HOME             = "user.home";                // System defined path separator (String)
+ 
+  
+  public final static String PROVA_CORE_ROOT_DIR          = "prova.root.dir";           // Abs. root dir of Prova (String)
+
+  public final static String PROVA_CONF_DIR               = "prova.conf.dir";           // Relative dir of config files (String)
+  public final static String PROVA_CONF_FILE_PFX          = "prova.conf.file.pfx";      // Config filenames prefix (String)
+  public final static String PROVA_CONF_FILE_DEF          = "prova.conf.file.default";  // Filename for default config file (String)
+  public final static String PROVA_CONF_FILE_TEST         = "prova.conf.file.test";     // Test config filename post-fix (String) 
+  public final static String PROVA_CONF_FILE_USER         = "prova.conf.file.user";     // User provided abs. config file (String)
+  public final static String PROVA_CONF_FILE_EXT          = "prova.conf.file.ext";      // Config file extension
+  
+  public final static String PROVA_LOG_LEVEL              = "prova.log.level";          // Active log level
+  public final static String PROVA_LOG_ROOT               = "prova.log.dir.root";       // Rel. dir for log files (String)
+  public final static String PROVA_LOG_HISTORY            = "prova.log.dir.history";    // Rel. dir for history log files (String)
+  public final static String PROVA_LOG_FILENAME           = "prova.log.filename";       // Log file name pattern
+  public final static String PROVA_LOG_EXT_TXT            = "prova.log.ext.txt";        // Log file extension
+  public final static String PROVA_LOG_PATTERN_CONSOLE    = "prova.log.pattern.console";// Log pattern on console
+  public final static String PROVA_LOG_PATTERN_FILE       = "prova.log.pattern.file";   // Log pattern in log file
 }
