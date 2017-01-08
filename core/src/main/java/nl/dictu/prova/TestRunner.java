@@ -19,6 +19,8 @@
 
 package nl.dictu.prova;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.LinkedHashMap;
@@ -91,12 +93,12 @@ public abstract class TestRunner
     try
     {
       properties = new Properties();
-      
+
       // Include system properties for file.separator and related properties
       properties.putAll(System.getProperties());
-      
+
       LOGGER.debug("Loaded {} properties from system", properties.size());
-      
+
       if(LOGGER.isTraceEnabled())
       {
         for(String key : properties.stringPropertyNames())
@@ -104,7 +106,7 @@ public abstract class TestRunner
           LOGGER.trace("> " + key + " => " + properties.getProperty(key));
         }
       }
-      
+
       // Load the default Prova settings from resource file
       LOGGER.trace("Load the hard coded Prova default properties");
       properties.putAll(loadPropertiesFromResource("/config/prova-defaults.prop"));
@@ -115,8 +117,8 @@ public abstract class TestRunner
       throw eX;
     }
   }
-  
-  
+
+
   /**
    * Returns a list of all registered input plug-ins
    *
@@ -285,8 +287,8 @@ public abstract class TestRunner
                                                                    // Tools |
                                                                    // Templates.
   }
-  
-  
+
+
   /**
    * Load a set of properties from a resource
    * 
@@ -294,19 +296,19 @@ public abstract class TestRunner
    * @return
    * @throws Exception
    */
-  private Properties loadPropertiesFromResource(String fileName) throws Exception
+  protected Properties loadPropertiesFromResource(String fileName) throws Exception
   {
     Properties properties = new Properties();
     InputStream inputStream = null;
-    
+
     try
-    {      
+    {
       inputStream = this.getClass().getResourceAsStream(fileName);
-    
+
       properties.load(inputStream);
-    
+
       LOGGER.debug("Loaded {} properties from resource '{}'", properties.size(), fileName);
-      
+
       if(LOGGER.isTraceEnabled())
       {
         for(String key : properties.stringPropertyNames())
@@ -315,17 +317,62 @@ public abstract class TestRunner
         }
       }
     }
-    catch(Exception eX) 
+    catch(Exception eX)
     {
       LOGGER.trace("Failed to load hard coded default property file", eX.getMessage());
       throw eX;
     }
     finally
     {
-      if(inputStream != null)
-        inputStream.close();
+      if(inputStream != null) inputStream.close();
     }
-    
+
+    return properties;
+  }
+
+
+  /**
+   * Load a set of properties from given file
+   * 
+   * @param fileName
+   * @return
+   * @throws Exception
+   */
+  protected Properties loadPropertiesFromFile(String fileName) throws Exception
+  {
+    File propertyFile = null;
+    Properties properties = new Properties();
+
+    try
+    {
+      LOGGER.debug("Loading properties from file: {}", () -> fileName);
+
+      propertyFile = new File(fileName);
+
+      if(propertyFile.isFile() && propertyFile.canRead())
+      {
+        properties.load(new FileInputStream(propertyFile));
+
+        LOGGER.debug("Loaded {} properties from {}", () -> properties.size(), () -> fileName);
+
+        if(LOGGER.isTraceEnabled())
+        {
+          for(String key : properties.stringPropertyNames())
+          {
+            LOGGER.trace("> " + key + " => " + properties.getProperty(key));
+          }
+        }
+      }
+      else
+      {
+        LOGGER.warn("Property file '{}' not found", () -> fileName);
+      }
+    }
+    catch(Exception eX)
+    {
+      LOGGER.warn("Failed to load properties from file '{}' ({})", () -> fileName, () -> eX);
+    }
+
     return properties;
   }
 
@@ -446,7 +493,7 @@ public abstract class TestRunner
         throw new InvalidParameterException("Key value 'null' is not allowed!");
       }
 
-      if(!hasProperty(key))
+      if( !hasProperty(key))
       {
         throw new InvalidParameterException("Key value '{}' doesn't exist!");
       }

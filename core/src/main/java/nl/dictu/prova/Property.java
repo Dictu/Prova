@@ -53,8 +53,9 @@ public class Property
   public final static String SYSTEM_USER_HOME             = "user.home";                // System defined path separator (String)
  
   
-  public final static String PROVA_CORE_ROOT_DIR          = "prova.root.dir";           // Abs. root dir of Prova (String)
-
+  public final static String PROVA_CORE_ROOT_DIR          = "prova.core.root.dir";      // Abs. root dir of Prova (String)
+  public final static String PROVA_CORE_PRJ_NAME          = "prova.core.prj.name";      // Name of current running project (String)
+  
   public final static String PROVA_CONF_DIR               = "prova.conf.dir";           // Relative dir of config files (String)
   public final static String PROVA_CONF_FILE_PFX          = "prova.conf.file.pfx";      // Config filenames prefix (String)
   public final static String PROVA_CONF_FILE_DEF          = "prova.conf.file.default";  // Filename for default config file (String)

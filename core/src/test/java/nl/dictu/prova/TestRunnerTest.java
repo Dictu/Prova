@@ -371,7 +371,8 @@ public class TestRunnerTest
     {
       LOGGER.debug("TC: testThatSystemPropertiesExistsInTestRunner");   
       
-      assertTrue(testRunner.hasProperty("prova.root.dir"));
+      assertTrue(testRunner.hasProperty("prova.core.root.dir"));
+      assertTrue(testRunner.hasProperty("prova.core.prj.name"));
 
       assertTrue(testRunner.hasProperty("prova.conf.dir"));
       assertTrue(testRunner.hasProperty("prova.conf.file.pfx"));
@@ -449,6 +450,7 @@ public class TestRunnerTest
       LOGGER.debug("TC: testThatDefaultPropertiesFromResourceHaveCorrectValues");
 
       assertTrue(testRunner.getProperty(Property.PROVA_CORE_ROOT_DIR).equals(""));
+      assertTrue(testRunner.getProperty(Property.PROVA_CORE_PRJ_NAME).equals(""));
 
       assertTrue(testRunner.getProperty(Property.PROVA_CONF_DIR).equals("config"));
       assertTrue(testRunner.getProperty(Property.PROVA_CONF_FILE_PFX).equals("prova_"));
@@ -478,6 +480,53 @@ public class TestRunnerTest
   }
 
 
+  /**
+   * PROVA-9: Support for properties
+   * Requirement:
+   * A test runner has a set of properties to configure its behavior.
+   * Properties are loaded from files in this order:
+   * - Default, hard coded, properties are loaded from an internal resource
+   * - A user can create a custom default property file
+   * - A user can create a custom default property test file
+   * - A user can create a custom project specific property file
+   * - A user can create a custom project specific property test file
+   * - A user can supply a filename to load properties from
+   * - A user can set/update individual properties from the user interface
+   */
+  @Test
+  public void testThatPropertyFilesAreLoadedInCorrectOrder()
+  {
+    try
+    {
+      LOGGER.debug("TC: testThatDefaultPropertiesFromResourceHaveCorrectValues");
+
+      Properties properties = new Properties();
+      
+      properties.putAll(testRunner.loadPropertiesFromFile("/config/prova-default.prop"));
+      
+      
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_LEVEL).equals("info"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_ROOT).equals("log"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_HISTORY)
+                           .equals("$${date:yyyy-MM-dd}-%i"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_FILENAME).equals("Prova"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_EXT_TXT).equals("log"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_PATTERN_CONSOLE)
+                           .equals("%d{HH:mm:ss} %-5p - %msg%n"));
+      assertTrue(testRunner.getProperty(Property.PROVA_LOG_PATTERN_FILE)
+                           .equals("%d{yyyy-MM-dd HH:mm:ss,SSS} [%c:%t:%L] %-5p - %msg%n"));
+    }
+    catch(Exception eX)
+    {
+      if(LOGGER.isErrorEnabled()) eX.printStackTrace();
+
+      fail(eX.getMessage());
+    }
+  }
+
+  //properties.putAll(loadPropertiesFromResource("/config/prova-defaults.prop"));
+  
+  
   /**
    * Test of start method, of class TestRunner.
    */

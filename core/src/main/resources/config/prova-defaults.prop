@@ -4,7 +4,8 @@
 # All properties that require a default value must be mentioned in this file!
 #
 ################################################################################
-prova.root.dir              = 
+prova.core.root.dir         = 
+prova.core.prj.name			=
 
 prova.conf.dir              = config
 prova.conf.file.pfx         = prova_

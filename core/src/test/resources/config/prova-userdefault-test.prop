@@ -1,18 +1,9 @@
 ################################################################################
 #
-# Prova hard coded default properties
-# All properties that require a default value must be mentioned in this file!
+# Test values for unit tests
 #
 ################################################################################
-prova.root.dir              = TestRootDir
-
-prova.conf.file.ext         = properties
-
-
-################################################################################
-#
-# LOG4J 2 properties
-#
-################################################################################
-prova.log.level             = info
-prova.log.pattern.console   = %d{yyyy-MM-dd HH:mm:ss,SSS} [%c:%t:%L] %-5p - %msg%n
+prova.log.dir.history       = usrdeftst_$${date:yyyy-MM-dd}-%i
+prova.log.filename          = usrdeftst_Prova
+prova.log.ext.txt           = usrdeftst_log
+prova.log.pattern.console   = usrdeftst_%d{HH:mm:ss} %-5p - %msg%n
